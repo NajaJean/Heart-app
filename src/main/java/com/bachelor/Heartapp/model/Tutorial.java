@@ -1,4 +1,4 @@
-package model;
+package com.bachelor.Heartapp.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
