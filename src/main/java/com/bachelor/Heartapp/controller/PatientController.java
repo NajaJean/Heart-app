@@ -1,5 +1,5 @@
 package com.bachelor.Heartapp.controller;
-
+/*
 import com.bachelor.Heartapp.model.Patient;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,4 +19,4 @@ public class PatientController {
 		
 	}
 	
-} 
+} */

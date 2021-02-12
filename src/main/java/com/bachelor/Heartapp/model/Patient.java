@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-
+/*
 @Entity
 @Table(name = "patients")
 public class Patient {
@@ -43,4 +43,4 @@ public class Patient {
 	public void setAge(int age) {
 		this.age = age;
 	}
-}
+} */
