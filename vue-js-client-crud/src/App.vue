@@ -9,6 +9,9 @@
         <li class="nav-item">
           <router-link to="/add" class="nav-link">Add</router-link>
         </li>
+        <li class="nav-item">
+          <router-link to="/charts" class="nav-link">Charts</router-link>
+        </li>
       </div>
     </nav>
 
