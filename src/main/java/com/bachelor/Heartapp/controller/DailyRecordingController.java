@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -45,8 +44,12 @@ public class DailyRecordingController {
 	public ResponseEntity<DailyRecording> createTutorial(@RequestBody DailyRecording dailyRecording) {
 		try {
 			DailyRecording dRecord = dailyRecordingRepository.save(new DailyRecording(dailyRecording.getPatient_ID(), 
-					dailyRecording.getSleep_light(), dailyRecording.getSleep_deep(), dailyRecording.getSleep_rem(), 
-					dailyRecording.getWeight(), dailyRecording.getCnt_steps(), dailyRecording.getBlood_pressure()));
+																					  dailyRecording.getSleep_light(), 
+																					  dailyRecording.getSleep_deep(), 
+																					  dailyRecording.getSleep_rem(), 
+																					  dailyRecording.getWeight(), 
+																					  dailyRecording.getCnt_steps(), 
+																					  dailyRecording.getBlood_pressure()));
 			return new ResponseEntity<>(dRecord, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

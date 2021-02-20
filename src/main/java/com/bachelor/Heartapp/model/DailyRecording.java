@@ -1,24 +1,20 @@
 package com.bachelor.Heartapp.model;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 @Entity
-@Table(schema = "Daily_Recordings")
+@Table(schema = "dailyrecordings")
 public class DailyRecording {
 	@Id
 	@Column(name = "patient_ID")
 	private String patient_ID;
 	
-	@CreationTimestamp
-	@Column(name = "date")
-	private LocalDateTime date;
+	//@CreationTimestamp
+	//@Column(name = "date")
+	//private LocalDateTime date;
 	
 	@Column(name = "sleep_light")
 	private int sleep_light;
@@ -43,9 +39,9 @@ public class DailyRecording {
 		this.cnt_steps = cnt_steps;
 		this.blood_pressure = blood_pressure;
 	}
-	public LocalDateTime getDate() {
+	/*public LocalDateTime getDate() {
 		return date;
-	}
+	}*/
 	public String getPatient_ID() {
 		return patient_ID;
 	}
