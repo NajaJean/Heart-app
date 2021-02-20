@@ -2,6 +2,8 @@ package com.bachelor.Heartapp.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Id;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 public class Measurement {
@@ -9,6 +11,7 @@ public class Measurement {
 	@CreationTimestamp
 	private LocalDateTime date;
 	
+	@Id
 	private String patient_ID;	
 	
 	public Measurement() {
