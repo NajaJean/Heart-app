@@ -7,30 +7,34 @@ import javax.persistence.Table;
 
 @Entity
 @Table(schema = "dailyrecordings")
+
 public class DailyRecording {
 	@Id
-	@Column(name = "patient_ID")
+	@Column(name = "_patient_ID")
 	private String patient_ID;
 	
 	//@CreationTimestamp
 	//@Column(name = "date")
 	//private LocalDateTime date;
 	
-	@Column(name = "sleep_light")
+	@Column(name = "_sleep_light")
 	private int sleep_light;
-	@Column(name = "sleep_deep")
+	@Column(name = "_sleep_deep")
 	private int sleep_deep;
-	@Column(name = "sleep_rem")
+	@Column(name = "_sleep_rem")
 	private int sleep_rem;
-	@Column(name = "weight")
+	@Column(name = "_weight")
 	private int weight;
-	@Column(name = "cnt_steps")
+	@Column(name = "_cnt_steps")
 	private int cnt_steps;
-	@Column(name = "blood_pressure")
+	@Column(name = "_blood_pressure")
 	private String blood_pressure;
 	
-	public DailyRecording(String patient_ID, int sleep_light, int sleep_deep, int sleep_rem, int weight, int cnt_steps,
-			String blood_pressure) {
+	public DailyRecording() {
+		
+	}
+	public DailyRecording(String patient_ID, int sleep_light, int sleep_deep, int sleep_rem, 
+			int weight, int cnt_steps, String blood_pressure) {
 		this.patient_ID = patient_ID;
 		this.sleep_light = sleep_light;
 		this.sleep_deep = sleep_deep;

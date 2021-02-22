@@ -10,16 +10,16 @@ import javax.persistence.Table;
 public class RealTimeRecording {
 	
 	@Id
-	@Column(name = "patient_ID")
+	@Column(name = "_patient_ID")
 	private String patient_ID;
 	
 	//@CreationTimestamp
 	//@Column(name = "date")
 	//private LocalDateTime date;
 	
-	@Column(name = "pulse")
+	@Column(name = "_pulse")
 	private int pulse;
-	@Column(name = "ECG")
+	@Column(name = "_ECG")
 	private int ECG;	
 	
 	public RealTimeRecording(String patient_ID, int pulse, int ecg) {
