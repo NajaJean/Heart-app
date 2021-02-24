@@ -7,7 +7,13 @@
           <router-link to="/tutorials" class="nav-link">Tutorials</router-link>
         </li>
         <li class="nav-item">
+          <router-link to="/dailyrecordings" class="nav-link">Daily Recordings</router-link>
+        </li>
+        <li class="nav-item">
           <router-link to="/add" class="nav-link">Add</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/adddailyrecording" class="nav-link">Add Daily Recording</router-link>
         </li>
         <li class="nav-item">
           <router-link to="/charts" class="nav-link">Charts</router-link>

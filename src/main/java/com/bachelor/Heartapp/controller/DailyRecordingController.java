@@ -18,7 +18,7 @@ import com.bachelor.Heartapp.repository.DailyRecordingRepository;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("/dr")
+@RequestMapping("/api")
 public class DailyRecordingController {
 	
 	@Autowired
