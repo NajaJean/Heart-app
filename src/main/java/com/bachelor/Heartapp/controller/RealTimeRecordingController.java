@@ -18,7 +18,7 @@ import com.bachelor.Heartapp.repository.RealTimeRecordingRepository;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("/rtr")
+@RequestMapping("/api")
 public class RealTimeRecordingController {
 	
 	@Autowired
