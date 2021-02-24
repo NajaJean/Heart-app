@@ -2,14 +2,18 @@ package com.bachelor.Heartapp.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(schema = "realtimedata")
+@Table(name = "realtimedata")
 public class RealTimeRecording {
-	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	
 	@Column(name = "_patient_ID")
 	private String patient_ID;
 	
@@ -30,6 +34,9 @@ public class RealTimeRecording {
 	/*public LocalDateTime getDate() {
 		return date;
 	}*/
+	public long getId() {
+		return id;
+	}
 	public String getPatient_ID() {
 		return patient_ID;
 	}

@@ -43,14 +43,14 @@ public class DailyRecordingController {
 	@PostMapping("/dailyrecordings")
 	public ResponseEntity<DailyRecording> createTutorial(@RequestBody DailyRecording dailyRecording) {
 		try {
-			DailyRecording dRecord = dailyRecordingRepository.save(new DailyRecording(dailyRecording.getPatient_ID(), 
+			DailyRecording _dRecord = dailyRecordingRepository.save(new DailyRecording(dailyRecording.getPatient_ID(), 
 																					  dailyRecording.getSleep_light(), 
 																					  dailyRecording.getSleep_deep(), 
 																					  dailyRecording.getSleep_rem(), 
 																					  dailyRecording.getWeight(), 
 																					  dailyRecording.getCnt_steps(), 
 																					  dailyRecording.getBlood_pressure()));
-			return new ResponseEntity<>(dRecord, HttpStatus.CREATED);
+			return new ResponseEntity<>(_dRecord, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
