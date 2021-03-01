@@ -5,6 +5,10 @@ class DailyRecordingDataService {
     return http.get("/dailyrecordings");
   }
 
+  getAllSteps() {
+    return http.get("/steps");
+  }
+
   create(data) {
     return http.post("/dailyrecordings", data);
   }

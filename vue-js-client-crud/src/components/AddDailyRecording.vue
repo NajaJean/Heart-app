@@ -38,7 +38,7 @@
 	/>
 	</div>
 	<div class="form-group">
-	<label for="cnt_steps">Blood Pressure</label>
+	<label for="cnt_steps">Steps</label>
 	<input
 		class="form-control"
 		id="cnt_steps"
@@ -46,7 +46,14 @@
 		v-model="dailyrecording.cnt_steps"
 		name="cnt_steps"
 	/>
+	<div class="form-group">
+        <label for="blood_pressure">Blood Pressure</label>
+        <input type="text" class="form-control" id="blood_pressure" required v-model="dailyrecording.blood_pressure" name="blood_pressure"
+        />
+      </div>
 	</div>
+
+	
     <button @click="saveDailyRecording" class="btn btn-success">Submit</button>
     </div>
 
