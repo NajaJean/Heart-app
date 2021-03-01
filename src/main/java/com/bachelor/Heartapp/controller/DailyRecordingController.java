@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bachelor.Heartapp.model.DailyRecording;
+import com.bachelor.Heartapp.model.Tutorial;
 import com.bachelor.Heartapp.repository.DailyRecordingRepository;
 
 @CrossOrigin(origins = "http://localhost:8081")
@@ -56,5 +57,20 @@ public class DailyRecordingController {
 		}
 	}
 	
+	@GetMapping("/steps")
+	public ResponseEntity<List<Integer>> getAllSteps() {
+		try {
+			List<Integer> steps = new ArrayList<Integer>();
+			
+			dailyRecordingRepository.findAll().forEach(d -> steps.add(d.getCnt_steps()));
+
+			if (steps.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(steps, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 }
