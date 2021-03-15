@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bachelor.Heartapp.model.DailyRecording;
 import com.bachelor.Heartapp.repository.DailyRecordingRepository;
 
-// @CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
 public class DailyRecordingController {
@@ -40,15 +40,15 @@ public class DailyRecordingController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	/*
+	
 	@PostMapping("/dailyrecordings")
 	public ResponseEntity<DailyRecording> createTutorial(@RequestBody DailyRecording dailyRecording) {
 		try {
-			DailyRecording _dRecord = dailyRecordingRepository.save(new DailyRecording(dailyRecording.getblood_pressure_diastolic(), 
-																					  dailyRecording.getblood_pressure_systolic(), 
-																					  dailyRecording.getcnt_steps(), 
-																					  dailyRecording.getdevice_id(), 
-																					  dailyRecording.getpatient_id(), 
+			DailyRecording _dRecord = dailyRecordingRepository.save(new DailyRecording(dailyRecording.getBlood_pressure_diastolic(), 
+																					  dailyRecording.getBlood_pressure_systolic(), 
+																					  dailyRecording.getCnt_steps(), 
+																					  dailyRecording.getDevice_id(), 
+																					  dailyRecording.getPatient_id(), 
 																					  dailyRecording.getCsq(), 
 																					  dailyRecording.getDate_post(),
 																					  dailyRecording.getImei(),
@@ -62,7 +62,7 @@ public class DailyRecordingController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+/*	
 	@GetMapping("/steps")
 	public ResponseEntity<List<BigInteger>> getAllSteps() {
 		try {
@@ -77,6 +77,5 @@ public class DailyRecordingController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}
-	*/
+	} */
 }

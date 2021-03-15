@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -13,7 +15,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "dailyrecordings")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DailyRecording {
-	
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
+
 	@Column(name = "Blood_Pressure_diastolic")	
 	private BigInteger blood_pressure_diastolic;
 	
@@ -21,12 +27,11 @@ public class DailyRecording {
 	private BigInteger blood_pressure_systolic;
 	
 	@Column(name = "Cnt_Steps")
-	private int cnt_steps;	
+	private BigInteger cnt_steps;	
 	
 	@Column(name = "Device_ID")
 	private String device_id;
 	
-	@Id
 	@Column(name = "Patient_ID")
 	private String patient_id;
 	
@@ -58,6 +63,24 @@ public class DailyRecording {
 	public DailyRecording() {
 		
 	}
+		public DailyRecording(BigInteger blood_pressure_diastolic, BigInteger blood_pressure_systolic, BigInteger cnt_steps,
+			String device_id, String patient_id, Long csq, String date_post, BigInteger imei, BigInteger sim_number,
+			Long sleep_deep, Long sleep_light, Long sleep_rem, Long weight) {
+		super();
+		this.blood_pressure_diastolic = blood_pressure_diastolic;
+		this.blood_pressure_systolic = blood_pressure_systolic;
+		this.cnt_steps = cnt_steps;
+		this.device_id = device_id;
+		this.patient_id = patient_id;
+		this.csq = csq;
+		this.date_post = date_post;
+		this.imei = imei;
+		this.sim_number = sim_number;
+		this.sleep_deep = sleep_deep;
+		this.sleep_light = sleep_light;
+		this.sleep_rem = sleep_rem;
+		this.weight = weight;
+	}
 
 
 	public BigInteger getBlood_pressure_diastolic() {
@@ -80,12 +103,12 @@ public class DailyRecording {
 	}
 
 
-	public int getCnt_steps() {
+	public BigInteger getCnt_steps() {
 		return cnt_steps;
 	}
 
 
-	public void setCnt_steps(int cnt_steps) {
+	public void setCnt_steps(BigInteger cnt_steps) {
 		this.cnt_steps = cnt_steps;
 	}
 
@@ -199,6 +222,5 @@ public class DailyRecording {
 				+ sleep_rem + ", weight=" + weight + "]";
 	}
 	
-
 
 }

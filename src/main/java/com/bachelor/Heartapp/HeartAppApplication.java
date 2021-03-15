@@ -24,7 +24,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 public class HeartAppApplication {
-	private static final Logger log = LoggerFactory.getLogger(HeartAppApplication.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(HeartAppApplication.class, args);
