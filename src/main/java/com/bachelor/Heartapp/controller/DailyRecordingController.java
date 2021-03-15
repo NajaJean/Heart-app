@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bachelor.Heartapp.model.DailyRecording;
 import com.bachelor.Heartapp.repository.DailyRecordingRepository;
 
-@CrossOrigin(origins = "http://localhost:8081")
+// @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
 public class DailyRecordingController {
@@ -40,7 +40,7 @@ public class DailyRecordingController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+	/*
 	@PostMapping("/dailyrecordings")
 	public ResponseEntity<DailyRecording> createTutorial(@RequestBody DailyRecording dailyRecording) {
 		try {
@@ -78,5 +78,5 @@ public class DailyRecordingController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+	*/
 }

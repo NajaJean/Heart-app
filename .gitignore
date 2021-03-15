@@ -36,3 +36,6 @@ build/
 /node_modules/
 src/main/resources/application.properties
 vue-js-client-crud/package-lock.json
+src/main/resources/application.properties
+.vs/Heart-app/config/applicationhost.config
+.vs/slnx.sqlite
