@@ -1,5 +1,6 @@
 package com.bachelor.Heartapp.controller;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bachelor.Heartapp.model.DailyRecording;
-import com.bachelor.Heartapp.model.Tutorial;
 import com.bachelor.Heartapp.repository.DailyRecordingRepository;
 
 @CrossOrigin(origins = "http://localhost:8081")
@@ -44,13 +44,19 @@ public class DailyRecordingController {
 	@PostMapping("/dailyrecordings")
 	public ResponseEntity<DailyRecording> createTutorial(@RequestBody DailyRecording dailyRecording) {
 		try {
-			DailyRecording _dRecord = dailyRecordingRepository.save(new DailyRecording(dailyRecording.getPatient_ID(), 
-																					  dailyRecording.getSleep_light(), 
-																					  dailyRecording.getSleep_deep(), 
-																					  dailyRecording.getSleep_rem(), 
-																					  dailyRecording.getWeight(), 
-																					  dailyRecording.getCnt_steps(), 
-																					  dailyRecording.getBlood_pressure()));
+			DailyRecording _dRecord = dailyRecordingRepository.save(new DailyRecording(dailyRecording.getblood_pressure_diastolic(), 
+																					  dailyRecording.getblood_pressure_systolic(), 
+																					  dailyRecording.getcnt_steps(), 
+																					  dailyRecording.getdevice_id(), 
+																					  dailyRecording.getpatient_id(), 
+																					  dailyRecording.getCsq(), 
+																					  dailyRecording.getDate_post(),
+																					  dailyRecording.getImei(),
+																					  dailyRecording.getSim_number(),
+																					  dailyRecording.getSleep_deep(),
+																					  dailyRecording.getSleep_light(),
+																					  dailyRecording.getSleep_rem(),
+																					  dailyRecording.getWeight()));
 			return new ResponseEntity<>(_dRecord, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -58,11 +64,11 @@ public class DailyRecordingController {
 	}
 	
 	@GetMapping("/steps")
-	public ResponseEntity<List<Integer>> getAllSteps() {
+	public ResponseEntity<List<BigInteger>> getAllSteps() {
 		try {
-			List<Integer> steps = new ArrayList<Integer>();
+			List<BigInteger> steps = new ArrayList<BigInteger>();
 			
-			dailyRecordingRepository.findAll().forEach(d -> steps.add(d.getCnt_steps()));
+			dailyRecordingRepository.findAll().forEach(d -> steps.add(d.getcnt_steps()));
 
 			if (steps.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
