@@ -35,3 +35,4 @@ build/
 /.metadata/
 /node_modules/
 src/main/resources/application.properties
+vue-js-client-crud/package-lock.json

@@ -25,6 +25,7 @@ import com.bachelor.Heartapp.repository.TutorialRepository;
 @RestController
 @RequestMapping("/api")
 public class TutorialController {
+	  
 	  @Autowired
 	  TutorialRepository tutorialRepository;
 
