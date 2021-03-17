@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bachelor.Heartapp.model.DailyRecording;
 
-public interface DailyRecordingRepository extends JpaRepository<DailyRecording, String>   {
+public interface DailyRecordingRepository extends JpaRepository<DailyRecording, Long>   {
 
 	
 }

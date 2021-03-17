@@ -1,6 +1,5 @@
 package com.bachelor.Heartapp.controller;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,14 +45,14 @@ public class DailyRecordingController {
 		try {
 			DailyRecording _dRecord = dailyRecordingRepository.save(new DailyRecording(dailyRecording.getBlood_pressure_diastolic(), 
 																					  dailyRecording.getBlood_pressure_systolic(), 
-																					  dailyRecording.getCnt_steps(), 
-																					  dailyRecording.getDevice_id(), 
-																					  dailyRecording.getPatient_id(), 
-																					  dailyRecording.getCsq(), 
+																					  dailyRecording.getCnt_steps(),
+																					  dailyRecording.getDevice_id(),
+																					  dailyRecording.getPatient_id(),
+																					  dailyRecording.getCsq(),
 																					  dailyRecording.getDate_post(),
 																					  dailyRecording.getImei(),
 																					  dailyRecording.getSim_number(),
-																					  dailyRecording.getSleep_deep(),
+																					  dailyRecording.getSleep_deep(), 
 																					  dailyRecording.getSleep_light(),
 																					  dailyRecording.getSleep_rem(),
 																					  dailyRecording.getWeight()));
@@ -62,13 +61,14 @@ public class DailyRecordingController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-/*	
+
+	/*
 	@GetMapping("/steps")
-	public ResponseEntity<List<BigInteger>> getAllSteps() {
+	public ResponseEntity<List<Integer>> getAllSteps() {
 		try {
-			List<BigInteger> steps = new ArrayList<BigInteger>();
+			List<Integer> steps = new ArrayList<Integer>();
 			
-			dailyRecordingRepository.findAll().forEach(d -> steps.add(d.getcnt_steps()));
+			dailyRecordingRepository.findAll().forEach(d -> steps.add(d.getCnt_steps()));
 
 			if (steps.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -77,5 +77,6 @@ public class DailyRecordingController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	} */
+	}*/
+	
 }
