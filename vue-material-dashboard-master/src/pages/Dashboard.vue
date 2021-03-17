@@ -4,13 +4,6 @@
       <div
         class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
       >
-        <Table>
-          <div class="dailyrecordings-list"></div>
-        </Table>
-      </div>
-      <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-      >
         <chart-card
           :chart-data="dailySalesChart.data"
           :chart-options="dailySalesChart.options"
@@ -190,13 +183,11 @@ import {
   StatsCard,
   ChartCard
 } from "@/components";
-import Table from "../components/Table";
 
 export default {
   components: {
     StatsCard,
-    ChartCard,
-    Table
+    ChartCard
   },
   data() {
     return {
