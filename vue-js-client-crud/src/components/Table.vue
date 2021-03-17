@@ -9,35 +9,54 @@
           :key="index"
           @click="setActiveDailyRecording(dailyrecording, index)"
         >
-          {{ dailyrecording.patient_ID }}
+          {{ dailyrecording.patient_id }}
         </li>
       </ul>
     </div>
     <div class="col-md-6">
-      <div v-if="currentDailyRecording">
-        <h4>Daily Recording</h4>
-        <div>
-          <label><strong>Patient ID:</strong></label> {{ currentDailyRecording.patient_ID }}
+        <div v-if="currentDailyRecording">
+            <h4>Daily Recording</h4>
+            <div>
+                <label><strong>Patient ID:</strong></label> {{ currentDailyRecording.patient_id }}
+            </div>
+            <div>
+                <label><strong>Blood dia:</strong></label> {{ currentDailyRecording.blood_pressure_diastolic }}
+            </div>
+            <div>
+                <label><strong>Blood sys:</strong></label> {{ currentDailyRecording.blood_pressure_systolic }}
+            </div>
+            <div>
+                <label><strong>Steps:</strong></label> {{ currentDailyRecording.cnt_steps }}
+            </div>
+            <div>
+                <label><strong>CSQ:</strong></label> {{ currentDailyRecording.csq }}
+            </div>
+            <div>
+                <label><strong>Date:</strong></label> {{ currentDailyRecording.date_post}}
+            </div>
+            <div>
+                <label><strong>Device ID:</strong></label> {{ currentDailyRecording.device_id}}
+            </div>
+            <div>
+                <label><strong>IMEI:</strong></label> {{ currentDailyRecording.imei}}
+            </div>
+            <div>
+                <label><strong>Sim Number:</strong></label> {{ currentDailyRecording.sim_number}}
+            </div>
+            <div>
+                <label><strong>Light Sleep:</strong></label> {{ currentDailyRecording.sleep_light }}
+            </div>
+            <div>
+                <label><strong>Deep Sleep:</strong></label> {{ currentDailyRecording.sleep_deep }}
+            </div>
+            <div>
+                <label><strong>REM Sleep:</strong></label> {{ currentDailyRecording.sleep_rem }}
+            </div>
+            <div>
+                <label><strong>Weight:</strong></label> {{ currentDailyRecording.weight }}
+            </div>
+
         </div>
-		<div>
-          <label><strong>Light Sleep:</strong></label> {{ currentDailyRecording.sleep_light }}
-        </div>
-		<div>
-          <label><strong>Deep Sleep:</strong></label> {{ currentDailyRecording.sleep_deep }}
-        </div>
-		<div>
-          <label><strong>REM Sleep:</strong></label> {{ currentDailyRecording.sleep_rem }}
-        </div>
-		<div>
-          <label><strong>Weight:</strong></label> {{ currentDailyRecording.weight }}
-        </div>
-        <div>
-          <label><strong>Steps:</strong></label> {{ currentDailyRecording.cnt_steps }}
-        </div>
-        <div>
-          <label><strong>Blood Pressure:</strong></label> {{ currentDailyRecording.blood_pressure }}
-        </div>
-      </div>
       <div v-else>
         <br />
         <p>Please click on a Daily Recording...</p>
