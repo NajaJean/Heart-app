@@ -4,7 +4,7 @@
       <div
         class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
       >
-        <line-chart :width="370" :height="246" :chart="chartdata"></line-chart> 
+        <line-chart v-if="this.dataloaded" :width="370" :height="246" :chart="chartdata"></line-chart> 
       </div>
     </div>
   </div>
@@ -23,11 +23,13 @@ export default {
   },
   data() {
     return {
-      chartdata: []
+      chartdata: [],
+      dataloaded: false
     };
   },
   methods: {
-    retrieveDailyRecordings() {
+    async retrieveDailyRecordings() {
+      await sleep(1000);
       DailyRecordingDataService.getAll()
         .then(response => {
           var dates = [];
@@ -45,8 +47,14 @@ export default {
         });
     }
   },
-  mounted() {
+  async created() {
     this.retrieveDailyRecordings();
+    await sleep(2000);
+    this.dataloaded = true;
   }
 };
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 </script>
