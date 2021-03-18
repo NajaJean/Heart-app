@@ -11,10 +11,8 @@ export default {
           {
           label:'Systolic',
                 data: this.chart[1],
-              backgroundColor:['rgba(255, 59, 10, 0.6)'
-          ],
-          borderColor: ['rgba(255, 59, 10, 0.6)'
-          ],
+              backgroundColor:'rgba(255, 59, 10, 0.6)',
+          borderColor: 'rgba(255, 59, 10, 0.6)',
           fill: false,
           tension: 0,
           scaleShowValues: true,
@@ -24,14 +22,12 @@ export default {
               autoSkip: false
             }
             }]
-          }
-            },{
+          },
+        },{
           label:'Diastolic',
                 data:this.chart[2],
-              backgroundColor:['rgba(29, 179, 44, 0.6)'
-          ],
-          borderColor: ['rgba(29, 179, 44, 0.6)'
-          ],
+              backgroundColor:'rgba(29, 179, 44, 0.6)',
+          borderColor: 'rgba(29, 179, 44, 0.6)',
           fill: false,
           tension: 0,
           scaleShowValues: true,
