@@ -4,7 +4,7 @@
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="Patient ID">{{ item.patient_id }}</md-table-cell>
         <md-table-cell md-label="Time">{{ item.date_post }}</md-table-cell>
-        <md-table-cell md-label="Blood Pressure">{{ item.blood_pressure_systolic }}/{{ item.blood_pressure_diastolic }} mmHG</md-table-cell>
+        <md-table-cell md-label="Blood Pressure">{{ item.blood_pressure_systolic }}/{{ item.blood_pressure_diastolic }} mmHg</md-table-cell>
         <md-table-cell md-label="Weight">{{ item.weight }}</md-table-cell>
         <md-table-cell md-label="Steps">{{ item.cnt_steps }}</md-table-cell>
       </md-table-row>
