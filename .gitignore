@@ -39,3 +39,4 @@ vue-js-client-crud/package-lock.json
 src/main/resources/application.properties
 .vs/Heart-app/config/applicationhost.config
 .vs/slnx.sqlite
+vue-material-dashboard-master/node_modules/.bin/acorn
