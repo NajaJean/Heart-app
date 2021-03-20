@@ -55,7 +55,7 @@ export default {
           var sleepLight = [];
           var sleepREM = [];
           var sleepDeep = [];
-          response.data.map(dr => dates.push(dr.date_post.substring(0,3)));
+          response.data.map(dr => dates.push(dr.date_post.substring(0,11)));
           response.data.map(dr => bps.push(dr.blood_pressure_systolic));
           response.data.map(dr => bpd.push(dr.blood_pressure_diastolic));
           response.data.map(dr => steps.push(dr.cnt_steps));
@@ -75,7 +75,7 @@ export default {
   },
   async created() {
     this.retrieveDailyRecordings();
-    await sleep(4000);
+    await sleep(2000);
     this.dataloaded = true;
   }
 };
