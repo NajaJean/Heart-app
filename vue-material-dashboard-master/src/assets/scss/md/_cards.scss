@@ -220,13 +220,13 @@
 
     [data-background-color="blue"],
     .md-tabs.md-info .md-tabs-navigation{
-        background: linear-gradient(60deg, $cyan-400, $cyan-600);
+        background: linear-gradient(60deg, #86BDD5, #59A4C5);
         @include shadow-big-color($brand-info);
     }
 
     [data-background-color="green"],
     .md-tabs.md-success .md-tabs-navigation{
-        background: linear-gradient(60deg, $green-400, $green-600);
+        background: linear-gradient(60deg, #09BC8A, #004346);
         @include shadow-big-color($brand-success);
     }
 
