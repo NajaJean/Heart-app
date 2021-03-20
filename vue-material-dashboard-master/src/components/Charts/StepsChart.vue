@@ -26,7 +26,7 @@ export default {
         }],      
       }, {
         responsive:true,
-	    maintainAspectRatio: false,
+	      maintainAspectRatio: false,
         title:{
           display:true,
           text:'Steps during the week',
@@ -45,12 +45,12 @@ export default {
             right:0,
             bottom:0,
             top:0
-          }
+          },
         },
         tooltips:{
           enabled:true
-        }
-        })
+        },
+      })
     },
 }
 </script>

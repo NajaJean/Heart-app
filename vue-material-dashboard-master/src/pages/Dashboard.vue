@@ -1,27 +1,49 @@
 <template>
   <div class="content">
-    <div class="md-layout">
-      <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-      >
-        <blood-pressure-chart v-if="this.dataloaded" :width="370" :height="246" :chart="bpchartdata"></blood-pressure-chart> 
+    <div class="md-layout" v-if="!this.dataloaded">
+      <h1>Loading ...</h1>
+    </div>
+    <div class="md-layout" v-if="this.dataloaded">
+      <md-button class="md-dense md-raised md-info" @click="onClick()">{{this.setThresholds ? "Cancel" : "Set Thresholds"}}</md-button>
+      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33">
+        <h3 v-if="this.setThresholds">I will insert a form here Yeehaw</h3>
       </div>
-      <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-      >
-        <steps-chart v-if="this.dataloaded" :width="370" :height="246" :chart="stepchartdata"></steps-chart>
+      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33">
+        <md-card>
+          <md-card-header data-background-color="blue">
+            <button type="button" aria-hidden="true" class="close">
+              hej
+            </button>
+            <h2 class="title" font-weight="bold">Blood Pressure During the Week</h2>
+          </md-card-header>
+          <md-card-content>
+            <blood-pressure-chart :width="370" :height="246" :chart="bpchartdata"></blood-pressure-chart> 
+          </md-card-content>
+        </md-card>
       </div>
-      <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-      >
-        <sleep-chart v-if="this.dataloaded" :width="370" :height="246" :chart="sleepchartdata"></sleep-chart>
+      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33">
+        <md-card>
+          <md-card-header data-background-color="blue">
+            <h2 class="title">Steps</h2>
+          </md-card-header>
+          <md-card-content>
+            <steps-chart :width="370" :height="246" :chart="stepchartdata"></steps-chart>
+          </md-card-content>
+        </md-card>
+      </div>
+      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33">
+        <md-card>
+          <md-card-header data-background-color="blue">
+            <h2 class="title">Sleep</h2>
+          </md-card-header>
+          <md-card-content>
+            <sleep-chart :width="370" :height="246" :chart="sleepchartdata"></sleep-chart>
+          </md-card-content>
+        </md-card>
       </div>
     </div>
   </div>
 </template>
-
-
-
 
 <script>
 import DailyRecordingDataService from "../services/DailyRecordingDataService";
@@ -40,10 +62,14 @@ export default {
       bpchartdata: [],
       stepchartdata: [],
       sleepchartdata: [],
+      setThresholds: false,
       dataloaded: false
     };
   },
   methods: {
+    onClick() {
+      this.setThresholds = !this.setThresholds;
+    },
     async retrieveDailyRecordings() {
       await sleep(1000);
       DailyRecordingDataService.getAll()
@@ -84,3 +110,4 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 </script>
+

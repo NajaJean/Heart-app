@@ -1,5 +1,6 @@
 <script>
 import { Line } from 'vue-chartjs'
+import * as ChartAnnotation from 'chartjs-plugin-annotation';
 
 export default {
   extends: Line,
@@ -11,8 +12,8 @@ export default {
           {
           label:'Systolic',
                 data: this.chart[1],
-              backgroundColor:'rgba(255, 59, 10, 0.6)',
-          borderColor: 'rgba(255, 59, 10, 0.6)',
+              backgroundColor:'#004346',
+          borderColor: '#004346',
           fill: false,
           tension: 0,
           scaleShowValues: true,
@@ -43,13 +44,13 @@ export default {
       }, {responsive: true, 
           maintainAspectRatio: false,
           title:{
-            display:true,
+            display:false,
             text:'Blood pressure during the week',
             fontSize:25
           },
           legend:{
-            display:false,
-            position:'right',
+            display:true,
+            position:'bottom',
             labels:{
               fontColor:'#000'
             }
@@ -68,7 +69,23 @@ export default {
           },
           hover: {
             mode: 'point'
-          }
+          },
+          annotation: {
+            annotations: [{
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y-axis-0',
+              id: 'strip-line-1',
+              value: 125,
+              borderColor: 'rgb(75, 192, 192)',
+              borderWidth: 2,
+              borderDash: [5,2],
+              label: {
+                enabled: false,
+                content: 'Upper limit'
+              }
+            }]
+          },
         })
     },
 }
