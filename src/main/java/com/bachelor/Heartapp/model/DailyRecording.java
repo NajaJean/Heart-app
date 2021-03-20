@@ -48,16 +48,16 @@ public class DailyRecording {
 	private BigInteger sim_number;
 	
 	@Column(name = "sleep_deep")
-	private Long sleep_deep;
+	private float sleep_deep;
 	
 	@Column(name = "sleep_light")
-	private Long sleep_light;
+	private float sleep_light;
 	
 	@Column(name = "sleep_rem")
-	private Long sleep_rem;
+	private float sleep_rem;
 	
 	@Column(name = "weight")
-	private Long weight;
+	private float weight;
 
 	
 	public DailyRecording() {
@@ -65,7 +65,7 @@ public class DailyRecording {
 	}
 		public DailyRecording(BigInteger blood_pressure_diastolic, BigInteger blood_pressure_systolic, BigInteger cnt_steps,
 			String device_id, String patient_id, Long csq, String date_post, BigInteger imei, BigInteger sim_number,
-			Long sleep_deep, Long sleep_light, Long sleep_rem, Long weight) {
+			float sleep_deep, float sleep_light, float sleep_rem, float weight) {
 		super();
 		this.blood_pressure_diastolic = blood_pressure_diastolic;
 		this.blood_pressure_systolic = blood_pressure_systolic;
@@ -173,42 +173,42 @@ public class DailyRecording {
 	}
 
 
-	public Long getSleep_deep() {
+	public float getSleep_deep() {
 		return sleep_deep;
 	}
 
 
-	public void setSleep_deep(Long sleep_deep) {
+	public void setSleep_deep(float sleep_deep) {
 		this.sleep_deep = sleep_deep;
 	}
 
 
-	public Long getSleep_light() {
+	public float getSleep_light() {
 		return sleep_light;
 	}
 
 
-	public void setSleep_light(Long sleep_light) {
+	public void setSleep_light(float sleep_light) {
 		this.sleep_light = sleep_light;
 	}
 
 
-	public Long getSleep_rem() {
+	public float getSleep_rem() {
 		return sleep_rem;
 	}
 
 
-	public void setSleep_rem(Long sleep_rem) {
+	public void setSleep_rem(float sleep_rem) {
 		this.sleep_rem = sleep_rem;
 	}
 
 
-	public Long getWeight() {
+	public float getWeight() {
 		return weight;
 	}
 
 
-	public void setWeight(Long weight) {
+	public void setWeight(float weight) {
 		this.weight = weight;
 	}
 
