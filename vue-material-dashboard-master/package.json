@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "chartist": "0.11.4",
+    "chartjs-plugin-annotation": "^0.5.7",
     "core-js": "3.6.4",
     "cors": "^2.8.5",
     "date-time": "^3.1.0",
@@ -23,6 +24,7 @@
     "vue-social-sharing": "2.4.7"
   },
   "devDependencies": {
+    "@types/chartjs-plugin-annotation": "^0.5.1",
     "@vue/cli-plugin-babel": "4.2.3",
     "@vue/cli-plugin-eslint": "4.2.3",
     "@vue/cli-plugin-router": "4.2.3",
