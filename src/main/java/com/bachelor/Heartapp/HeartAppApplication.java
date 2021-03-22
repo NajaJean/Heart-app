@@ -66,9 +66,9 @@ public class HeartAppApplication {
 			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(),"blood_pressure_diastolic",d.getBlood_pressure_diastolic().toString()));
 			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(),"blood_pressure_systolic",d.getBlood_pressure_systolic().toString()));
 			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(), "cnt_steps" ,d.getCnt_steps().toString()));
-			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(),"sleep_deep",d.getSleep_deep().toString()));
-			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(),"sleep_light",d.getSleep_light().toString()));
-			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(),"sleep_rem",d.getSleep_rem().toString()));	
+			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(),"sleep_deep",Float.toString(d.getSleep_deep())));
+			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(),"sleep_light",Float.toString(d.getSleep_light())));
+			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(),"sleep_rem",Float.toString(d.getSleep_rem())));	
 		}
 		count++;
 	}
