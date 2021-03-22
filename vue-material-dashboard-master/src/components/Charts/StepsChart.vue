@@ -48,7 +48,7 @@ export default {
           },
         },
         tooltips:{
-          enabled:true
+          enabled: true
         },
       })
     },

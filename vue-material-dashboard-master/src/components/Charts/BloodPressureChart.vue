@@ -4,7 +4,10 @@ import * as ChartAnnotation from 'chartjs-plugin-annotation';
 
 export default {
   extends: Line,
-  props:['chart'],
+  props:['chart','thresholds'],
+  data() { return {
+    thres: this.thresholds[0],
+  }},
   mounted () {
       this.renderChart({
         labels: this.chart[0],
@@ -65,7 +68,12 @@ export default {
           },
           tooltips:{
             enabled:true,
-            displayColors: false
+            displayColors: false,
+            callbacks: {
+              label: function(tooltipItem, data) {
+                  return data.datasets[tooltipItem.datasetIndex].label+ ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index] + ' mmHg';
+              }
+            }   
           },
           hover: {
             mode: 'point'
@@ -76,7 +84,7 @@ export default {
               mode: 'horizontal',
               scaleID: 'y-axis-0',
               id: 'strip-line-1',
-              value: 125,
+              value: this.thresholds[0],
               borderColor: 'rgb(75, 192, 192)',
               borderWidth: 2,
               borderDash: [5,2],
@@ -87,6 +95,6 @@ export default {
             }]
           },
         })
-    },
+    }, 
 }
 </script>

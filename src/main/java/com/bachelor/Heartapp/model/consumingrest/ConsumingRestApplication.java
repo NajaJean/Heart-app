@@ -44,6 +44,14 @@ public class ConsumingRestApplication {
 					  .collect(Collectors.toList());
 			
 			System.out.print(dr.get(1));
+
+			new measurement
+			new measurement
+			new measurement
+			new measurement
+			new measurement
+			new measurement
+
 		};
 	}
 } */
