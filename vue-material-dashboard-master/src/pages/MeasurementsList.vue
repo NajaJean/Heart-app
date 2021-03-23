@@ -10,7 +10,7 @@
             <p class="category">Here is a subtitle for this table</p>
           </md-card-header>
           <md-card-content>
-            <simple-table table-header-color="blue"></simple-table>
+            <measurements-table table-header-color="blue"></measurements-table>
           </md-card-content>
         </md-card>
       </div>
@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import SimpleTable from "../components/SimpleTable";
+import MeasurementsTable from "../components/MeasurementsTable";
 
 export default {
   components: {
-    SimpleTable
+    MeasurementsTable
   }
 };
 </script>

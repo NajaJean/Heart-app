@@ -14,7 +14,7 @@
             <h2 class="title" font-weight="bold">Blood Pressure During the Week</h2>
           </md-card-header>
           <md-card-content>
-            <blood-pressure-chart :key="keyvalue" :width="370" :height="246" :chart="bpchartdata" :thresholds="thresholds"></blood-pressure-chart> 
+            <blood-pressure-chart :key="keyvalue" :width="370" :height="246" :chart="[dates,bpd,bps]" :thresholds="thresholds"></blood-pressure-chart> 
           </md-card-content>
         </md-card>
       </div>
@@ -24,7 +24,7 @@
             <h2 class="title">Steps</h2>
           </md-card-header>
           <md-card-content>
-            <steps-chart :width="370" :height="246" :chart="stepchartdata" :thresholds="thresholds"></steps-chart>
+            <steps-chart :width="370" :height="246" :chart="[dates,steps]" :thresholds="thresholds"></steps-chart>
           </md-card-content>
         </md-card>
       </div>
@@ -34,7 +34,7 @@
             <h2 class="title">Sleep</h2>
           </md-card-header>
           <md-card-content>
-            <sleep-chart :width="370" :height="246" :chart="sleepchartdata" :thresholds="thresholds"></sleep-chart>
+            <sleep-chart :width="370" :height="246" :chart="[dates,sleepLight,sleepREM,sleepDeep]" :thresholds="thresholds"></sleep-chart>
           </md-card-content>
         </md-card>
       </div>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import DailyRecordingDataService from "../services/DailyRecordingDataService";
+import MeasurementDataService from "../services/MeasurementDataService";
 import BloodPressureChart from '../components/Charts/BloodPressureChart.vue';
 import StepsChart from '../components/Charts/StepsChart.vue';
 import SleepChart from '../components/Charts/SleepChart.vue';
@@ -58,9 +58,13 @@ export default {
   },
   data() {
     return {
-      bpchartdata: [],
-      stepchartdata: [],
-      sleepchartdata: [],
+      dates: [],
+      bpd: [],
+      bps: [],
+      steps: [],
+      sleepLight: [],
+      sleepREM: [],
+      sleepDeep: [],
       setThresholds: false,
       dataloaded: false,
       thresholds: new Array(12),
@@ -77,28 +81,31 @@ export default {
       console.log("Thresholds updated");
       this.toggleThresholdsForm()
     },
-    async retrieveDailyRecordings() {
-      await sleep(1000);
-      DailyRecordingDataService.getAll()
+    pushDataIntoArray(m) {
+      if (m.measurement_type == "cnt_steps") {
+        this.dates.push(m.date_post.substring(0,11));
+        this.steps.push(m.measurement_value);
+      }
+      else if (m.measurement_type == "blood_pressure_diastolic") {
+        this.bpd.push(m.measurement_value);
+      }
+      else if (m.measurement_type == "blood_pressure_systolic") {
+        this.bps.push(m.measurement_value);
+      }
+      else if (m.measurement_type == "sleep_light") {
+        this.sleepLight.push((m.measurement_value*60).toFixed(2));
+      }
+      else if (m.measurement_type == "sleep_rem") {
+        this.sleepREM.push((m.measurement_value*60).toFixed(2));
+      }
+      else if (m.measurement_type == "sleep_deep") {
+        this.sleepDeep.push((m.measurement_value*60).toFixed(2));
+      }
+    },
+    retrieveMeasurements() {
+      MeasurementDataService.getAll()
         .then(response => {
-          var dates = [];
-          var bps = [];
-          var bpd = [];
-          var steps = [];
-          var sleepLight = [];
-          var sleepREM = [];
-          var sleepDeep = [];
-          response.data.map(dr => dates.push(dr.date_post.substring(0,11)));
-          response.data.map(dr => bps.push(dr.blood_pressure_systolic));
-          response.data.map(dr => bpd.push(dr.blood_pressure_diastolic));
-          response.data.map(dr => steps.push(dr.cnt_steps));
-          response.data.map(dr => sleepDeep.push(dr.sleep_deep*60));
-          response.data.map(dr => sleepREM.push(dr.sleep_rem*60));
-          response.data.map(dr => sleepLight.push(dr.sleep_light*60));
-
-          this.bpchartdata = [dates,bpd,bps];
-          this.stepchartdata = [dates,steps];
-          this.sleepchartdata = [dates,sleepLight,sleepREM,sleepDeep];
+          response.data.slice(0, 7*6).map(m => this.pushDataIntoArray(m));
         })
         .catch(e => {
           console.log(e);
@@ -106,7 +113,7 @@ export default {
     }
   },
   async created() {
-    this.retrieveDailyRecordings();
+    this.retrieveMeasurements();
     await sleep(2000);
     this.dataloaded = true;
   }
