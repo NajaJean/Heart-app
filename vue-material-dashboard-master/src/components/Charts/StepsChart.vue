@@ -3,7 +3,7 @@ import { Bar } from 'vue-chartjs'
 
 export default {
   extends: Bar,
-  props:['chart'],
+  props:['chart','thresholds'],
   mounted () {
       this.renderChart({
         labels: this.chart[0],
@@ -50,6 +50,37 @@ export default {
         tooltips:{
           enabled: true
         },
+        annotation: {
+            annotations: [{
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y-axis-0',
+              id: 'lowlimit',
+              value: this.thresholds[4],
+              borderColor: 'rgb(75, 124, 192)',
+              borderWidth: 2,
+              borderDash: [5,2],
+              label: {
+                enabled: true,
+                content: 'lower limit',
+                xAdjust: 200
+              }
+            },{
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y-axis-0',
+              id: 'uplimit',
+              value: this.thresholds[5],
+              borderColor: 'rgb(75, 192, 192)',
+              borderWidth: 2,
+              borderDash: [5,2],
+              label: {
+                enabled: true,
+                content: 'upper limit',
+                xAdjust: 200
+              }
+            }]
+          }
       })
     },
 }

@@ -5,9 +5,6 @@ import * as ChartAnnotation from 'chartjs-plugin-annotation';
 export default {
   extends: Line,
   props:['chart','thresholds'],
-  data() { return {
-    thres: this.thresholds[0],
-  }},
   mounted () {
       this.renderChart({
         labels: this.chart[0],
@@ -83,14 +80,57 @@ export default {
               type: 'line',
               mode: 'horizontal',
               scaleID: 'y-axis-0',
-              id: 'strip-line-1',
+              id: 'syslowlimit',
               value: this.thresholds[0],
+              borderColor: 'rgb(75, 124, 192)',
+              borderWidth: 2,
+              borderDash: [5,2],
+              label: {
+                enabled: true,
+                content: 'Sys lower limit',
+                xAdjust: 325
+              }
+            },{
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y-axis-0',
+              id: 'sysuplimit',
+              value: this.thresholds[1],
               borderColor: 'rgb(75, 192, 192)',
               borderWidth: 2,
               borderDash: [5,2],
               label: {
-                enabled: false,
-                content: 'Upper limit'
+                enabled: true,
+                content: 'Sys upper limit',
+                xAdjust: 325
+              }
+            },{
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y-axis-0',
+              id: 'dialowlimit',
+              value: this.thresholds[2],
+              borderColor: 'rgb(75, 124, 192)',
+              borderWidth: 2,
+              borderDash: [5,2],
+              label: {
+                enabled: true,
+                content: 'Dia lower limit',
+                xAdjust: 325
+              }
+            },{
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y-axis-0',
+              id: 'diauplimit',
+              value: this.thresholds[3],
+              borderColor: 'rgb(75, 192, 192)',
+              borderWidth: 2,
+              borderDash: [5,2],
+              label: {
+                enabled: true,
+                content: 'Dia upper limit',
+                xAdjust: 325
               }
             }]
           },
