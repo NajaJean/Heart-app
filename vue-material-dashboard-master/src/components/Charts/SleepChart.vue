@@ -58,14 +58,14 @@ export default {
         },],      
       }, {
         responsive:true,
-		maintainAspectRatio: false,
+		    maintainAspectRatio: false,
         title:{
           display:true,
           text:'Sleep during the week',
           fontSize:25
         },
         legend:{
-          display:false,
+          display:true,
           position:'right',
           labels:{
             fontColor:'#000'

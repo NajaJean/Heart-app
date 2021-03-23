@@ -48,6 +48,7 @@ export default {
           },
         },
         tooltips:{
+          displayColors: false,
           enabled: true
         },
         annotation: {
