@@ -1,7 +1,7 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
 import Dashboard from "@/pages/Dashboard.vue";
-import DailyRecList from "@/pages/DailyRecList.vue";
+import MeasurementsList from "@/pages/MeasurementsList.vue";
 import Notifications from "@/pages/Notifications.vue";
 
 const routes = [
@@ -16,9 +16,9 @@ const routes = [
         component: Dashboard
       },
       {
-        path: "dailyrecordings",
-        name: "dailyrecordings",
-        component: DailyRecList
+        path: "measurements",
+        name: "Measurements",
+        component: MeasurementsList
       },
       {
         path: "notifications",

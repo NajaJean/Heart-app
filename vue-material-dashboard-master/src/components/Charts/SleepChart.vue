@@ -3,7 +3,7 @@ import { Bar } from 'vue-chartjs'
 
 export default {
   extends: Bar,
-  props:['chart'],
+  props:['chart','thresholds'],
   mounted () {
       this.renderChart({
         labels: this.chart[0],
@@ -87,7 +87,97 @@ export default {
                   return data.datasets[tooltipItem.datasetIndex].label+ ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index] + ' min';
               }
             }  
-        }})
+        },
+        annotation: {
+            annotations: [{
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y-axis-0',
+              id: 'lightlowlimit',
+              value: this.thresholds[6],
+              borderColor: 'rgb(75, 124, 192)',
+              borderWidth: 2,
+              borderDash: [5,2],
+              label: {
+                enabled: true,
+                content: 'light lower limit',
+                xAdjust: 325
+              }
+            },{
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y-axis-0',
+              id: 'lightuplimit',
+              value: this.thresholds[7],
+              borderColor: 'rgb(75, 192, 192)',
+              borderWidth: 2,
+              borderDash: [5,2],
+              label: {
+                enabled: true,
+                content: 'light upper limit',
+                xAdjust: 325
+              }
+            },
+            {
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y-axis-0',
+              id: 'remlowlimit',
+              value: this.thresholds[8],
+              borderColor: 'rgb(75, 124, 192)',
+              borderWidth: 2,
+              borderDash: [5,2],
+              label: {
+                enabled: true,
+                content: 'rem lower limit',
+                xAdjust: 325
+              }
+            },{
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y-axis-0',
+              id: 'remuplimit',
+              value: this.thresholds[9],
+              borderColor: 'rgb(75, 192, 192)',
+              borderWidth: 2,
+              borderDash: [5,2],
+              label: {
+                enabled: true,
+                content: 'rem upper limit',
+                xAdjust: 325
+              }
+            },
+            {
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y-axis-0',
+              id: 'deeplowlimit',
+              value: this.thresholds[10],
+              borderColor: 'rgb(75, 124, 192)',
+              borderWidth: 2,
+              borderDash: [5,2],
+              label: {
+                enabled: true,
+                content: 'deep lower limit',
+                xAdjust: 325
+              }
+            },{
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y-axis-0',
+              id: 'deepuplimit',
+              value: this.thresholds[11],
+              borderColor: 'rgb(75, 192, 192)',
+              borderWidth: 2,
+              borderDash: [5,2],
+              label: {
+                enabled: true,
+                content: 'deep upper limit',
+                xAdjust: 325
+              }
+            }]
+        }
+      })
     },
 }
 </script>

@@ -10,9 +10,9 @@
         <md-icon>dashboard</md-icon>
         <p>Dashboard</p>
       </sidebar-link>
-      <sidebar-link to="/dailyrecordings">
+      <sidebar-link to="/measurements">
         <md-icon>notifications</md-icon>
-        <p>Daily Recordings</p>
+        <p>Measurements</p>
       </sidebar-link>
       <sidebar-link to="/notifications">
         <md-icon>alarm</md-icon>
