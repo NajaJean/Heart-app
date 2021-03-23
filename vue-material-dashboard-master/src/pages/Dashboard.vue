@@ -24,7 +24,7 @@
             <h2 class="title">Steps</h2>
           </md-card-header>
           <md-card-content>
-            <steps-chart :width="370" :height="246" :chart="[dates,steps]" :thresholds="thresholds"></steps-chart>
+            <steps-chart :key="keyvalue" :width="370" :height="246" :chart="[dates,steps]" :thresholds="thresholds"></steps-chart>
           </md-card-content>
         </md-card>
       </div>
@@ -34,7 +34,7 @@
             <h2 class="title">Sleep</h2>
           </md-card-header>
           <md-card-content>
-            <sleep-chart :width="370" :height="246" :chart="[dates,sleepLight,sleepREM,sleepDeep]" :thresholds="thresholds"></sleep-chart>
+            <sleep-chart :key="keyvalue" :width="370" :height="246" :chart="[dates,sleepLight,sleepREM,sleepDeep]" :thresholds="thresholds"></sleep-chart>
           </md-card-content>
         </md-card>
       </div>
