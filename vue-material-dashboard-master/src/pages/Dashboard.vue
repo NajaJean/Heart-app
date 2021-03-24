@@ -44,6 +44,7 @@
 
 <script>
 import MeasurementDataService from "../services/MeasurementDataService";
+import ThresholdDataService from "../services/ThresholdDataService";
 import BloodPressureChart from '../components/Charts/BloodPressureChart.vue';
 import StepsChart from '../components/Charts/StepsChart.vue';
 import SleepChart from '../components/Charts/SleepChart.vue';
@@ -110,10 +111,24 @@ export default {
         .catch(e => {
           console.log(e);
         });
-    }
+    },/*
+    insertThreshold(t) {
+      if (t.getMeasurement_type())
+    },
+    retrieveThresholds() {
+      ThresholdDataService.getAll()
+        .then(response => {
+          console.log("Thresholds:"+(response.data).toString());
+          response.data.map(t => this.thresholds.push(t));
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }*/
   },
   async created() {
     this.retrieveMeasurements();
+    //this.retrieveThresholds();
     await sleep(2000);
     this.dataloaded = true;
   }
