@@ -40,7 +40,8 @@ public class PatientController {
 		}
 	}
 	
-	@PutMapping("/patients/{id}")
+	
+	@PostMapping("/patients")
 	public ResponseEntity<Patient> createPatient(@RequestBody Patient patient) {
 		try {
 			Patient _patient = patientRepository.save(new Patient(

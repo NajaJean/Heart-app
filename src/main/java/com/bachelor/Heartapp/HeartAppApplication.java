@@ -48,7 +48,7 @@ public class HeartAppApplication {
 					   restTemplate.getForEntity("http://167.99.133.167:54532/all", Object[].class);
 			
 			Object[] objects = responseEntity.getBody();
-			
+
 			ObjectMapper mapper = new ObjectMapper();
 			
 			List<DailyRecording> dr = Arrays.stream(objects)
@@ -69,6 +69,7 @@ public class HeartAppApplication {
 			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(),"sleep_deep",Float.toString(d.getSleep_deep())));
 			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(),"sleep_light",Float.toString(d.getSleep_light())));
 			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(),"sleep_rem",Float.toString(d.getSleep_rem())));	
+			
 		}
 		count++;
 	}
