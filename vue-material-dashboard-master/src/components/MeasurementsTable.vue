@@ -25,14 +25,15 @@ export default {
   data() {
     return {
       measurements: [],
-      selected: []
+      selected: [],
+      patient: '010101-1234'
     };
   },
   methods: {
     retrieveMeasurements() {
-      MeasurementDataService.getAll()
+      MeasurementDataService.get7LatestMeasurements(this.patient)
         .then(response => {
-          this.measurements = response.data.slice(0, 7*6);
+          this.measurements = response.data;
         })
         .catch(e => {
           console.log(e);

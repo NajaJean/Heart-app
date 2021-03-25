@@ -1,13 +1,15 @@
 import http from "../http-common";
 
 class MeasurementDataService {
-  getAll() {
-    return http.get("/measurements");
+
+  get7LatestMeasurements(patient_id) {
+    return http.get(`/7measurements/${patient_id}`);
   }
 
-  create(data) {
-    return http.post("/measurements", data);
+  get7Latest(patient_id,measurement_type) {
+    return http.get(`/7measurements/${patient_id}/${measurement_type}`);
   }
+
 }
 
 export default new MeasurementDataService();
