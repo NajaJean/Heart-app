@@ -65,6 +65,8 @@ export default {
       dataloaded: false,
       thresholds: {},//new Array(12),
       keyvalue: 0,
+      patient_id: '010101-1234',
+      measurement_types: ['blood_pressure_diastolic','blood_pressure_systolic','cnt_steps','sleep_light','sleep_rem','sleep_deep'],
     };
   },
   methods: {
@@ -84,13 +86,16 @@ export default {
       this.toggleThresholdsForm();
     },
     retrieveMeasurements() {
-      MeasurementDataService.getAll()
+      var typ;
+      for (typ in (this.measurement_types)) {
+        MeasurementDataService.get7Latest(this.patient_id,this.measurement_types[typ])
         .then(response => {
-          response.data.slice(0, 7*6).map(m => this.pushMeasurementsIntoData(m));
+          response.data.map(m => this.pushMeasurementsIntoData(m));
         })
         .catch(e => {
           console.log(e);
         });
+      }
     },
     pushMeasurementsIntoData(m) {
       if (this.data[m.measurement_type]==null) {

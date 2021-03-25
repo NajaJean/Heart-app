@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,7 +58,7 @@ public class ThresholdController {
 	}
 	
 	@PutMapping("/thresholds/{id}")
-	public ResponseEntity<Threshold> createPatient(@RequestBody Threshold threshold) {
+	public ResponseEntity<Threshold> createThreshold(@PathVariable("id") long id,@RequestBody Threshold threshold) {
 		try {
 			Threshold _threshold = thresholdRepository.save(new Threshold(
 					threshold.getPatient_id(),

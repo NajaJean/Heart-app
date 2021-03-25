@@ -62,7 +62,7 @@ public class HeartAppApplication {
 	}
 	
 	public void transform(DailyRecording d) {
-		if (count%15==0) {
+		//if (count%15==0) {
 			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(),"blood_pressure_diastolic",d.getBlood_pressure_diastolic().toString()));
 			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(),"blood_pressure_systolic",d.getBlood_pressure_systolic().toString()));
 			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(), "cnt_steps" ,d.getCnt_steps().toString()));
@@ -70,7 +70,7 @@ public class HeartAppApplication {
 			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(),"sleep_light",Float.toString(d.getSleep_light())));
 			measurementController.createMeasurement(new Measurement(d.getPatient_id(), d.getDate_post(),"sleep_rem",Float.toString(d.getSleep_rem())));	
 			
-		}
+		//}
 		count++;
 	}
 
