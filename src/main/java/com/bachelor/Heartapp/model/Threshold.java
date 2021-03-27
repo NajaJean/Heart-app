@@ -19,10 +19,10 @@ public class Threshold {
 	private long id;
 	
 	@Column(name = "Patient_id")
-	private String patient_id;
+	private String patientid;
 	
 	@Column(name = "Measurement_type")
-	private String measurement_type;
+	private String measurementtype;
 	
 	@Column(name = "Lower_threshold")
 	private int lower_threshold;
@@ -33,26 +33,26 @@ public class Threshold {
 
 	public Threshold(String patient_id, String measurement_type, int lower_threshold, int upper_threshold) {
 		super();
-		this.patient_id = patient_id;
-		this.measurement_type = measurement_type;
+		this.patientid = patient_id;
+		this.measurementtype = measurement_type;
 		this.lower_threshold = lower_threshold;
 		this.upper_threshold = upper_threshold;
 	}
 
 	public String getPatient_id() {
-		return patient_id;
+		return patientid;
 	}
 
 	public void setPatient_id(String patient_id) {
-		this.patient_id = patient_id;
+		this.patientid = patient_id;
 	}
 
 	public String getMeasurement_type() {
-		return measurement_type;
+		return measurementtype;
 	}
 
 	public void setMeasurement_type(String measurement_type) {
-		this.measurement_type = measurement_type;
+		this.measurementtype = measurement_type;
 	}
 
 	public int getLower_threshold() {

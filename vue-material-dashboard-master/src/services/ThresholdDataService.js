@@ -1,8 +1,8 @@
 import http from "../http-common";
 
 class ThresholdDataService {
-  getAll() {
-    return http.get("/thresholds");
+  getPatientsThresholds(patient_id) {
+    return http.get(`/thresholds/${patient_id}`);
   }
 
   update(id, data) {

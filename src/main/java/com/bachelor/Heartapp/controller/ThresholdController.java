@@ -2,6 +2,7 @@ package com.bachelor.Heartapp.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,22 +26,6 @@ public class ThresholdController {
 
 	@Autowired
 	ThresholdRepository thresholdRepository;
-
-	@GetMapping("/thresholds")
-	public ResponseEntity<List<Threshold>> getAllThresholds() {
-		try {
-			List<Threshold> thresholds = new ArrayList<Threshold>();
-		
-			thresholdRepository.findAll().forEach(thresholds::add);
-
-			if (thresholds.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>(thresholds, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
 	
 	@PostMapping("/thresholds")
 	public ResponseEntity<Threshold> createThreshold(@RequestBody Threshold threshold) {
@@ -57,18 +42,31 @@ public class ThresholdController {
 		}
 	}
 	
-	@PutMapping("/thresholds/{id}")
-	public ResponseEntity<Threshold> createThreshold(@PathVariable("id") long id,@RequestBody Threshold threshold) {
+	@GetMapping("/thresholds/{patient_id}")
+	public ResponseEntity<List<Threshold>> getThresholdsForPatient(@PathVariable("patient_id") String patient_id) {
 		try {
-			Threshold _threshold = thresholdRepository.save(new Threshold(
-					threshold.getPatient_id(),
-					threshold.getMeasurement_type(),
-					threshold.getLower_threshold(),
-					threshold.getUpper_threshold()
-				));
-			return new ResponseEntity<>(_threshold, HttpStatus.CREATED);
+			List<Threshold> thresholds = thresholdRepository.findByPatientid(patient_id);
+
+			if (thresholds.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(thresholds, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PutMapping("/thresholds/{patient_id}/{measurement_type}")
+	public ResponseEntity<Threshold> updateThreshold(@PathVariable("patient_id") String patient_id,@PathVariable("measurement_type") String measurement_type, @RequestBody Threshold threshold) {
+		Optional<Threshold> thresholdData = thresholdRepository.findByPatientidAndMeasurementtype(patient_id,measurement_type);
+
+		if (thresholdData.isPresent()) {
+			Threshold _threshold = thresholdData.get();
+			_threshold.setLower_threshold(threshold.getLower_threshold());
+			_threshold.setUpper_threshold(threshold.getUpper_threshold());
+			return new ResponseEntity<>(thresholdRepository.save(_threshold), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 }
