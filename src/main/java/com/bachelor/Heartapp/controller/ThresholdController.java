@@ -62,10 +62,10 @@ public class ThresholdController {
 
 		if (thresholdData.isPresent()) {
 			Threshold _threshold = thresholdData.get();
-			if (threshold.getLower_threshold() != null) {
+			if (threshold.getLower_threshold() != 0) {
 				_threshold.setLower_threshold(threshold.getLower_threshold());
 			}
-			if (threshold.getUpper_threshold() != null) {
+			if (threshold.getUpper_threshold() != 0) {
 				_threshold.setUpper_threshold(threshold.getUpper_threshold());
 			}
 			return new ResponseEntity<>(thresholdRepository.save(_threshold), HttpStatus.OK);
