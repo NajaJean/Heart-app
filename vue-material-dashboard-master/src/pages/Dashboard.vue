@@ -63,7 +63,7 @@ export default {
       dates: [],
       setThresholds: false,
       dataloaded: false,
-      thresholds: {},//new Array(12),
+      thresholds: {},
       keyvalue: 0,
       patient_id: '010101-1234',
       measurement_types: ['blood_pressure_diastolic','blood_pressure_systolic','cnt_steps','sleep_light','sleep_rem','sleep_deep'],
@@ -79,7 +79,16 @@ export default {
     newThreshold(newThreshold) {
       this.thresholds = newThreshold;
 
-      //use ThresholdDataService.update(id, data)
+      var mtype;
+      for (mtype in (this.measurement_types)) {
+        var data = {
+          patient_id: this.patient_id,
+          measurement_type: this.measurement_types[mtype],
+          lower_threshold: this.thresholds[this.measurement_types[mtype]][0],
+          upper_threshold: this.thresholds[this.measurement_types[mtype]][1]
+        };
+        ThresholdDataService.updateThreshold(this.patient_id, this.measurement_types[mtype], data);
+      }
 
       console.log("Thresholds updated");
       this.updateCharts();
@@ -110,9 +119,9 @@ export default {
       }
     },
     retrieveThresholds() {
-      ThresholdDataService.getAll()
+      ThresholdDataService.getPatientsThresholds(this.patient_id)
         .then(response => {
-          //No content
+          //Insert thresholds if there is content
           if (response.status!=204) {
             response.data.map(t => this.insertThreshold(t)); 
           }

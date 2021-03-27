@@ -54,7 +54,6 @@ public class HeartAppApplication {
 			List<DailyRecording> dr = Arrays.stream(objects)
 					  .map(object -> mapper.convertValue(object, DailyRecording.class))
 					  .collect(Collectors.toList());
-			System.out.println(objects[0]);
 			dr.forEach(d -> transform(d));
 			System.out.println("DONE!");
 
