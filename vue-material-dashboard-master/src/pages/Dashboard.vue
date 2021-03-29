@@ -5,10 +5,10 @@
     </div>
     <div class="md-layout" v-if="this.dataloaded">
       <md-button class="md-dense md-raised md-info" @click="toggleThresholdsForm()">{{this.setThresholds ? "Cancel" : "Set Thresholds"}}</md-button>
-      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33">
-        <threshold-form v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold"></threshold-form>
+      <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
+        <threshold-form :key="keyvalue" v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold"></threshold-form>
       </div>
-      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33">
+      <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
             <h2 class="title" font-weight="bold">Blood Pressure During the Week</h2>
@@ -18,7 +18,7 @@
           </md-card-content>
         </md-card>
       </div>
-      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33">
+      <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
             <h2 class="title">Steps</h2>
@@ -28,7 +28,7 @@
           </md-card-content>
         </md-card>
       </div>
-      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33">
+      <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
             <h2 class="title">Sleep</h2>
@@ -63,7 +63,7 @@ export default {
       dates: [],
       setThresholds: false,
       dataloaded: false,
-      thresholds: {},//new Array(12),
+      thresholds: {},
       keyvalue: 0,
       patient_id: '010101-1234',
       measurement_types: ['blood_pressure_diastolic','blood_pressure_systolic','cnt_steps','sleep_light','sleep_rem','sleep_deep'],
@@ -71,20 +71,33 @@ export default {
   },
   methods: {
     toggleThresholdsForm() {
+      this.updateCharts();
       this.setThresholds = !this.setThresholds;
     },
     updateCharts() {
       this.keyvalue = this.keyvalue+1;
     },
-    newThreshold(newThreshold) {
-      this.thresholds = newThreshold;
-
-      //use ThresholdDataService.update(id, data)
+    newThreshold(newThreshold) {  
+      for (var key in newThreshold) { 
+        this.updateThreshold(key.substring(0, key.length-5),key.substr(key.length - 5),newThreshold[key])
+      }
 
       console.log("Thresholds updated");
       this.updateCharts();
       this.toggleThresholdsForm();
     },
+    updateThreshold(measurement_type,threshold_type,threshold_value) {
+      this.thresholds[measurement_type+threshold_type] = threshold_value;
+      
+      var data = {
+          patientid: this.patient_id,
+          measurementtype: measurement_type,
+          thresholdtype: threshold_type,
+          thresholdvalue: threshold_value
+        };
+      ThresholdDataService.updateThreshold(data['patientid'], data['measurementtype'],data['thresholdtype'],data);
+    },
+
     retrieveMeasurements() {
       var typ;
       for (typ in (this.measurement_types)) {
@@ -100,7 +113,8 @@ export default {
     pushMeasurementsIntoData(m) {
       if (this.data[m.measurement_type]==null) {
         this.data[m.measurement_type] = []
-        this.thresholds[m.measurement_type] = [null,null]
+        //this.thresholds[m.measurement_type+"lower"] = null
+        //this.thresholds[m.measurement_type+"upper"] = null
       }
       this.data[m.measurement_type].push(m.measurement_value);
       
@@ -110,9 +124,9 @@ export default {
       }
     },
     retrieveThresholds() {
-      ThresholdDataService.getAll()
+      ThresholdDataService.getPatientsThresholds(this.patient_id)
         .then(response => {
-          //No content
+          //Insert thresholds if there is content
           if (response.status!=204) {
             response.data.map(t => this.insertThreshold(t)); 
           }
@@ -122,7 +136,10 @@ export default {
         });
     },
     insertThreshold(t) {
-      this.thresholds[t.measurement_type].push([t.lower_threshold,t.upper_threshold]);
+      this.thresholds[t.measurementtype+t.thresholdtype] = t.thresholdvalue;
+    },
+    onResize(event) {
+      this.updateCharts();
     }
   },
   async created() {
@@ -130,6 +147,12 @@ export default {
     this.retrieveThresholds();
     await sleep(2000);
     this.dataloaded = true;
+  },
+  mounted() {
+    window.addEventListener('resize', this.onResize)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onResize)
   }
 };
 
