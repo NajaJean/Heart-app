@@ -137,6 +137,9 @@ export default {
     },
     insertThreshold(t) {
       this.thresholds[t.measurementtype+t.thresholdtype] = t.thresholdvalue;
+    },
+    onResize(event) {
+      this.updateCharts();
     }
   },
   async created() {
@@ -144,6 +147,12 @@ export default {
     this.retrieveThresholds();
     await sleep(2000);
     this.dataloaded = true;
+  },
+  mounted() {
+    window.addEventListener('resize', this.onResize)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onResize)
   }
 };
 
