@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,34 @@ public class MeasurementController {
 			List<Measurement> measurements = new ArrayList<Measurement>();
 		
 			measurementRepository.findAll().forEach(measurements::add);
+
+			if (measurements.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(measurements, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/7measurements/{patient_id}")
+	public ResponseEntity<List<Measurement>> get7LatestOfPatientsMeasurements(@PathVariable("patient_id") String patient_id) {
+		try {
+			List<Measurement> measurements = measurementRepository.findTop7ByPatientid(patient_id);
+
+			if (measurements.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(measurements, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/7measurements/{patient_id}/{measurement_type}")
+	public ResponseEntity<List<Measurement>> get7LatestOfCertainMeasurement(@PathVariable("patient_id") String patient_id, @PathVariable("measurement_type") String measurement_type) {
+		try {
+			List<Measurement> measurements = measurementRepository.findTop7ByPatientidAndMeasurementtype(patient_id,measurement_type);
 
 			if (measurements.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);

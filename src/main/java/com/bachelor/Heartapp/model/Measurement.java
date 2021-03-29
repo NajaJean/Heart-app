@@ -19,13 +19,13 @@ public class Measurement {
 	private long id;
 	
 	@Column(name = "Patient_id")
-	private String patient_id;
+	private String patientid;
 	
 	@Column(name = "Date")
 	private String date_post;
 	
 	@Column(name = "Measurement_type")
-	private String measurement_type;
+	private String measurementtype;
 	
 	@Column(name = "Measurement_value")
 	private String measurement_value;
@@ -38,20 +38,20 @@ public class Measurement {
 	public Measurement(String patient_id, String date_post, String measurement_type,
 			String measurement_value) {
 		super();
-		this.patient_id = patient_id;
+		this.patientid = patient_id;
 		this.date_post = date_post;
-		this.measurement_type = measurement_type;
+		this.measurementtype = measurement_type;
 		this.measurement_value = measurement_value;
 	}
 
 
 	public String getPatient_id() {
-		return patient_id;
+		return patientid;
 	}
 
 
 	public void setPatient_id(String patient_id) {
-		this.patient_id = patient_id;
+		this.patientid = patient_id;
 	}
 
 
@@ -66,12 +66,12 @@ public class Measurement {
 
 
 	public String getMeasurement_type() {
-		return measurement_type;
+		return measurementtype;
 	}
 
 
 	public void setMeasurement_type(String measurement_type) {
-		this.measurement_type = measurement_type;
+		this.measurementtype = measurement_type;
 	}
 
 
@@ -86,8 +86,8 @@ public class Measurement {
 
 	@Override
 	public String toString() {
-		return "Measurement [id=" + id + ", patient_id=" + patient_id + ", date_post=" + date_post
-				+ ", measurement_type=" + measurement_type + ", measurement_value=" + measurement_value + "]";
+		return "Measurement [id=" + id + ", patient_id=" + patientid + ", date_post=" + date_post
+				+ ", measurement_type=" + measurementtype + ", measurement_value=" + measurement_value + "]";
 	}
 	
 	

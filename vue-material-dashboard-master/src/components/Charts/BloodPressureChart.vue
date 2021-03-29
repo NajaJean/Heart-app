@@ -81,56 +81,60 @@ export default {
               mode: 'horizontal',
               scaleID: 'y-axis-0',
               id: 'syslowlimit',
-              value: this.thresholds[0],
+              value: this.thresholds.blood_pressure_systoliclower,
               borderColor: 'rgb(75, 124, 192)',
               borderWidth: 2,
               borderDash: [5,2],
               label: {
                 enabled: true,
                 content: 'Sys lower limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },{
               type: 'line',
               mode: 'horizontal',
               scaleID: 'y-axis-0',
               id: 'sysuplimit',
-              value: this.thresholds[1],
+              value: this.thresholds.blood_pressure_systolicupper,
               borderColor: 'rgb(75, 192, 192)',
               borderWidth: 2,
               borderDash: [5,2],
               label: {
                 enabled: true,
                 content: 'Sys upper limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },{
               type: 'line',
               mode: 'horizontal',
               scaleID: 'y-axis-0',
               id: 'dialowlimit',
-              value: this.thresholds[2],
+              value: this.thresholds.blood_pressure_diastoliclower,
               borderColor: 'rgb(75, 124, 192)',
               borderWidth: 2,
               borderDash: [5,2],
               label: {
                 enabled: true,
                 content: 'Dia lower limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },{
               type: 'line',
               mode: 'horizontal',
               scaleID: 'y-axis-0',
               id: 'diauplimit',
-              value: this.thresholds[3],
+              value: this.thresholds.blood_pressure_diastolicupper,
               borderColor: 'rgb(75, 192, 192)',
               borderWidth: 2,
               borderDash: [5,2],
               label: {
                 enabled: true,
                 content: 'Dia upper limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             }]
           },

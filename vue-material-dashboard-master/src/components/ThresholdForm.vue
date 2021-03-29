@@ -10,75 +10,75 @@
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Systolic lower limit</label>
-              <md-input v-model="syslow" type="number"></md-input>
+              <md-input v-model="form.blood_pressure_systoliclower" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Systolic upper limit</label>
-              <md-input v-model="sysup" type="number"></md-input>
+              <md-input v-model="form.blood_pressure_systolicupper" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Diastolic lower limit</label>
-              <md-input v-model="dialow" type="number"></md-input>
+              <md-input v-model="form.blood_pressure_diastoliclower" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Diastolic upper limit</label>
-              <md-input v-model="diaup" type="number"></md-input>
+              <md-input v-model="form.blood_pressure_diastolicupper" type="number"></md-input>
             </md-field>
           </div>
 
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Steps lower limit</label>
-              <md-input v-model="steplow" type="number"></md-input>
+              <md-input v-model="form.cnt_stepslower" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Steps upper limit</label>
-              <md-input v-model="stepup" type="number"></md-input>
+              <md-input v-model="form.cnt_stepsupper" type="number"></md-input>
             </md-field>
           </div>
 
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Sleep light lower limit</label>
-              <md-input v-model="lightlow" type="number"></md-input>
+              <md-input v-model="form.sleep_lightlower" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Sleep light upper limit</label>
-              <md-input v-model="lightup" type="number"></md-input>
+              <md-input v-model="form.sleep_lightupper" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Sleep REM lower limit</label>
-              <md-input v-model="remlow" type="number"></md-input>
+              <md-input v-model="form.sleep_remlower" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Sleep REM upper limit</label>
-              <md-input v-model="remup" type="number"></md-input>
+              <md-input v-model="form.sleep_remupper" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Sleep deep lower limit</label>
-              <md-input v-model="deeplow" type="number"></md-input>
+              <md-input v-model="form.sleep_deeplower" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Sleep deep upper limit</label>
-              <md-input v-model="deepup" type="number"></md-input>
+              <md-input v-model="form.sleep_deepupper" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-size-100 text-right">
@@ -91,41 +91,35 @@
 </template>
 
 <script>
-
 export default ({
     props:['thresholds'],
-    data: function() { return {
-      syslow: this.thresholds[0],
-      sysup: this.thresholds[1],
-      dialow: this.thresholds[2],
-      diaup: this.thresholds[3],
-      steplow: this.thresholds[4],
-      stepup: this.thresholds[5],
-      lightlow: this.thresholds[6],
-      lightup: this.thresholds[7],
-      remlow: this.thresholds[8],
-      remup: this.thresholds[9],
-      deeplow: this.thresholds[10],
-      deepup: this.thresholds[11],
-    }},
+    data: function() { 
+      return {
+        form: this.getThresholdData(),
+        defaultForm: {}
+      };
+    },
     methods: {
-        submitThresholds() {
-            const newThreshold = [
-                parseInt(this.syslow),
-                parseInt(this.sysup),
-                parseInt(this.dialow),
-                parseInt(this.diaup),
-                parseInt(this.steplow),
-                parseInt(this.stepup),
-                parseInt(this.lightlow),
-                parseInt(this.lightup),
-                parseInt(this.remlow),
-                parseInt(this.remup),
-                parseInt(this.deeplow),
-                parseInt(this.deepup),
-            ]
-            this.$emit('new-threshold', newThreshold)
+      getThresholdData() {
+        var thres = {};
+        for (var key in this.thresholds) {
+          thres[key] = this.thresholds[key];
         }
+        return thres;
+      },
+      submitThresholds() {
+        var newThreshold = {};
+        var changedFields = Object.keys(this.form).filter(field => this.form[field] !== this.defaultForm[field])
+
+        changedFields.map(field => newThreshold[field] = this.form[field]);
+
+        console.log(newThreshold);
+
+        this.$emit('new-threshold', newThreshold)
+      }
+    },
+    created() {
+      this.defaultForm = this.getThresholdData();
     }
 })
 </script>
