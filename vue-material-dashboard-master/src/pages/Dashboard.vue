@@ -6,7 +6,7 @@
     <div class="md-layout" v-if="this.dataloaded">
       <md-button class="md-dense md-raised md-info" @click="toggleThresholdsForm()">{{this.setThresholds ? "Cancel" : "Set Thresholds"}}</md-button>
       <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
-        <threshold-form v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold"></threshold-form>
+        <threshold-form :key="keyvalue" v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold"></threshold-form>
       </div>
       <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
@@ -78,13 +78,9 @@ export default {
     },
     newThreshold(newThreshold) {  
       for (var key in newThreshold) { 
-        console.log("pls update: "+newThreshold[key]);
-        if (key.substr(key.length - 3) == "low") {
-          this.updateThreshold(key.substring(0, key.length-3),'lower',newThreshold[key])
-        }
-        else {
-          this.updateThreshold(key.substring(0, key.length-2),'upper',newThreshold[key])  
-        }
+        console.log("updating: "+newThreshold[key]);
+        
+        this.updateThreshold(key.substring(0, key.length-5),key.substr(key.length - 5),newThreshold[key])
       }
 
       console.log("Thresholds updated");
@@ -92,8 +88,7 @@ export default {
       this.toggleThresholdsForm();
     },
     updateThreshold(measurement_type,threshold_type,threshold_value) {
-      if (threshold_type=='lower') { this.thresholds[measurement_type][0] = threshold_value } 
-      else { this.thresholds[measurement_type][1] = threshold_value }
+      this.thresholds[measurement_type+threshold_type] = threshold_value;
       
       var data = {
           patientid: this.patient_id,
@@ -119,7 +114,8 @@ export default {
     pushMeasurementsIntoData(m) {
       if (this.data[m.measurement_type]==null) {
         this.data[m.measurement_type] = []
-        this.thresholds[m.measurement_type] = [null,null]
+        //this.thresholds[m.measurement_type+"lower"] = null
+        //this.thresholds[m.measurement_type+"upper"] = null
       }
       this.data[m.measurement_type].push(m.measurement_value);
       
@@ -133,7 +129,6 @@ export default {
         .then(response => {
           //Insert thresholds if there is content
           if (response.status!=204) {
-            console.log("yes");
             response.data.map(t => this.insertThreshold(t)); 
           }
         })
@@ -142,7 +137,7 @@ export default {
         });
     },
     insertThreshold(t) {
-      this.thresholds[t.measurement_type].push([t.lower_threshold,t.upper_threshold]);
+      this.thresholds[t.measurementtype+t.thresholdtype] = t.thresholdvalue;
     }
   },
   async created() {

@@ -10,75 +10,75 @@
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Systolic lower limit</label>
-              <md-input v-model="form.blood_pressure_systoliclow" type="number"></md-input>
+              <md-input v-model="form.blood_pressure_systoliclower" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Systolic upper limit</label>
-              <md-input v-model="form.blood_pressure_systolicup" type="number"></md-input>
+              <md-input v-model="form.blood_pressure_systolicupper" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Diastolic lower limit</label>
-              <md-input v-model="form.blood_pressure_diastoliclow" type="number"></md-input>
+              <md-input v-model="form.blood_pressure_diastoliclower" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Diastolic upper limit</label>
-              <md-input v-model="form.blood_pressure_diastolicup" type="number"></md-input>
+              <md-input v-model="form.blood_pressure_diastolicupper" type="number"></md-input>
             </md-field>
           </div>
 
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Steps lower limit</label>
-              <md-input v-model="form.cnt_stepslow" type="number"></md-input>
+              <md-input v-model="form.cnt_stepslower" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Steps upper limit</label>
-              <md-input v-model="form.cnt_stepsup" type="number"></md-input>
+              <md-input v-model="form.cnt_stepsupper" type="number"></md-input>
             </md-field>
           </div>
 
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Sleep light lower limit</label>
-              <md-input v-model="form.sleep_lightlow" type="number"></md-input>
+              <md-input v-model="form.sleep_lightlower" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Sleep light upper limit</label>
-              <md-input v-model="form.sleep_lightup" type="number"></md-input>
+              <md-input v-model="form.sleep_lightupper" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Sleep REM lower limit</label>
-              <md-input v-model="form.sleep_remlow" type="number"></md-input>
+              <md-input v-model="form.sleep_remlower" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Sleep REM upper limit</label>
-              <md-input v-model="form.sleep_remup" type="number"></md-input>
+              <md-input v-model="form.sleep_remupper" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Sleep deep lower limit</label>
-              <md-input v-model="form.sleep_deeplow" type="number"></md-input>
+              <md-input v-model="form.sleep_deeplower" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Sleep deep upper limit</label>
-              <md-input v-model="form.sleep_deepup" type="number"></md-input>
+              <md-input v-model="form.sleep_deepupper" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-size-100 text-right">
@@ -102,20 +102,20 @@ export default ({
     methods: {
       getThresholdData() {
         const thres = {
-          blood_pressure_systoliclow: this.thresholds.blood_pressure_systolic[0],
-          blood_pressure_systolicup: this.thresholds.blood_pressure_systolic[1],
-          blood_pressure_diastoliclow: this.thresholds.blood_pressure_diastolic[0],
-          blood_pressure_diastolicup: this.thresholds.blood_pressure_diastolic[1],
+          blood_pressure_systoliclow: this.thresholds.blood_pressure_systoliclower,
+          blood_pressure_systolicup: this.thresholds.blood_pressure_systolicupper,
+          blood_pressure_diastoliclow: this.thresholds.blood_pressure_diastoliclower,
+          blood_pressure_diastolicup: this.thresholds.blood_pressure_diastolicupper,
 
-          cnt_stepslow: this.thresholds.cnt_steps[0],
-          cnt_stepsup: this.thresholds.cnt_steps[1],
+          cnt_stepslow: this.thresholds.cnt_stepslower,
+          cnt_stepsup: this.thresholds.cnt_stepsupper,
 
-          sleep_lightlow: this.thresholds.sleep_light[0],
-          sleep_lightup: this.thresholds.sleep_light[1],
-          sleep_remlow: this.thresholds.sleep_rem[0],
-          sleep_remup: this.thresholds.sleep_rem[1],
-          sleep_deeplow: this.thresholds.sleep_deep[0],
-          sleep_deepup: this.thresholds.sleep_deep[1],
+          sleep_lightlow: this.thresholds.sleep_lightlower,
+          sleep_lightup: this.thresholds.sleep_lightupper,
+          sleep_remlow: this.thresholds.sleep_remlower,
+          sleep_remup: this.thresholds.sleep_remupper,
+          sleep_deeplow: this.thresholds.sleep_deeplower,
+          sleep_deepup: this.thresholds.sleep_deepupper,
         };
         return thres;
       },
