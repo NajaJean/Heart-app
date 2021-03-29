@@ -31,12 +31,12 @@ public class Threshold {
 	private String thresholdtype;
 	
 
-	public Threshold(String patientid, String measurementtype, int thresholdvalue, String thresholdtype) {
+	public Threshold(String patientid, String measurementtype, String thresholdtype,int thresholdvalue) {
 		super();
 		this.patientid = patientid;
 		this.measurementtype = measurementtype;
-		this.thresholdvalue = thresholdvalue;
 		this.thresholdtype = thresholdtype;
+		this.thresholdvalue = thresholdvalue;
 	}
 
 	public String getPatientid() {

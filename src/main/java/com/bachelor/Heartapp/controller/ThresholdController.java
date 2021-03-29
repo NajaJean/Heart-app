@@ -33,8 +33,8 @@ public class ThresholdController {
 			Threshold _threshold = thresholdRepository.save(new Threshold(
 					threshold.getPatientid(),
 					threshold.getMeasurementtype(),
-					threshold.getThresholdvalue(),
-					threshold.getThresholdtype()
+					threshold.getThresholdtype(),
+					threshold.getThresholdvalue()
 					));
 			return new ResponseEntity<>(_threshold, HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -42,10 +42,10 @@ public class ThresholdController {
 		}
 	}
 	
-	@GetMapping("/thresholds/{patient_id}")
-	public ResponseEntity<List<Threshold>> getPatientsThresholds(@PathVariable("patient_id") String patient_id) {
+	@GetMapping("/thresholds/{patientid}")
+	public ResponseEntity<List<Threshold>> getPatientsThresholds(@PathVariable("patientid") String patientid) {
 		try {
-			List<Threshold> thres = thresholdRepository.findByPatientid(patient_id);
+			List<Threshold> thres = thresholdRepository.findByPatientid(patientid);
 
 			if (thres.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -56,10 +56,10 @@ public class ThresholdController {
 		}
 	}
 	
-	@PostMapping("/thresholds/{patient_id}/{measurement_type}")
-	public ResponseEntity<Threshold> createThreshold(@PathVariable("patient_id") String patientid,@PathVariable("measurement_type") String measurementtype, @RequestBody Threshold threshold) {
+	@PostMapping("/thresholds/{patientid}/{measurementtype}/{threshold_type}")
+	public ResponseEntity<Threshold> createThreshold(@PathVariable("patientid") String patientid,@PathVariable("measurementtype") String measurementtype, @PathVariable("thresholdtype") String thresholdtype, @RequestBody Threshold threshold) {
 		try {
-			Threshold _threshold = thresholdRepository.save(new Threshold(patientid,measurementtype,threshold.getThresholdvalue(), threshold.getThresholdtype()));
+			Threshold _threshold = thresholdRepository.save(new Threshold(patientid,measurementtype,thresholdtype, threshold.getThresholdvalue()));
 			return new ResponseEntity<>(_threshold, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.bachelor.Heartapp.model.Threshold;
 
 public interface ThresholdRepository extends JpaRepository<Threshold, Long> {
-    List<Threshold> findByPatientid(String patient_id);
-    Optional<Threshold> findByPatientidAndMeasurementtypeAndThresholdtype(String patient_id, String measurement_type, String threshold_type);
+    List<Threshold> findByPatientid(String patientid);
+    Optional<Threshold> findByPatientidAndMeasurementtypeAndThresholdtype(String patientid, String measurementtype, String thresholdtype);
 }
