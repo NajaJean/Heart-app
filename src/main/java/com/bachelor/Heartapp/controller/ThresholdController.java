@@ -45,12 +45,12 @@ public class ThresholdController {
 	@GetMapping("/thresholds/{patientid}")
 	public ResponseEntity<List<Threshold>> getPatientsThresholds(@PathVariable("patientid") String patientid) {
 		try {
-			List<Threshold> thres = thresholdRepository.findByPatientid(patientid);
+			List<Threshold> thresholds = thresholdRepository.findByPatientid(patientid);
 
-			if (thres.isEmpty()) {
+			if (thresholds.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<>(thres, HttpStatus.OK);
+			return new ResponseEntity<>(thresholds, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

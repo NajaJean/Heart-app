@@ -24,11 +24,11 @@ public class Threshold {
 	@Column(name = "Measurementtype")
 	private String measurementtype;
 	
-	@Column(name = "Thresholdvalue")
-	private int thresholdvalue;
-	
 	@Column(name = "Thresholdtype")
 	private String thresholdtype;
+	
+	@Column(name = "Thresholdvalue")
+	private int thresholdvalue;
 	
 
 	public Threshold(String patientid, String measurementtype, String thresholdtype,int thresholdvalue) {
