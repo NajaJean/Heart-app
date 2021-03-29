@@ -77,6 +77,14 @@ export default {
       this.keyvalue = this.keyvalue+1;
     },
     newThreshold(newThreshold) {
+      var data = {
+          patient_id: this.patient_id,
+          measurement_type: this.measurement_types[mtype],
+          lower_threshold: newThreshold[this.measurement_types[mtype]][0],
+          upper_threshold: newThreshold[this.measurement_types[mtype]][1]
+        };
+      newThreshold.map(field => field.substr(id.length - 3) == "low" ? )
+
       var mtype;
       for (mtype in (this.measurement_types)) {
         var data = {
