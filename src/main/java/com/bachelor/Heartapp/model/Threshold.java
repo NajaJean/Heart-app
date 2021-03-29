@@ -31,6 +31,10 @@ public class Threshold {
 	private int thresholdvalue;
 	
 
+	public Threshold() {
+		
+	}
+	
 	public Threshold(String patientid, String measurementtype, String thresholdtype,int thresholdvalue) {
 		super();
 		this.patientid = patientid;
