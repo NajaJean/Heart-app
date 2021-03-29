@@ -76,35 +76,34 @@ export default {
     updateCharts() {
       this.keyvalue = this.keyvalue+1;
     },
-    newThreshold(newThreshold) {
-      var data = {
-          patient_id: this.patient_id,
-          measurement_type: this.measurement_types[mtype],
-          lower_threshold: newThreshold[this.measurement_types[mtype]][0],
-          upper_threshold: newThreshold[this.measurement_types[mtype]][1]
-        };
-      newThreshold.map(field => field.substr(id.length - 3) == "low" ? )
-
-      var mtype;
-      for (mtype in (this.measurement_types)) {
-        var data = {
-          patient_id: this.patient_id,
-          measurement_type: this.measurement_types[mtype],
-          lower_threshold: newThreshold[this.measurement_types[mtype]][0],
-          upper_threshold: newThreshold[this.measurement_types[mtype]][1]
-        };
-        if (newThreshold[this.measurement_types[mtype]][0] != null
-            && newThreshold[this.measurement_types[mtype]][1] != null) {
-           ThresholdDataService.updateThreshold(this.patient_id, this.measurement_types[mtype], data);
+    newThreshold(newThreshold) {  
+      for (var key in newThreshold) { 
+        console.log("pls update: "+newThreshold[key]);
+        if (key.substr(key.length - 3) == "low") {
+          this.updateThreshold(key.substring(0, key.length-3),'lower',newThreshold[key])
+        }
+        else {
+          this.updateThreshold(key.substring(0, key.length-2),'upper',newThreshold[key])  
         }
       }
-
-      this.thresholds = newThreshold;
 
       console.log("Thresholds updated");
       this.updateCharts();
       this.toggleThresholdsForm();
     },
+    updateThreshold(measurement_type,threshold_type,threshold_value) {
+      if (threshold_type=='lower') { this.thresholds[measurement_type][0] = threshold_value } 
+      else { this.thresholds[measurement_type][1] = threshold_value }
+      
+      var data = {
+          patientid: this.patient_id,
+          measurementtype: measurement_type,
+          thresholdtype: threshold_type,
+          thresholdvalue: threshold_value
+        };
+      ThresholdDataService.updateThreshold(data['patientid'], data['measurementtype'],data['thresholdtype'],data);
+    },
+
     retrieveMeasurements() {
       var typ;
       for (typ in (this.measurement_types)) {
@@ -132,7 +131,6 @@ export default {
     retrieveThresholds() {
       ThresholdDataService.getPatientsThresholds(this.patient_id)
         .then(response => {
-          console.log("jo");
           //Insert thresholds if there is content
           if (response.status!=204) {
             console.log("yes");
