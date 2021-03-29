@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -30,6 +32,13 @@ public class Measurement {
 	@Column(name = "Measurement_value")
 	private String measurement_value;
 	
+	@Column(name = "Time_stamp")
+	private Date time_stamp;
+	
+	@Column(name = "Real_value")
+	private int real_value;
+	
+	
 	
 	public Measurement() {
 
@@ -43,8 +52,24 @@ public class Measurement {
 		this.measurement_type = measurement_type;
 		this.measurement_value = measurement_value;
 	}
+	
+	public Measurement(String patient_id, Date time_stamp, String measurement_type,
+			int real_value) {
+		super();
+		this.patient_id = patient_id;
+		this.time_stamp = time_stamp;
+		this.measurement_type = measurement_type;
+		this.real_value = real_value;
+	}
 
+	public int getReal_value() {
+		return real_value;
+	}
 
+	public void setReal_value(int real_value) {
+		this.real_value = real_value;
+	}
+	
 	public String getPatient_id() {
 		return patient_id;
 	}
