@@ -101,7 +101,8 @@ export default {
               label: {
                 enabled: true,
                 content: 'light lower limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },{
               type: 'line',
@@ -115,7 +116,8 @@ export default {
               label: {
                 enabled: true,
                 content: 'light upper limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },
             {
@@ -130,7 +132,8 @@ export default {
               label: {
                 enabled: true,
                 content: 'rem lower limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },{
               type: 'line',
@@ -144,7 +147,8 @@ export default {
               label: {
                 enabled: true,
                 content: 'rem upper limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },
             {
@@ -159,7 +163,8 @@ export default {
               label: {
                 enabled: true,
                 content: 'deep lower limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },{
               type: 'line',
@@ -173,7 +178,8 @@ export default {
               label: {
                 enabled: true,
                 content: 'deep upper limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             }]
         }

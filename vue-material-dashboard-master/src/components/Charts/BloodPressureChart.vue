@@ -88,7 +88,8 @@ export default {
               label: {
                 enabled: true,
                 content: 'Sys lower limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },{
               type: 'line',
@@ -102,7 +103,8 @@ export default {
               label: {
                 enabled: true,
                 content: 'Sys upper limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },{
               type: 'line',
@@ -116,7 +118,8 @@ export default {
               label: {
                 enabled: true,
                 content: 'Dia lower limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },{
               type: 'line',
@@ -130,7 +133,8 @@ export default {
               label: {
                 enabled: true,
                 content: 'Dia upper limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             }]
           },
