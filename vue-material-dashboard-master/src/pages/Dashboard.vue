@@ -11,6 +11,16 @@
       <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
+            <h2 class="title" font-weight="bold">ECG During the Week</h2>
+          </md-card-header>
+          <md-card-content>
+            <e-c-g-chart name='ecg-chart' :key="keyvalue" :width="370" :height="246" :chart="[dates,data.blood_pressure_diastolic]"></e-c-g-chart> 
+          </md-card-content>
+        </md-card>
+      </div>
+      <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
+        <md-card>
+          <md-card-header data-background-color="blue">
             <h2 class="title" font-weight="bold">Blood Pressure During the Week</h2>
           </md-card-header>
           <md-card-content>
@@ -45,6 +55,7 @@
 <script>
 import MeasurementDataService from "../services/MeasurementDataService";
 import ThresholdDataService from "../services/ThresholdDataService";
+import ECGChart from '../components/Charts/ECGChart.vue';
 import BloodPressureChart from '../components/Charts/BloodPressureChart.vue';
 import StepsChart from '../components/Charts/StepsChart.vue';
 import SleepChart from '../components/Charts/SleepChart.vue';
@@ -52,6 +63,7 @@ import ThresholdForm from '../components/ThresholdForm.vue';
 
 export default {
   components: {
+    ECGChart,
     BloodPressureChart,
     StepsChart,
     SleepChart,
@@ -149,10 +161,10 @@ export default {
     this.dataloaded = true;
   },
   mounted() {
-    window.addEventListener('resize', this.onResize)
+    window.addEventListener("resize", this.onResize)
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.onResize)
+    window.removeEventListener("resize", this.onResize)
   }
 };
 

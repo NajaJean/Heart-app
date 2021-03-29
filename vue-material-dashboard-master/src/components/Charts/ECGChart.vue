@@ -1,10 +1,10 @@
 <script>
 import { Line } from 'vue-chartjs'
-import * as ChartAnnotation from 'chartjs-plugin-annotation';
+//import * as ChartAnnotation from 'chartjs-plugin-annotation';
 
 export default {
   extends: Line,
-  props:['chart','thresholds'],
+  props:['chart'],
   mounted () {
       this.renderChart({
         labels: this.chart[0],
@@ -16,6 +16,8 @@ export default {
           borderColor: '#004346',
           fill: false,
           tension: 0,
+          pointHitRadius: 0,
+          pointRadius: 0,
           scaleShowValues: true,
           scales: {
             xAxes: [{
@@ -29,7 +31,7 @@ export default {
           maintainAspectRatio: false,
           title:{
             display:false,
-            text:'Blood pressure during the week',
+            text:'ECG during the week',
             fontSize:25
           },
           legend:{
@@ -48,71 +50,11 @@ export default {
             }
           },
           tooltips:{
-            enabled:false,
-            displayColors: true, 
-          },
+            enabled: false,
+          },/*
           hover: {
             mode: 'point'
-          },
-          /*annotation: {
-            annotations: [{
-              type: 'line',
-              mode: 'horizontal',
-              scaleID: 'y-axis-0',
-              id: 'syslowlimit',
-              value: this.thresholds[0],
-              borderColor: 'rgb(75, 124, 192)',
-              borderWidth: 2,
-              borderDash: [5,2],
-              label: {
-                enabled: true,
-                content: 'Sys lower limit',
-                xAdjust: 325
-              }
-            },{
-              type: 'line',
-              mode: 'horizontal',
-              scaleID: 'y-axis-0',
-              id: 'sysuplimit',
-              value: this.thresholds[1],
-              borderColor: 'rgb(75, 192, 192)',
-              borderWidth: 2,
-              borderDash: [5,2],
-              label: {
-                enabled: true,
-                content: 'Sys upper limit',
-                xAdjust: 325
-              }
-            },{
-              type: 'line',
-              mode: 'horizontal',
-              scaleID: 'y-axis-0',
-              id: 'dialowlimit',
-              value: this.thresholds[2],
-              borderColor: 'rgb(75, 124, 192)',
-              borderWidth: 2,
-              borderDash: [5,2],
-              label: {
-                enabled: true,
-                content: 'Dia lower limit',
-                xAdjust: 325
-              }
-            },{
-              type: 'line',
-              mode: 'horizontal',
-              scaleID: 'y-axis-0',
-              id: 'diauplimit',
-              value: this.thresholds[3],
-              borderColor: 'rgb(75, 192, 192)',
-              borderWidth: 2,
-              borderDash: [5,2],
-              label: {
-                enabled: true,
-                content: 'Dia upper limit',
-                xAdjust: 325
-              }
-            }]
-          },*/
+          }*/
         })
     }, 
 }
