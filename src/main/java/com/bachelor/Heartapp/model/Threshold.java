@@ -39,21 +39,31 @@ public class Threshold {
 		this.upper_threshold = upper_threshold;
 	}
 
-	public String getPatient_id() {
+
+
+	public String getPatientid() {
 		return patientid;
 	}
 
-	public void setPatient_id(String patient_id) {
-		this.patientid = patient_id;
+
+
+	public void setPatientid(String patientid) {
+		this.patientid = patientid;
 	}
 
-	public String getMeasurement_type() {
+
+
+	public String getMeasurementtype() {
 		return measurementtype;
-	} 
-
-	public void setMeasurement_type(String measurement_type) {
-		this.measurementtype = measurement_type;
 	}
+
+
+
+	public void setMeasurementtype(String measurementtype) {
+		this.measurementtype = measurementtype;
+	}
+
+
 
 	public int getLower_threshold() {
 		return lower_threshold;

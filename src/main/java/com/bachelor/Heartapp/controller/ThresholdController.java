@@ -31,8 +31,8 @@ public class ThresholdController {
 	public ResponseEntity<Threshold> createThreshold(@RequestBody Threshold threshold) {
 		try {
 			Threshold _threshold = thresholdRepository.save(new Threshold(
-					threshold.getPatient_id(),
-					threshold.getMeasurement_type(),
+					threshold.getPatientid(),
+					threshold.getMeasurementtype(),
 					threshold.getLower_threshold(),
 					threshold.getUpper_threshold()
 					));
@@ -57,9 +57,9 @@ public class ThresholdController {
 	}
 	
 	@PostMapping("/thresholds/{patient_id}/{measurement_type}")
-	public ResponseEntity<Threshold> createThreshold(@PathVariable("patient_id") String patient_id,@PathVariable("measurement_type") String measurement_type, @RequestBody Threshold threshold) {
+	public ResponseEntity<Threshold> createThreshold(@PathVariable("patient_id") String patientid,@PathVariable("measurement_type") String measurementtype, @RequestBody Threshold threshold) {
 		try {
-			Threshold _threshold = thresholdRepository.save(new Threshold(patient_id,measurement_type,threshold.getLower_threshold(), threshold.getUpper_threshold()));
+			Threshold _threshold = thresholdRepository.save(new Threshold(patientid,measurementtype,threshold.getLower_threshold(), threshold.getUpper_threshold()));
 			return new ResponseEntity<>(_threshold, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
