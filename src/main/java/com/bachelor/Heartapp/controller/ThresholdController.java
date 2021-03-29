@@ -43,9 +43,48 @@ public class ThresholdController {
 	}
 	
 	@GetMapping("/thresholds/{patient_id}")
-	public ResponseEntity<List<Threshold>> getThresholdsForPatient(@PathVariable("patient_id") String patient_id) {
+	public ResponseEntity<List<Threshold>> getPatientsThresholds(@PathVariable("patient_id") String patient_id) {
 		try {
-			List<Threshold> thresholds = thresholdRepository.findByPatientid(patient_id);
+			List<Threshold> thres = thresholdRepository.findByPatientid(patient_id);
+
+			if (thres.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(thres, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PostMapping("/thresholds/{patient_id}/{measurement_type}")
+	public ResponseEntity<Threshold> createThreshold(@PathVariable("patient_id") String patient_id,@PathVariable("measurement_type") String measurement_type, @RequestBody Threshold threshold) {
+		try {
+			Threshold _threshold = thresholdRepository.save(new Threshold(patient_id,measurement_type,threshold.getLower_threshold(), threshold.getUpper_threshold()));
+			return new ResponseEntity<>(_threshold, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PutMapping("/thresholds/{patient_id}/{measurement_type}")
+	public ResponseEntity<Threshold> updateThreshold(@PathVariable("patient_id") String patient_id,@PathVariable("measurement_type") String measurement_type, @RequestBody Threshold newThreshold) {
+		return thresholdRepository.findByPatientidAndMeasurementtype(patient_id,measurement_type)
+		.map(threshold -> {
+			threshold.setLower_threshold(newThreshold.getLower_threshold());
+			threshold.setUpper_threshold(newThreshold.getUpper_threshold());
+			return new ResponseEntity<>(thresholdRepository.save(threshold), HttpStatus.OK);
+		})
+		.orElseGet(() -> {
+			return new ResponseEntity<>(thresholdRepository.save(newThreshold), HttpStatus.CREATED);
+		});
+	}
+
+	@GetMapping("/thresholds")
+	public ResponseEntity<List<Threshold>> getAllThresholds() {
+		try {
+			List<Threshold> thresholds = new ArrayList<Threshold>();
+		
+			thresholdRepository.findAll().forEach(thresholds::add);
 
 			if (thresholds.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -53,24 +92,6 @@ public class ThresholdController {
 			return new ResponseEntity<>(thresholds, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	@PutMapping("/thresholds/{patient_id}/{measurement_type}")
-	public ResponseEntity<Threshold> updateThreshold(@PathVariable("patient_id") String patient_id,@PathVariable("measurement_type") String measurement_type, @RequestBody Threshold threshold) {
-		Optional<Threshold> thresholdData = thresholdRepository.findByPatientidAndMeasurementtype(patient_id,measurement_type);
-
-		if (thresholdData.isPresent()) {
-			Threshold _threshold = thresholdData.get();
-			if (threshold.getLower_threshold() != 0) {
-				_threshold.setLower_threshold(threshold.getLower_threshold());
-			}
-			if (threshold.getUpper_threshold() != 0) {
-				_threshold.setUpper_threshold(threshold.getUpper_threshold());
-			}
-			return new ResponseEntity<>(thresholdRepository.save(_threshold), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 }

@@ -8,6 +8,10 @@ class ThresholdDataService {
   updateThreshold(patient_id, measurement_type, data) {
     return http.put(`/thresholds/${patient_id}/${measurement_type}`, data);
   }
+
+  createThreshold(patient_id, measurement_type, data) {
+    return http.post(`/thresholds/${patient_id}/${measurement_type}`, data);
+  }
 }
 
 export default new ThresholdDataService();

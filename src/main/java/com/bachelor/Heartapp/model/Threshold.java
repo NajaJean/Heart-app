@@ -49,7 +49,7 @@ public class Threshold {
 
 	public String getMeasurement_type() {
 		return measurementtype;
-	}
+	} 
 
 	public void setMeasurement_type(String measurement_type) {
 		this.measurementtype = measurement_type;
