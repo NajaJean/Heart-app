@@ -95,28 +95,16 @@ export default ({
     props:['thresholds'],
     data: function() { 
       return {
-        form: {},
+        form: this.getThresholdData(),
         defaultForm: {}
       };
     },
     methods: {
       getThresholdData() {
-        const thres = {
-          blood_pressure_systoliclow: this.thresholds.blood_pressure_systoliclower,
-          blood_pressure_systolicup: this.thresholds.blood_pressure_systolicupper,
-          blood_pressure_diastoliclow: this.thresholds.blood_pressure_diastoliclower,
-          blood_pressure_diastolicup: this.thresholds.blood_pressure_diastolicupper,
-
-          cnt_stepslow: this.thresholds.cnt_stepslower,
-          cnt_stepsup: this.thresholds.cnt_stepsupper,
-
-          sleep_lightlow: this.thresholds.sleep_lightlower,
-          sleep_lightup: this.thresholds.sleep_lightupper,
-          sleep_remlow: this.thresholds.sleep_remlower,
-          sleep_remup: this.thresholds.sleep_remupper,
-          sleep_deeplow: this.thresholds.sleep_deeplower,
-          sleep_deepup: this.thresholds.sleep_deepupper,
-        };
+        var thres = {};
+        for (var key in this.thresholds) {
+          thres[key] = this.thresholds[key];
+        }
         return thres;
       },
       submitThresholds() {
@@ -131,7 +119,6 @@ export default ({
       }
     },
     created() {
-      this.form = this.getThresholdData();
       this.defaultForm = this.getThresholdData();
     }
 })

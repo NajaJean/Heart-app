@@ -71,6 +71,7 @@ export default {
   },
   methods: {
     toggleThresholdsForm() {
+      this.updateCharts();
       this.setThresholds = !this.setThresholds;
     },
     updateCharts() {
@@ -78,8 +79,6 @@ export default {
     },
     newThreshold(newThreshold) {  
       for (var key in newThreshold) { 
-        console.log("updating: "+newThreshold[key]);
-        
         this.updateThreshold(key.substring(0, key.length-5),key.substr(key.length - 5),newThreshold[key])
       }
 
