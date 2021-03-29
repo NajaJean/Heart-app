@@ -64,7 +64,8 @@ export default {
               label: {
                 enabled: true,
                 content: 'lower limit',
-                xAdjust: 200
+                position: 'right',
+                xAdjust: 5
               }
             },{
               type: 'line',
@@ -78,7 +79,8 @@ export default {
               label: {
                 enabled: true,
                 content: 'upper limit',
-                xAdjust: 200
+                position: 'right',
+                xAdjust: 5
               }
             }]
           }
