@@ -10,6 +10,10 @@
         <md-icon>dashboard</md-icon>
         <p>Dashboard</p>
       </sidebar-link>
+      <sidebar-link to="/ecglive">
+        <md-icon>favorite</md-icon>
+        <p>ECG Live</p>
+      </sidebar-link>
       <sidebar-link to="/measurements">
         <md-icon>notifications</md-icon>
         <p>Measurements</p>
