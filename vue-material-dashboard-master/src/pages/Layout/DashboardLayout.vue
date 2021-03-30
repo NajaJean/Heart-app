@@ -11,7 +11,7 @@
         <p>Dashboard</p>
       </sidebar-link>
       <sidebar-link to="/ecglive">
-        <md-icon>dashboard</md-icon>
+        <md-icon>favorite</md-icon>
         <p>ECG Live</p>
       </sidebar-link>
       <sidebar-link to="/measurements">
