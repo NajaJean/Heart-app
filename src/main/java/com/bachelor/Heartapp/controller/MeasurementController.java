@@ -45,7 +45,7 @@ public class MeasurementController {
 	@GetMapping("/7measurements/{patient_id}")
 	public ResponseEntity<List<Measurement>> get7LatestOfPatientsMeasurements(@PathVariable("patient_id") String patient_id) {
 		try {
-			List<Measurement> measurements = measurementRepository.findTop7ByPatientidAndMeasurementtypeNot(patient_id, "ECG");
+			List<Measurement> measurements = measurementRepository.findFirst7ByPatientidAndMeasurementtypeNotOrderByDatepostDesc(patient_id, "ECG");
 
 			if (measurements.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -87,7 +87,7 @@ public class MeasurementController {
 	@GetMapping("/7measurements/{patient_id}/{measurement_type}")
 	public ResponseEntity<List<Measurement>> get7LatestOfCertainMeasurement(@PathVariable("patient_id") String patient_id, @PathVariable("measurement_type") String measurement_type) {
 		try {
-			List<Measurement> measurements = measurementRepository.findTop7ByPatientidAndMeasurementtype(patient_id,measurement_type);
+			List<Measurement> measurements = measurementRepository.findFirst7ByPatientidAndMeasurementtypeOrderByDatepostDesc(patient_id,measurement_type);
 
 			if (measurements.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
