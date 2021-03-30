@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "dailyrecordings")
+@Table(name = "dailyrecordings") 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DailyRecording {
 
