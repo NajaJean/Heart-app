@@ -14,7 +14,7 @@
             <h2 class="title" font-weight="bold">ECG During the Week</h2>
           </md-card-header>
           <md-card-content>
-            <e-c-g-chart name='ecg-chart' :key="keyvalue" :width="370" :height="246" :chart="[dates,data.blood_pressure_diastolic]"></e-c-g-chart> 
+            <e-c-g-chart name='ecg-chart' :key="keyvalue" :width="370" :height="246"></e-c-g-chart> 
           </md-card-content>
         </md-card>
       </div>
@@ -123,16 +123,14 @@ export default {
       }
     },
     pushMeasurementsIntoData(m) {
-      if (this.data[m.measurement_type]==null) {
-        this.data[m.measurement_type] = []
-        //this.thresholds[m.measurement_type+"lower"] = null
-        //this.thresholds[m.measurement_type+"upper"] = null
+      if (this.data[m.measurementtype]==null) {
+        this.data[m.measurementtype] = []
       }
-      this.data[m.measurement_type].push(m.measurement_value);
+      this.data[m.measurementtype].push(m.measurementvalue);
       
       //special case for dates, need to be fixed someday
-      if (m.measurement_type == "cnt_steps") {
-        this.dates.push(m.date_post.substring(0,11));
+      if (m.measurementtype == "cnt_steps") {
+        this.dates.push(m.datepost.substring(0,11));
       }
     },
     retrieveThresholds() {
