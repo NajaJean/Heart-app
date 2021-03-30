@@ -87,7 +87,7 @@ public class HeartAppApplication {
 
 				for (int i=0; i<data.length; i++) {
 					Long spreadtime = (long) ((i*100)/data.length);
-					measurementController.createMeasurement(new Measurement("101010-1234", format.format(new Date (timestamp.getTime()+spreadtime)), "EGC", String.valueOf(data[i])));
+					measurementController.createMeasurement(new Measurement("010101-1234", format.format(new Date (timestamp.getTime()+spreadtime)), "ECG", String.valueOf(data[i])));
 				}
 				
 				System.out.println("ecg post");

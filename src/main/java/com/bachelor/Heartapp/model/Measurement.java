@@ -7,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -20,102 +18,73 @@ public class Measurement {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
-	@Column(name = "Patient_id")
+	@Column(name = "Patientid")
 	private String patientid;
 	
 	@Column(name = "Date")
-	private String date_post;
+	private String datepost;
 	
-	@Column(name = "Measurement_type")
+	@Column(name = "Measurementtype")
 	private String measurementtype;
 	
-	@Column(name = "Measurement_value")
-	private String measurement_value;
-	
-	@Column(name = "Time_stamp")
-	private Date time_stamp;
-	
-	@Column(name = "Real_value")
-	private int real_value;
-	
+	@Column(name = "Measurementvalue")
+	private String measurementvalue;
 	
 	
 	public Measurement() {
 
 	}
 
-	public Measurement(String patient_id, String date_post, String measurement_type,
-			String measurement_value) {
+	public Measurement(String patientid, String datepost, String measurementtype,
+			String measurementvalue) {
 		super();
-		this.patientid = patient_id;
-		this.date_post = date_post;
-		this.measurementtype = measurement_type;
-		this.measurement_value = measurement_value;
+		this.patientid = patientid;
+		this.datepost = datepost;
+		this.measurementtype = measurementtype;
+		this.measurementvalue = measurementvalue;
 	}
 	
-	public Measurement(String patient_id, Date time_stamp, String measurement_type,
-			int real_value) {
-		super();
-		this.patient_id = patient_id;
-		this.time_stamp = time_stamp;
-		this.measurement_type = measurement_type;
-		this.real_value = real_value;
-	}
-
-	public int getReal_value() {
-		return real_value;
-	}
-
-	public void setReal_value(int real_value) {
-		this.real_value = real_value;
-	}
-	
-	public String getPatient_id() {
+	public String getPatientid() {
 		return patientid;
 	}
 
-
-	public void setPatient_id(String patient_id) {
-		this.patientid = patient_id;
+	public void setPatientid(String patientid) {
+		this.patientid = patientid;
 	}
 
 
-	public String getDate_post() {
-		return date_post;
+	public String getDatepost() {
+		return datepost;
 	}
 
 
-	public void setDate_post(String date_post) {
-		this.date_post = date_post;
+	public void setDatepost(String datepost) {
+		this.datepost = datepost;
 	}
 
 
-	public String getMeasurement_type() {
+	public String getMeasurementtype() {
 		return measurementtype;
 	}
 
 
-	public void setMeasurement_type(String measurement_type) {
-		this.measurementtype = measurement_type;
+	public void setMeasurementtype(String measurementtype) {
+		this.measurementtype = measurementtype;
 	}
 
 
-	public String getMeasurement_value() {
-		return measurement_value;
+	public String getMeasurementvalue() {
+		return measurementvalue;
 	}
 
 
-	public void setMeasurement_value(String measurement_value) {
-		this.measurement_value = measurement_value;
+	public void setMeasurementvalue(String measurementvalue) {
+		this.measurementvalue = measurementvalue;
 	}
 
 	@Override
 	public String toString() {
-		return "Measurement [id=" + id + ", patient_id=" + patientid + ", date_post=" + date_post
-				+ ", measurement_type=" + measurementtype + ", measurement_value=" + measurement_value + "]";
+		return "Measurement [id=" + id + ", patientid=" + patientid + ", datepost=" + datepost
+				+ ", measurementtype=" + measurementtype + ", measurementvalue=" + measurementvalue + "]";
 	}
-	
-	
-
-
 }
