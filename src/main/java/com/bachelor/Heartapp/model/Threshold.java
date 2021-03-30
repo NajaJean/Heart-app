@@ -18,57 +18,61 @@ public class Threshold {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
-	@Column(name = "Patient_id")
-	private String patient_id;
+	@Column(name = "Patientid")
+	private String patientid;
 	
-	@Column(name = "Measurement_type")
-	private String measurement_type;
+	@Column(name = "Measurementtype")
+	private String measurementtype;
 	
-	@Column(name = "Lower_threshold")
-	private int lower_threshold;
+	@Column(name = "Thresholdtype")
+	private String thresholdtype;
 	
-	@Column(name = "Upper_threshold")
-	private int upper_threshold;
+	@Column(name = "Thresholdvalue")
+	private int thresholdvalue;
 	
 
-	public Threshold(String patient_id, String measurement_type, int lower_threshold, int upper_threshold) {
+	public Threshold() {
+		
+	}
+	
+	public Threshold(String patientid, String measurementtype, String thresholdtype,int thresholdvalue) {
 		super();
-		this.patient_id = patient_id;
-		this.measurement_type = measurement_type;
-		this.lower_threshold = lower_threshold;
-		this.upper_threshold = upper_threshold;
+		this.patientid = patientid;
+		this.measurementtype = measurementtype;
+		this.thresholdtype = thresholdtype;
+		this.thresholdvalue = thresholdvalue;
 	}
 
-	public String getPatient_id() {
-		return patient_id;
+	public String getPatientid() {
+		return patientid;
 	}
 
-	public void setPatient_id(String patient_id) {
-		this.patient_id = patient_id;
+	public void setPatientid(String patientid) {
+		this.patientid = patientid;
 	}
 
-	public String getMeasurement_type() {
-		return measurement_type;
+	public String getMeasurementtype() {
+		return measurementtype;
 	}
 
-	public void setMeasurement_type(String measurement_type) {
-		this.measurement_type = measurement_type;
+	public void setMeasurementtype(String measurementtype) {
+		this.measurementtype = measurementtype;
 	}
 
-	public int getLower_threshold() {
-		return lower_threshold;
+	public int getThresholdvalue() {
+		return thresholdvalue;
 	}
 
-	public void setLower_threshold(int lower_threshold) {
-		this.lower_threshold = lower_threshold;
+	public void setThresholdvalue(int thresholdvalue) {
+		this.thresholdvalue = thresholdvalue;
 	}
 
-	public int getUpper_threshold() {
-		return upper_threshold;
+	public String getThresholdtype() {
+		return thresholdtype;
 	}
 
-	public void setUpper_threshold(int upper_threshold) {
-		this.upper_threshold = upper_threshold;
+	public void setThresholdtype(String thresholdtype) {
+		this.thresholdtype = thresholdtype;
 	}
 
 }

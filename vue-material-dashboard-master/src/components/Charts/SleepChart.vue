@@ -94,28 +94,30 @@ export default {
               mode: 'horizontal',
               scaleID: 'y-axis-0',
               id: 'lightlowlimit',
-              value: this.thresholds[6],
+              value: this.thresholds.sleep_lightlower,
               borderColor: 'rgb(75, 124, 192)',
               borderWidth: 2,
               borderDash: [5,2],
               label: {
                 enabled: true,
                 content: 'light lower limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },{
               type: 'line',
               mode: 'horizontal',
               scaleID: 'y-axis-0',
               id: 'lightuplimit',
-              value: this.thresholds[7],
+              value: this.thresholds.sleep_lightupper,
               borderColor: 'rgb(75, 192, 192)',
               borderWidth: 2,
               borderDash: [5,2],
               label: {
                 enabled: true,
                 content: 'light upper limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },
             {
@@ -123,28 +125,30 @@ export default {
               mode: 'horizontal',
               scaleID: 'y-axis-0',
               id: 'remlowlimit',
-              value: this.thresholds[8],
+              value: this.thresholds.sleep_remlower,
               borderColor: 'rgb(75, 124, 192)',
               borderWidth: 2,
               borderDash: [5,2],
               label: {
                 enabled: true,
                 content: 'rem lower limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },{
               type: 'line',
               mode: 'horizontal',
               scaleID: 'y-axis-0',
               id: 'remuplimit',
-              value: this.thresholds[9],
+              value: this.thresholds.sleep_remupper,
               borderColor: 'rgb(75, 192, 192)',
               borderWidth: 2,
               borderDash: [5,2],
               label: {
                 enabled: true,
                 content: 'rem upper limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },
             {
@@ -152,28 +156,30 @@ export default {
               mode: 'horizontal',
               scaleID: 'y-axis-0',
               id: 'deeplowlimit',
-              value: this.thresholds[10],
+              value: this.thresholds.sleep_deeplower,
               borderColor: 'rgb(75, 124, 192)',
               borderWidth: 2,
               borderDash: [5,2],
               label: {
                 enabled: true,
                 content: 'deep lower limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             },{
               type: 'line',
               mode: 'horizontal',
               scaleID: 'y-axis-0',
               id: 'deepuplimit',
-              value: this.thresholds[11],
+              value: this.thresholds.sleep_deepupper,
               borderColor: 'rgb(75, 192, 192)',
               borderWidth: 2,
               borderDash: [5,2],
               label: {
                 enabled: true,
                 content: 'deep upper limit',
-                xAdjust: 325
+                position: 'right',
+                xAdjust: 5
               }
             }]
         }

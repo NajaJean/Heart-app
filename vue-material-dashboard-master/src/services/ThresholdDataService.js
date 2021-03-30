@@ -1,12 +1,16 @@
 import http from "../http-common";
 
 class ThresholdDataService {
-  getAll() {
-    return http.get("/thresholds");
+  getPatientsThresholds(patient_id) {
+    return http.get(`/thresholds/${patient_id}`);
   }
 
-  update(id, data) {
-    return http.put(`/thresholds/${id}`, data);
+  updateThreshold(patient_id, measurement_type,threshold_type, data) {
+    return http.put(`/thresholds/${patient_id}/${measurement_type}/${threshold_type}`, data);
+  }
+
+  createThreshold(patient_id, measurement_type,threshold_type, data) {
+    return http.post(`/thresholds/${patient_id}/${measurement_type}/${threshold_type}`, data);
   }
 }
 
