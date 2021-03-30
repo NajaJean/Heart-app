@@ -45,6 +45,10 @@ export default {
           },
       scales: {
         xAxes: [{
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 15
+          },
           type: 'realtime',
           realtime: {
             refresh: 1,
