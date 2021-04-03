@@ -12,7 +12,7 @@ export default {
         data: [],
         label: 'ECG',
         pointHitRadius: 0,
-        pointRadius: 1,
+        pointRadius: 0,
         tension: 0,
         backgroundColor:'#004346',
         borderColor: '#004346',
