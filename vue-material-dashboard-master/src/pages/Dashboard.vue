@@ -4,7 +4,14 @@
       <h1>Loading ...</h1>
     </div>
     <div class="md-layout" v-if="this.dataloaded">
-      <md-button class="md-dense md-raised md-info" @click="toggleThresholdsForm()">{{this.setThresholds ? "Cancel" : "Set Thresholds"}}</md-button>
+      <div class="md-layout">
+        <md-field class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
+          <label>CPR</label>
+          <md-input v-model="patient_id"></md-input>
+          <md-button class="md-dense md-raised md-info" @click="changePatient(patient_id)">Change Patient</md-button>
+        </md-field>
+        <md-button class="md-dense md-raised md-info" @click="toggleThresholdsForm()">{{this.setThresholds ? "Cancel" : "Set Thresholds"}}</md-button>
+      </div>
       <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <threshold-form :key="keyvalue" v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold"></threshold-form>
       </div>
@@ -73,6 +80,22 @@ export default {
     toggleThresholdsForm() {
       this.updateCharts();
       this.setThresholds = !this.setThresholds;
+    },
+    async changePatient(newPatient_id) {
+      this.patient_id = newPatient_id;
+      this.data = {};
+      this.thresholds = {};
+      this.dates = [];
+      this.dataloaded = false;
+      
+      this.retrieveMeasurements();
+      this.retrieveThresholds();
+      await sleep(2000);
+      this.dataloaded = true;
+      /*this.retrieveMeasurements();
+      this.retrieveThresholds();
+      this.updateCharts();*/
+      console.log("updated to patient: "+newPatient_id);
     },
     updateCharts() {
       this.keyvalue = this.keyvalue+1;
