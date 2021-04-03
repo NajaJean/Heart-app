@@ -1,10 +1,10 @@
 <script>
-import { Scatter } from 'vue-chartjs'
+import { Line } from 'vue-chartjs'
 import 'chartjs-plugin-streaming';
 import MeasurementDataService from "../../services/MeasurementDataService";
 
 export default {
-  extends: Scatter,
+  extends: Line,
   mounted () {
     this.renderChart({
       datasets: [{
@@ -12,7 +12,7 @@ export default {
         data: [],
         label: 'ECG',
         pointHitRadius: 0,
-        pointRadius: 0.1,
+        pointRadius: 1,
         tension: 0,
         backgroundColor:'#004346',
         borderColor: '#004346',
@@ -66,7 +66,7 @@ export default {
                     //console.log('post');
                     response.data.map(m => 
                       dataset.data.push({
-                        x: new Date(m.datepost),//       Date.now(), //Date(latestECG.datepost),
+                        x: Date.now(),//new Date(m.datepost),//       Date.now(), //Date(latestECG.datepost),
                         y: m.measurementvalue
                       })
                     );
