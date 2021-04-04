@@ -2,7 +2,6 @@ package com.bachelor.Heartapp;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -17,8 +16,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.bachelor.Heartapp.controller.MeasurementController;
+import com.bachelor.Heartapp.controller.RealTimeController;
 import com.bachelor.Heartapp.model.DailyRecording;
 import com.bachelor.Heartapp.model.Measurement;
+import com.bachelor.Heartapp.model.RealTime;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -30,6 +31,9 @@ public class HeartAppApplication {
 	
 	@Autowired
 	MeasurementController measurementController;
+	
+	@Autowired
+	RealTimeController realtimeController;
 	
 	int count = 0;
 
@@ -59,7 +63,7 @@ public class HeartAppApplication {
 					  .map(object -> mapper.convertValue(object, DailyRecording.class))
 					  .collect(Collectors.toList());
 
-			dr.forEach(d -> transform(d));
+//			dr.forEach(d -> transform(d));
 			System.out.println("DONE!");
 			
 			postMockECG();
@@ -91,11 +95,11 @@ public class HeartAppApplication {
 
 				for (int i=0; i<data.length; i++) {
 					Long spreadtime = (long) ((i*1000)/data.length);
-					measurementController.createMeasurement(new Measurement("010101-1234", format.format(new Date (timestamp.getTime()+spreadtime)), "ECG", String.valueOf(data[i])));
+					realtimeController.createRealTime(new RealTime("010101-1234", format.format(new Date (timestamp.getTime()+spreadtime)), "ECG", String.valueOf(data[i])));
 				}
 				
 				System.out.println("ecg post");
-				TimeUnit.SECONDS.sleep(1);
+				TimeUnit.SECONDS.sleep(10);
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
