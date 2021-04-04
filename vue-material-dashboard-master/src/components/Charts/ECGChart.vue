@@ -5,6 +5,7 @@ import MeasurementDataService from "../../services/MeasurementDataService";
 
 export default {
   extends: Scatter,
+  props:['pauseX'],
   mounted () {
     this.renderChart({
       datasets: [{
@@ -12,11 +13,12 @@ export default {
         data: [],
         label: 'ECG',
         pointHitRadius: 0,
-        pointRadius: 0.1,
+        pointRadius: 1,
         tension: 0,
         backgroundColor:'#004346',
         borderColor: '#004346',
         fill: false,
+        //xAxisID: 'x-1',
       }]
     }, {responsive: true, 
           maintainAspectRatio: true,
@@ -43,53 +45,65 @@ export default {
           tooltips:{
             enabled: false,
           },
+          
       scales: {
         xAxes: [{
-          time: {
-            format: 'false'
-          },
           ticks: {
             autoSkip: true,
             maxTicksLimit: 15
           },
+          time: {
+            format: undefined
+          },
           type: 'realtime',
+          /*streaming: {
+            
+          },*/
           realtime: {
-            refresh: 50,
+            //pauseX: this.pauseX,
+            
+            duration: 10000,
+            refresh: 500,
+            pause: this.pauseX,
             onRefresh: function(chart) {
               chart.data.datasets.forEach(function(dataset) {
-                
+
                 MeasurementDataService.get125LatestECG("010101-1234")
                 .then(response => {
                   
                   //console.log(dataset.lastRecordedTime +'<'+ new Date(response.data[0].datepost));
                   if (dataset.lastRecordedTime <= new Date(response.data[0].datepost)) {
+                    var recentRec = dataset.lastRecordedTime;
                     //console.log('post');
-                    response.data.map(m => 
-                      dataset.data.push({
-                        x: new Date(m.datepost),//       Date.now(), //Date(latestECG.datepost),
-                        y: m.measurementvalue
-                      })
+
+                    response.data.map( function(m) {
+                      if (recentRec <= new Date(m.datepost)) {
+                        dataset.data.push({
+                          x: new Date(m.datepost),//       Date.now(), //Date(latestECG.datepost),
+                          y: m.measurementvalue
+                        })
+                      }
+                    }
                     );
+                    chart.update();
                     dataset.lastRecordedTime = new Date(response.data[response.data.length-1].datepost);
-                  }
-                  
-
-
-                  //chart.data.datasets.ecg = response.data[0].measurementvalue;
-                  //console.log(chart.data.datasets.ecg);
+                  }     
                 })
                 .catch(e => {
                   console.log(e);
                 });
-
-                
               });
             },
-            delay: 0
+            delay: 1000
           }
         }]
       }
     });
   },
+  plugins: {
+      streaming: {            // per-chart option
+          frameRate: 30       // chart is drawn 30 times every second
+      }
+  }
 }
 </script>
