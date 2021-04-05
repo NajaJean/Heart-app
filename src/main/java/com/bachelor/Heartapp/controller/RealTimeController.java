@@ -38,11 +38,11 @@ public class RealTimeController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	@GetMapping("/50ecg/{patient_id}")
-	public ResponseEntity<List<RealTime>> get50LatestOfPatientsECG(@PathVariable("patient_id") String patient_id) {
+
+	@GetMapping("/125ecg/{patient_id}")
+	public ResponseEntity<List<RealTime>> get125LatestOfPatientsECG(@PathVariable("patient_id") String patient_id) {
 		try {
-			List<RealTime> ecgs = realtimeRepository.findFirst50ByPatientidAndMeasurementtypeOrderByDatepostDesc(patient_id,"ECG");
+			List<RealTime> ecgs = realtimeRepository.findFirst125ByPatientidAndMeasurementtypeOrderByDatepostDesc(patient_id,"ECG");
 
 			if (ecgs.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
