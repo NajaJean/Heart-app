@@ -56,12 +56,7 @@ export default {
             format: undefined
           },
           type: 'realtime',
-          /*streaming: {
-            
-          },*/
           realtime: {
-            //pauseX: this.pauseX,
-            
             duration: 10000,
             refresh: 500,
             pause: this.pauseX,
@@ -70,16 +65,13 @@ export default {
 
                 MeasurementDataService.get125LatestECG("010101-1234")
                 .then(response => {
-                  
-                  //console.log(dataset.lastRecordedTime +'<'+ new Date(response.data[0].datepost));
                   if (dataset.lastRecordedTime <= new Date(response.data[0].datepost)) {
                     var recentRec = dataset.lastRecordedTime;
-                    //console.log('post');
-
+                    
                     response.data.map( function(m) {
                       if (recentRec <= new Date(m.datepost)) {
                         dataset.data.push({
-                          x: new Date(m.datepost),//       Date.now(), //Date(latestECG.datepost),
+                          x: new Date(m.datepost),
                           y: m.measurementvalue
                         })
                       }

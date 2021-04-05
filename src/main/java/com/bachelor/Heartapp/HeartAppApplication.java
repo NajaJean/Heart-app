@@ -101,7 +101,7 @@ public class HeartAppApplication {
 				}
 				
 				System.out.println("ecg post");
-				TimeUnit.SECONDS.sleep(100);
+				TimeUnit.SECONDS.sleep(1);
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();

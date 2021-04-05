@@ -10,10 +10,6 @@ class MeasurementDataService {
     return http.get(`/7measurements/${patient_id}/${measurement_type}`);
   }
 
-  get50LatestECG(patient_id) {
-    return http.get(`/50ecg/${patient_id}`);
-  }
-
   get125LatestECG(patient_id) {
     return http.get(`/125ecg/${patient_id}`);
   }
