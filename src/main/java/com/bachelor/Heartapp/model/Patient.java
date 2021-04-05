@@ -14,7 +14,7 @@ public class Patient {
 	
 	@Id
 	@Column(name = "Patient_id")
-	private String patient_id;
+	private String patientid;
 	
 	@Column(name = "Name")
 	private String name;
@@ -24,16 +24,16 @@ public class Patient {
 	}
 	
 	public Patient(String patient_id, String name) {
-		this.patient_id = patient_id;
+		this.patientid = patient_id;
 		this.name = name;
 	}
 
 	public String getPatient_id() {
-		return patient_id;
+		return patientid;
 	}
 
 	public void setPatient_id(String patient_id) {
-		this.patient_id = patient_id;
+		this.patientid = patient_id;
 	}
 
 	public String getName() {

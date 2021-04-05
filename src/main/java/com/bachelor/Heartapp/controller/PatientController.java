@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,17 +41,36 @@ public class PatientController {
 		}
 	}
 	
-	
-	@PostMapping("/patients")
-	public ResponseEntity<Patient> createPatient(@RequestBody Patient patient) {
+	@GetMapping("/patients/{patient_id}")
+	public ResponseEntity<?> getPatient(@PathVariable("patient_id") String patient_id) {
 		try {
-			Patient _patient = patientRepository.save(new Patient(
-                patient.getPatient_id(),
-                patient.getName()
-				));
-			return new ResponseEntity<>(_patient, HttpStatus.CREATED);
+			Patient patient = patientRepository.findByPatientid(patient_id);
+			System.out.println(patient);
+			if (patient == null) {
+				return new ResponseEntity<>("There's no patient with this ID" , HttpStatus.NO_CONTENT);
+			} 
+			return new ResponseEntity<>(patient, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	
+	@PostMapping("/patients")
+	public ResponseEntity<?> createPatient(@RequestBody Patient patient) {
+		try {
+			String id = patient.getPatient_id();
+			String name = patient.getName();
+			if (id.equals("") || name.equals("")) {
+				return new ResponseEntity<>("Please fill out all information", HttpStatus.NO_CONTENT);
+			}
+			if (id.length() != 11) {
+				return new ResponseEntity<>("Not a vaild ID", HttpStatus.BAD_REQUEST);
+			}
+			Patient _patient = patientRepository.save(new Patient(id, name));
+			return new ResponseEntity<>(_patient, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Something went wrong, try again", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

@@ -23,7 +23,7 @@ public class Threshold {
 	
 	@Column(name = "Measurementtype")
 	private String measurementtype;
-	
+
 	@Column(name = "Thresholdtype")
 	private String thresholdtype;
 	
@@ -42,7 +42,10 @@ public class Threshold {
 		this.thresholdtype = thresholdtype;
 		this.thresholdvalue = thresholdvalue;
 	}
-
+	
+	public long getId() {
+		return id;
+	}
 	public String getPatientid() {
 		return patientid;
 	}

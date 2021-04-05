@@ -27,21 +27,6 @@ public class ThresholdController {
 	@Autowired
 	ThresholdRepository thresholdRepository;
 	
-	@PostMapping("/thresholds")
-	public ResponseEntity<Threshold> createThreshold(@RequestBody Threshold threshold) {
-		try {
-			Threshold _threshold = thresholdRepository.save(new Threshold(
-					threshold.getPatientid(),
-					threshold.getMeasurementtype(),
-					threshold.getThresholdtype(),
-					threshold.getThresholdvalue()
-					));
-			return new ResponseEntity<>(_threshold, HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
 	@GetMapping("/thresholds/{patientid}")
 	public ResponseEntity<List<Threshold>> getPatientsThresholds(@PathVariable("patientid") String patientid) {
 		try {
@@ -55,27 +40,32 @@ public class ThresholdController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	@PostMapping("/thresholds/{patientid}/{measurementtype}/{threshold_type}")
-	public ResponseEntity<Threshold> createThreshold(@PathVariable("patientid") String patientid,@PathVariable("measurementtype") String measurementtype, @PathVariable("thresholdtype") String thresholdtype, @RequestBody Threshold threshold) {
-		try {
-			Threshold _threshold = thresholdRepository.save(new Threshold(patientid,measurementtype,thresholdtype, threshold.getThresholdvalue()));
-			return new ResponseEntity<>(_threshold, HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
 
-	@PutMapping("/thresholds/{patient_id}/{measurement_type}/{threshold_type}")
-	public ResponseEntity<Threshold> updateThreshold(@PathVariable("patient_id") String patient_id,@PathVariable("measurement_type") String measurement_type,@PathVariable("threshold_type") String threshold_type, @RequestBody Threshold newThreshold) {
-		return thresholdRepository.findByPatientidAndMeasurementtypeAndThresholdtype(patient_id,measurement_type,threshold_type)
-		.map(threshold -> {
-			threshold.setThresholdvalue(newThreshold.getThresholdvalue());
-			return new ResponseEntity<>(thresholdRepository.save(threshold), HttpStatus.OK);
-		})
-		.orElseGet(() -> {
-			return new ResponseEntity<>(thresholdRepository.save(newThreshold), HttpStatus.CREATED);
-		});
+	@PutMapping("/thresholds/{id}")
+	public ResponseEntity<Threshold> updateThreshold(@PathVariable("id") long id, @RequestBody Threshold newThreshold) {
+		if (id == 0) {
+			try {
+				Threshold _threshold = thresholdRepository.save(new Threshold(
+						newThreshold.getPatientid(),
+						newThreshold.getMeasurementtype(),
+						newThreshold.getThresholdtype(),
+						newThreshold.getThresholdvalue()
+						));
+				return new ResponseEntity<>(_threshold, HttpStatus.CREATED);
+			} catch (Exception e) {
+				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			}			
+		}
+		else {
+			return thresholdRepository.findById(id)
+			.map(threshold -> {
+				threshold.setThresholdvalue(newThreshold.getThresholdvalue());
+				return new ResponseEntity<>(thresholdRepository.save(threshold), HttpStatus.OK);
+			})
+			.orElseGet(() -> {
+				return new ResponseEntity<>(thresholdRepository.save(newThreshold), HttpStatus.CREATED);
+			});
+		}
 	}
 
 	@GetMapping("/thresholds")

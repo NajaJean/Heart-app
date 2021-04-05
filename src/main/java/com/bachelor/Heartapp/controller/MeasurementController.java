@@ -85,46 +85,7 @@ public class MeasurementController {
 		}
 	}
 	
-	@GetMapping("/50ecg/{patient_id}")
-	public ResponseEntity<List<Measurement>> get50LatestOfPatientsECG(@PathVariable("patient_id") String patient_id) {
-		try {
-			List<Measurement> ecgs = measurementRepository.findFirst50ByPatientidAndMeasurementtypeOrderByDatepostDesc(patient_id,"ECG");
 
-			if (ecgs.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>(ecgs, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
 
-	@GetMapping("/125ecg/{patient_id}")
-	public ResponseEntity<List<Measurement>> get125LatestOfPatientsECG(@PathVariable("patient_id") String patient_id) {
-		try {
-			List<Measurement> ecgs = measurementRepository.findFirst125ByPatientidAndMeasurementtypeOrderByDatepostDesc(patient_id,"ECG");
-
-			if (ecgs.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>(ecgs, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	@GetMapping("/latestecg/{patient_id}")
-	public ResponseEntity<List<Measurement>> getLatestPatientsECG(@PathVariable("patient_id") String patient_id) {
-		try {
-			List<Measurement> ecgs = measurementRepository.findFirstByPatientidAndMeasurementtypeOrderByDatepostDesc(patient_id,"ECG");
-
-			if (ecgs.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>(ecgs, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
 
 }

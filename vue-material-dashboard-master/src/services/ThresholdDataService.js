@@ -5,12 +5,8 @@ class ThresholdDataService {
     return http.get(`/thresholds/${patient_id}`);
   }
 
-  updateThreshold(patient_id, measurement_type,threshold_type, data) {
-    return http.put(`/thresholds/${patient_id}/${measurement_type}/${threshold_type}`, data);
-  }
-
-  createThreshold(patient_id, measurement_type,threshold_type, data) {
-    return http.post(`/thresholds/${patient_id}/${measurement_type}/${threshold_type}`, data);
+  updateThreshold(id, data) {
+    return http.put(`/thresholds/${id}`, data);
   }
 }
 
