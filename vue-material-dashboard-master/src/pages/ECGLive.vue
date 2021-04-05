@@ -5,7 +5,7 @@
         <md-button class="md-dense md-raised md-info" @click="togglePause()">{{!this.pause ? "Pause" : "Start"}}</md-button>
         <md-card>
           <md-card-header data-background-color="blue">
-            <h2 class="title" font-weight="bold">ECG During the Week</h2>
+            <h2 class="title" font-weight="bold">Live ECG</h2>
           </md-card-header>
           <md-card-content>
             <e-c-g-chart :key="pause" name='ecg-chart' :width="370" :height="246" :pauseX="pause"></e-c-g-chart> 

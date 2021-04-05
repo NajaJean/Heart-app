@@ -24,7 +24,7 @@ export default {
           maintainAspectRatio: true,
           title:{
             display:false,
-            text:'ECG during the week',
+            text:'Live ECG',
             fontSize:25
           },
           legend:{

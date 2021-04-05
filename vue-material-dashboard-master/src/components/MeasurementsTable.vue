@@ -2,10 +2,10 @@
   <div>
     <md-table v-model="measurements" :table-header-color="tableHeaderColor">
       <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="Patient ID">{{ item.patient_id }}</md-table-cell>
-        <md-table-cell md-label="Time">{{ item.date_post }}</md-table-cell>
-        <md-table-cell md-label="Measurement Type">{{ item.measurement_type }}</md-table-cell>
-        <md-table-cell md-label="Value">{{ item.measurement_value }}</md-table-cell>
+        <md-table-cell md-label="Patient ID">{{ item.patientid }}</md-table-cell>
+        <md-table-cell md-label="Time">{{ item.datepost }}</md-table-cell>
+        <md-table-cell md-label="Measurement Type">{{ item.measurementtype }}</md-table-cell>
+        <md-table-cell md-label="Value">{{ item.measurementvalue }}</md-table-cell>
       </md-table-row>
     </md-table>
   </div>
