@@ -43,14 +43,29 @@ public class ThresholdController {
 
 	@PutMapping("/thresholds/{id}")
 	public ResponseEntity<Threshold> updateThreshold(@PathVariable("id") long id, @RequestBody Threshold newThreshold) {
-		return thresholdRepository.findById(id)
-		.map(threshold -> {
-			threshold.setThresholdvalue(newThreshold.getThresholdvalue());
-			return new ResponseEntity<>(thresholdRepository.save(threshold), HttpStatus.OK);
-		})
-		.orElseGet(() -> {
-			return new ResponseEntity<>(thresholdRepository.save(newThreshold), HttpStatus.CREATED);
-		});
+		if (id == 0) {
+			try {
+				Threshold _threshold = thresholdRepository.save(new Threshold(
+						newThreshold.getPatientid(),
+						newThreshold.getMeasurementtype(),
+						newThreshold.getThresholdtype(),
+						newThreshold.getThresholdvalue()
+						));
+				return new ResponseEntity<>(_threshold, HttpStatus.CREATED);
+			} catch (Exception e) {
+				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			}			
+		}
+		else {
+			return thresholdRepository.findById(id)
+			.map(threshold -> {
+				threshold.setThresholdvalue(newThreshold.getThresholdvalue());
+				return new ResponseEntity<>(thresholdRepository.save(threshold), HttpStatus.OK);
+			})
+			.orElseGet(() -> {
+				return new ResponseEntity<>(thresholdRepository.save(newThreshold), HttpStatus.CREATED);
+			});
+		}
 	}
 
 	@GetMapping("/thresholds")
