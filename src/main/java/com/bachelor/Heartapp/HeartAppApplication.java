@@ -63,7 +63,7 @@ public class HeartAppApplication {
 					  .map(object -> mapper.convertValue(object, DailyRecording.class))
 					  .collect(Collectors.toList());
 
-//			dr.forEach(d -> transform(d));
+			dr.forEach(d -> transform(d));
 			System.out.println("DONE!");
 			
 			postMockECG();

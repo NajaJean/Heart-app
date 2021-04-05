@@ -71,6 +71,7 @@ export default {
       setThresholds: false,
       dataloaded: false,
       thresholds: {},
+      thresholdIds: {},
       keyvalue: 0,
       patient_id: '010101-1234',
       measurement_types: ['blood_pressure_diastolic','blood_pressure_systolic','cnt_steps','sleep_light','sleep_rem','sleep_deep'],
@@ -85,6 +86,7 @@ export default {
       this.patient_id = newPatient_id;
       this.data = {};
       this.thresholds = {};
+      this.thresholdIds = {};
       this.dates = [];
       this.dataloaded = false;
       
@@ -110,15 +112,27 @@ export default {
       this.toggleThresholdsForm();
     },
     updateThreshold(measurement_type,threshold_type,threshold_value) {
+      var id = this.thresholdIds[measurement_type+threshold_type];
+      if (!(id > 0)) {
+        id = 0;
+      }
+      
       this.thresholds[measurement_type+threshold_type] = threshold_value;
       
       var data = {
+          id: id,
           patientid: this.patient_id,
           measurementtype: measurement_type,
           thresholdtype: threshold_type,
           thresholdvalue: threshold_value
         };
-      ThresholdDataService.updateThreshold(data['patientid'], data['measurementtype'],data['thresholdtype'],data);
+      ThresholdDataService.updateThreshold(data['id'],data)
+        .then(response => {
+          this.thresholdIds[measurement_type+threshold_type] = response.data.id;
+        })
+        .catch(e => {
+          console.log(e);
+        });
     },
 
     retrieveMeasurements() {
@@ -157,6 +171,7 @@ export default {
         });
     },
     insertThreshold(t) {
+      this.thresholdIds[t.measurementtype+t.thresholdtype] = t.id;
       this.thresholds[t.measurementtype+t.thresholdtype] = t.thresholdvalue;
     },
     onResize(event) {
