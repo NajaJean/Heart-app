@@ -1,10 +1,10 @@
 <script>
-import { Scatter } from 'vue-chartjs'
+import { Line } from 'vue-chartjs'
 import 'chartjs-plugin-streaming';
 import MeasurementDataService from "../../services/MeasurementDataService";
 
 export default {
-  extends: Scatter,
+  extends: Line,
   props:['pauseX'],
   mounted () {
     this.renderChart({
@@ -69,22 +69,25 @@ export default {
             onRefresh: function(chart) {
               chart.data.datasets.forEach(function(dataset) {
 
-                MeasurementDataService.get125LatestECG("010101-1234")
+                MeasurementDataService.getLatestECG("010101-1234")
                 .then(response => {
-                  if (dataset.lastRecordedTime <= new Date(response.data[0].datepost)) {
-                    var recentRec = dataset.lastRecordedTime;
+                  const ecg = response.data[0];
+                  
+                  if (dataset.lastRecordedTime <= new Date(ecg.datepost)) {
                     
-                    response.data.map( function(m) {
-                      if (recentRec <= new Date(m.datepost)) {
-                        dataset.data.push({
-                          x: new Date(m.datepost),
-                          y: m.measurementvalue
-                        })
-                      }
+                    for (var i=0; i<ecg.measurementvalue.length; i++) {
+                      
+                      var spreadtime = ((i*1000)/ecg.measurementvalue.length);
+
+                      dataset.data.push({
+                        x: new Date((new Date(ecg.datepost)).getTime()+spreadtime),
+                        y: ecg.measurementvalue[i]
+                      })
+
                     }
-                    );
+
                     chart.update();
-                    dataset.lastRecordedTime = new Date(response.data[response.data.length-1].datepost);
+                    dataset.lastRecordedTime = new Date(ecg.datepost);
                   }     
                 })
                 .catch(e => {
@@ -92,7 +95,7 @@ export default {
                 });
               });
             },
-            delay: 1000
+            delay: 2000
           }
         }]
       }
