@@ -1,5 +1,8 @@
 package com.bachelor.Heartapp.model;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,19 +20,19 @@ public class RealTime {
 	
 	@Id
 	@Column(name = "Date")
-	private String datepost;
+	private Date datepost;
 	
 	@Column(name = "Measurementtype")
 	private String measurementtype;
 	
 	@Column(name = "Measurementvalue")
-	private String measurementvalue;
+	private int[] measurementvalue;
 	
 	public RealTime() {
 		
 	}
 
-	public RealTime(String patientid, String datepost, String measurementtype, String measurementvalue) {
+	public RealTime(String patientid, Date datepost, String measurementtype, int[] measurementvalue) {
 		super();
 		this.patientid = patientid;
 		this.datepost = datepost;
@@ -45,11 +48,11 @@ public class RealTime {
 		this.patientid = patientid;
 	}
 
-	public String getDatepost() {
+	public Date getDatepost() {
 		return datepost;
 	}
 
-	public void setDatepost(String datepost) {
+	public void setDatepost(Date datepost) {
 		this.datepost = datepost;
 	}
 
@@ -61,11 +64,11 @@ public class RealTime {
 		this.measurementtype = measurementtype;
 	}
 
-	public String getMeasurementvalue() {
+	public int[] getMeasurementvalue() {
 		return measurementvalue;
 	}
 
-	public void setMeasurementvalue(String measurementvalue) {
+	public void setMeasurementvalue(int[] measurementvalue) {
 		this.measurementvalue = measurementvalue;
 	}
 	

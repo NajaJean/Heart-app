@@ -96,8 +96,7 @@ public class HeartAppApplication {
 					data[i] = i;
 				}*/
 				for (int i=0; i<data.length; i++) {
-					Long spreadtime = (long) ((i*1000)/data.length);
-					realtimeController.createRealTime(new RealTime("010101-1234", format.format(new Date (timestamp.getTime()+spreadtime)), "ECG", String.valueOf(data[i])));
+					realtimeController.createRealTime(new RealTime("010101-1234", timestamp, "ECG", data));
 				}
 				
 				System.out.println("ecg post");
