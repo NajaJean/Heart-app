@@ -28,13 +28,13 @@ export default {
         responsive:true,
 	      maintainAspectRatio: false,
         title:{
-          display:true,
+          display:false,
           text:'Steps during the week',
           fontSize:25
         },
         legend:{
           display:false,
-          position:'right',
+          position:'bottom',
           labels:{
             fontColor:'#000'
           }

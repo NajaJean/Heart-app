@@ -45,7 +45,7 @@ let stepsChart = document.getElementById('stepsChart').getContext('2d');
         responsive:true,
 		    maintainAspectRatio: false,
         title:{
-          display:true,
+          display: false,
           text:'Steps during the week',
           fontSize:25
         },
