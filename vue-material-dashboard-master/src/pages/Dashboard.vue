@@ -28,7 +28,7 @@
       <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
-            <h2 class="title">Steps</h2>
+            <h2 class="title">Steps During the Week</h2>
           </md-card-header>
           <md-card-content>
             <steps-chart :key="keyvalue" :width="370" :height="246" :chart="[dates,data.cnt_steps]" :thresholds="thresholds"></steps-chart>
@@ -38,7 +38,7 @@
       <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
-            <h2 class="title">Sleep</h2>
+            <h2 class="title">Sleep During the Week</h2>
           </md-card-header>
           <md-card-content>
             <sleep-chart :key="keyvalue" :width="370" :height="246" :chart="[dates,data.sleep_light,data.sleep_rem,data.sleep_deep]" :thresholds="thresholds"></sleep-chart>

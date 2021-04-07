@@ -60,13 +60,13 @@ export default {
         responsive:true,
 		    maintainAspectRatio: false,
         title:{
-          display:true,
+          display:false,
           text:'Sleep during the week',
           fontSize:25
         },
         legend:{
           display:true,
-          position:'right',
+          position:'bottom',
           labels:{
             fontColor:'#000'
           }
