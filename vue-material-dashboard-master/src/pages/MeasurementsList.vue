@@ -6,8 +6,7 @@
       >
         <md-card>
           <md-card-header data-background-color="blue">
-            <h4 class="title">Daily Recordings</h4>
-            <p class="category">Here is a subtitle for this table</p>
+            <h2 class="title">Latest Measurements</h2>
           </md-card-header>
           <md-card-content>
             <measurements-table table-header-color="blue"></measurements-table>

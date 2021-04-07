@@ -53,7 +53,13 @@ export default {
             maxTicksLimit: 15
           },
           time: {
-            format: undefined
+            format: undefined,
+            displayFormats: {
+                millisecond: 'H:mm:ss.SSS',
+                second: 'H:mm:ss',
+                minute: 'H:mm',
+                hour: 'H'
+            }
           },
           type: 'realtime',
           realtime: {
