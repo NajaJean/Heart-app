@@ -15,7 +15,7 @@
       <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <threshold-form :key="keyvalue" v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold"></threshold-form>
       </div>
-      <date-picker :selectedFrom="selectedfrom" :selectedto="selectedTo" @update-time="updateTime"></date-picker>
+      <date-picker :key="keyvalue" :selectedfrom="selectedFrom" :selectedto="selectedTo" @update-time="updateTime"></date-picker>
       <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
