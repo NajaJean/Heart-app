@@ -10,6 +10,10 @@ class MeasurementDataService {
     return http.get(`/7measurements/${patient_id}/${measurement_type}`);
   }
 
+  getMeasurementsFromTo(patient_id,measurement_type,from,to) {
+    return http.get(`/measurements/${patient_id}/${measurement_type}/${from}/${to}`);
+  }
+
   get125LatestECG(patient_id) {
     return http.get(`/125ecg/${patient_id}`);
   }

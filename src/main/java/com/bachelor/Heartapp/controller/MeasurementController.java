@@ -74,7 +74,7 @@ public class MeasurementController {
 	@GetMapping("/measurements/{patient_id}/{measurement_type}/{from}/{to}")
 	public ResponseEntity<List<Measurement>> getMeasurementFromTo(@PathVariable("patient_id") String patient_id, @PathVariable("measurement_type") String measurement_type, @PathVariable("from") Date from, @PathVariable("to") Date to) {
 		try {
-			List<Measurement> measurements = measurementRepository.findAllByPatientidAndMeasurementtypeAndByDatepostBetween(patient_id,measurement_type,from,to);
+			List<Measurement> measurements = measurementRepository.findAllByPatientidAndMeasurementtypeAndDatepostBetween(patient_id,measurement_type,from,to);
 
 			if (measurements.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
