@@ -71,7 +71,7 @@ public class MeasurementController {
 		}
 	}
 
-	/*@GetMapping("/measurements/{patient_id}/{measurement_type}/{from}/{to}")
+	@GetMapping("/measurements/{patient_id}/{measurement_type}/{from}/{to}")
 	public ResponseEntity<List<Measurement>> getMeasurementFromTo(@PathVariable("patient_id") String patient_id, @PathVariable("measurement_type") String measurement_type, @PathVariable("from") Date from, @PathVariable("to") Date to) {
 		try {
 			List<Measurement> measurements = measurementRepository.findAllByPatientidAndMeasurementtypeAndByDatepostBetween(patient_id,measurement_type,from,to);
@@ -83,7 +83,7 @@ public class MeasurementController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}*/
+	}
 	
 	@PostMapping("/measurements")
 	public ResponseEntity<Measurement> createMeasurement(@RequestBody Measurement measurement) {

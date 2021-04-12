@@ -41,7 +41,24 @@ export default {
           }
         }],
         
-      }, {responsive: true, 
+      }, {scales: {
+            xAxes: [{
+              ticks: {
+                autoSkip: true,
+                maxTicksLimit: 15
+              },
+              time: {
+                format: undefined,
+                displayFormats: {
+                    millisecond: 'H:mm:ss.SSS',
+                    second: 'H:mm:ss',
+                    minute: 'H:mm',
+                    hour: 'H'
+                }
+              }
+            }]
+      },
+          responsive: true, 
           maintainAspectRatio: false,
           title:{
             display:false,

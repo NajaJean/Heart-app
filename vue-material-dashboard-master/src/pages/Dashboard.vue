@@ -159,7 +159,8 @@ export default {
       
       //special case for dates, need to be fixed someday
       if (m.measurementtype == "cnt_steps") {
-        this.dates.push(m.datepost.substring(0,11));
+        var date = new Date(m.datepost);
+        this.dates.push(date.toDateString());
       }
     },
     retrieveThresholds() {
