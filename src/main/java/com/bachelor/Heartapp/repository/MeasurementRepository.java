@@ -12,5 +12,5 @@ public interface MeasurementRepository extends JpaRepository<Measurement, Long> 
 	List<Measurement> findFirst7ByPatientidAndMeasurementtypeNotOrderByDatepostDesc(String patient_id, String measurement_type);
 	List<Measurement> findFirst7ByPatientidAndMeasurementtypeOrderByDatepostDesc(String patient_id, String measurement_type);
 	
-	List<Measurement> findAllByPatientidAndMeasurementtypeAndDatepostBetween(String patient_id, String measurement_type, Date from, Date to);
+	List<Measurement> findAllByPatientidAndMeasurementtypeAndDatepostBetweenOrderByDatepostDesc(String patient_id, String measurement_type, Date from, Date to);
 }

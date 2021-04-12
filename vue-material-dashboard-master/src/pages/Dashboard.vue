@@ -15,13 +15,13 @@
       <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <threshold-form :key="keyvalue" v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold"></threshold-form>
       </div>
+      <date-picker :selectedFrom="selectedfrom" :selectedto="selectedTo" @update-time="updateTime"></date-picker>
       <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
             <h2 class="title" font-weight="bold">Blood Pressure During the Week</h2>
           </md-card-header>
           <md-card-content>
-            <date-picker></date-picker>
             <blood-pressure-chart :key="keyvalue" :width="370" :height="246" :chart="[dates,data.blood_pressure_diastolic,data.blood_pressure_systolic]" :thresholds="thresholds"></blood-pressure-chart> 
           </md-card-content>
         </md-card>
@@ -75,8 +75,9 @@ export default {
       dataloaded: false,
       thresholds: {},
       thresholdIds: {},
+      selectedFrom: null,
+      selectedTo: null,
       keyvalue: 0,
-      selectedDate: new Date(),
       patient_id: '010101-1234',
       measurement_types: ['blood_pressure_diastolic','blood_pressure_systolic','cnt_steps','sleep_light','sleep_rem','sleep_deep'],
     };
@@ -98,9 +99,6 @@ export default {
       this.retrieveThresholds();
       await sleep(2000);
       this.dataloaded = true;
-      /*this.retrieveMeasurements();
-      this.retrieveThresholds();
-      this.updateCharts();*/
       console.log("updated to patient: "+newPatient_id);
     },
     updateCharts() {
@@ -138,7 +136,25 @@ export default {
           console.log(e);
         });
     },
-
+    async updateTime(from,to) {
+      this.selectedFrom = from;
+      this.selectedTo = to;
+      this.data = {};
+      this.dates = [];
+      for (var typ in (this.measurement_types)) {
+        MeasurementDataService.getMeasurementsFromTo(this.patient_id,this.measurement_types[typ],from,to)
+        .then(response => {
+          response.data.map(m => this.pushMeasurementsIntoData(m));
+        })
+        .catch(e => {
+          console.log(e);
+        });
+      };
+      this.dataloaded = false;
+      await sleep(2000);
+      this.updateCharts();
+      this.dataloaded = true;
+    },
     retrieveMeasurements() {
       var typ;
       for (typ in (this.measurement_types)) {
