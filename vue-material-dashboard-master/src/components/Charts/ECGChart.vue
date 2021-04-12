@@ -63,7 +63,7 @@ export default {
           },
           type: 'realtime',
           realtime: {
-            duration: 10000,
+            duration: 5000,
             refresh: 500,
             pause: this.pauseX,
             onRefresh: function(chart) {
@@ -72,16 +72,28 @@ export default {
                 MeasurementDataService.getLatestECG("010101-1234")
                 .then(response => {
                   const ecg = response.data[0];
-                  
+                  console.log(dataset.lastRecordedTime+" <="+ new Date(ecg.datepost))
                   if (dataset.lastRecordedTime <= new Date(ecg.datepost)) {
                     
-                    for (var i=0; i<ecg.measurementvalue.length; i++) {
-                      
+                      for (var i = 0; i < ecg.measurementvalue.length-2; i = i + 2) {
+                        /*var byteArray = new byteArray(2);
+                        byteArray[0] = ecg.measurementvalue[i];
+                        byteArray[1] = ecg.measurementvalue[i + 1];
+                        
+                        var value = 0;
+                        for (var i = byteArray.length - 1; i >= 0; i--) {
+                            value = (value * 256) + byteArray[i];
+                          }*/
+                          var value = ecg.measurementvalue[i+1] << 8 | ecg.measurementvalue[i]
+
+                          console.log(value)
+                            
+                        //var ecgValue = ecg.measurementvalue[i] + ecg.measurementvalue[i + 1];
                       var spreadtime = ((i*1000)/ecg.measurementvalue.length);
 
                       dataset.data.push({
                         x: new Date((new Date(ecg.datepost)).getTime()+spreadtime),
-                        y: ecg.measurementvalue[i]
+                        y: value
                       })
 
                     }
