@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve --open",
     "dev": "npm run serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -32,6 +33,7 @@
     "@vue/cli-service": "4.2.3",
     "@vue/eslint-config-prettier": "6.0.0",
     "babel-eslint": "10.1.0",
+    "cypress": "^7.0.0",
     "es6-promise": "4.2.8",
     "eslint": "6.8.0",
     "eslint-plugin-prettier": "3.1.2",
