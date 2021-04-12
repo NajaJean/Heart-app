@@ -21,6 +21,7 @@
             <h2 class="title" font-weight="bold">Blood Pressure During the Week</h2>
           </md-card-header>
           <md-card-content>
+            <date-picker></date-picker>
             <blood-pressure-chart :key="keyvalue" :width="370" :height="246" :chart="[dates,data.blood_pressure_diastolic,data.blood_pressure_systolic]" :thresholds="thresholds"></blood-pressure-chart> 
           </md-card-content>
         </md-card>
@@ -56,13 +57,15 @@ import BloodPressureChart from '../components/Charts/BloodPressureChart.vue';
 import StepsChart from '../components/Charts/StepsChart.vue';
 import SleepChart from '../components/Charts/SleepChart.vue';
 import ThresholdForm from '../components/ThresholdForm.vue';
+import DatePicker from '../components/Picker/DatePicker.vue';
 
 export default {
   components: {
     BloodPressureChart,
     StepsChart,
     SleepChart,
-    ThresholdForm
+    ThresholdForm,
+    DatePicker
   },
   data() {
     return {
@@ -73,6 +76,7 @@ export default {
       thresholds: {},
       thresholdIds: {},
       keyvalue: 0,
+      selectedDate: new Date(),
       patient_id: '010101-1234',
       measurement_types: ['blood_pressure_diastolic','blood_pressure_systolic','cnt_steps','sleep_light','sleep_rem','sleep_deep'],
     };
