@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="md-layout">
-      <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
+      <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-button class="md-dense md-raised md-info" @click="togglePause()">{{!this.pause ? "Pause" : "Start"}}</md-button>
         <md-card>
           <md-card-header data-background-color="blue">
