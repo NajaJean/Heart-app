@@ -12,8 +12,8 @@ export default {
           {
           label:'Systolic',
                 data: this.chart[1],
-              backgroundColor:'#004346',
-          borderColor: '#004346',
+              backgroundColor:'#477b91',
+          borderColor: '#477b91',
           fill: false,
           tension: 0,
           scaleShowValues: true,

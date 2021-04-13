@@ -9,8 +9,8 @@
           <label>CPR</label>
           <md-input v-model="patient_id"></md-input>
           <md-button class="md-dense md-raised md-info" @click="changePatient(patient_id)">Change Patient</md-button>
+          <md-button class="md-dense md-raised md-info" @click="toggleThresholdsForm()">{{this.setThresholds ? "Cancel" : "Set Thresholds"}}</md-button>
         </md-field>
-        <md-button class="md-dense md-raised md-info" @click="toggleThresholdsForm()">{{this.setThresholds ? "Cancel" : "Set Thresholds"}}</md-button>
       </div>
       <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <threshold-form :key="keyvalue" v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold"></threshold-form>
