@@ -12,8 +12,8 @@ export default {
           {
           label:'Systolic',
                 data: this.chart[1],
-              backgroundColor: '#6ba8c2',
-          borderColor: '#6ba8c2',
+              backgroundColor:'#004346',
+          borderColor: '#004346',
           fill: false,
           tension: 0,
           scaleShowValues: true,
@@ -26,8 +26,8 @@ export default {
           },
         },{
           label:'Diastolic',
-          data:this.chart[2],
-          backgroundColor: 'rgba(29, 179, 44, 0.6)',
+                data:this.chart[2],
+              backgroundColor:'rgba(29, 179, 44, 0.6)',
           borderColor: 'rgba(29, 179, 44, 0.6)',
           fill: false,
           tension: 0,
@@ -42,24 +42,22 @@ export default {
         }],
         
       }, {scales: {
-            yAxes: [{
-
-
-                /*ticks: {
-                  suggestedMin: Math.min(Math.min(this.chart[0]),Math.min(this.chart[1]),Math.min(this.thresholds[0]),Math.min(this.thresholds[1]))-20,
-                  suggestedMax: Math.max(Math.max(this.chart[0]),Math.max(this.chart[1]),Math.max(this.thresholds[0]),Math.max(this.thresholds[1]))+20
-                },*/
-
-                afterDataLimits(scale) {
-                  scale.max += 10;
-                  scale.min -= 10 
-                  //Math.min(Math.min(this.chart[0]),Math.min(this.chart[1]),this.thresholds.blood_pressure_systoliclower,this.thresholds.blood_pressure_systolicupper,this.thresholds.blood_pressure_diastoliclower,this.thresholds.blood_pressure_diastolicupper)-20;
-                  
+            xAxes: [{
+              ticks: {
+                autoSkip: true,
+                maxTicksLimit: 15
+              },
+              time: {
+                format: undefined,
+                displayFormats: {
+                    millisecond: 'H:mm:ss.SSS',
+                    second: 'H:mm:ss',
+                    minute: 'H:mm',
+                    hour: 'H'
                 }
+              }
             }]
-          },
-        
-        
+      },
           responsive: true, 
           maintainAspectRatio: false,
           title:{
@@ -101,7 +99,7 @@ export default {
               scaleID: 'y-axis-0',
               id: 'syslowlimit',
               value: this.thresholds.blood_pressure_systoliclower,
-              borderColor: '#91d2ed',
+              borderColor: 'rgb(75, 124, 192)',
               borderWidth: 2,
               borderDash: [5,2],
               label: {
@@ -109,10 +107,6 @@ export default {
                 content: 'Sys lower limit',
                 position: 'right',
                 xAdjust: 5
-              },
-              afterDataLimits(scale) {
-                scale.max += 10;
-                scale.min -= 10;
               }
             },{
               type: 'line',
@@ -120,7 +114,7 @@ export default {
               scaleID: 'y-axis-0',
               id: 'sysuplimit',
               value: this.thresholds.blood_pressure_systolicupper,
-              borderColor: '#457082',
+              borderColor: 'rgb(75, 192, 192)',
               borderWidth: 2,
               borderDash: [5,2],
               label: {
@@ -135,7 +129,7 @@ export default {
               scaleID: 'y-axis-0',
               id: 'dialowlimit',
               value: this.thresholds.blood_pressure_diastoliclower,
-              borderColor: '#29f23d',
+              borderColor: 'rgb(75, 124, 192)',
               borderWidth: 2,
               borderDash: [5,2],
               label: {
@@ -150,7 +144,7 @@ export default {
               scaleID: 'y-axis-0',
               id: 'diauplimit',
               value: this.thresholds.blood_pressure_diastolicupper,
-              borderColor: '#14801f',
+              borderColor: 'rgb(75, 192, 192)',
               borderWidth: 2,
               borderDash: [5,2],
               label: {

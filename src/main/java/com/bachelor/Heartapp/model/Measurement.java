@@ -1,5 +1,7 @@
 package com.bachelor.Heartapp.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +24,7 @@ public class Measurement {
 	private String patientid;
 	
 	@Column(name = "Date")
-	private String datepost;
+	private Date datepost;
 	
 	@Column(name = "Measurementtype")
 	private String measurementtype;
@@ -35,7 +37,7 @@ public class Measurement {
 
 	}
 
-	public Measurement(String patientid, String datepost, String measurementtype,
+	public Measurement(String patientid, Date datepost, String measurementtype,
 			String measurementvalue) {
 		super();
 		this.patientid = patientid;
@@ -53,12 +55,12 @@ public class Measurement {
 	}
 
 
-	public String getDatepost() {
+	public Date getDatepost() {
 		return datepost;
 	}
 
 
-	public void setDatepost(String datepost) {
+	public void setDatepost(Date datepost) {
 		this.datepost = datepost;
 	}
 

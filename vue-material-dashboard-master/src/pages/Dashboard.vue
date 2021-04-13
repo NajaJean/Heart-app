@@ -15,6 +15,7 @@
       <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <threshold-form :key="keyvalue" v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold"></threshold-form>
       </div>
+      <date-picker :key="keyvalue" :selectedfrom="selectedFrom" :selectedto="selectedTo" @update-time="updateTime"></date-picker>
       <div class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
@@ -56,13 +57,15 @@ import BloodPressureChart from '../components/Charts/BloodPressureChart.vue';
 import StepsChart from '../components/Charts/StepsChart.vue';
 import SleepChart from '../components/Charts/SleepChart.vue';
 import ThresholdForm from '../components/ThresholdForm.vue';
+import DatePicker from '../components/Picker/DatePicker.vue';
 
 export default {
   components: {
     BloodPressureChart,
     StepsChart,
     SleepChart,
-    ThresholdForm
+    ThresholdForm,
+    DatePicker
   },
   data() {
     return {
@@ -72,6 +75,8 @@ export default {
       dataloaded: false,
       thresholds: {},
       thresholdIds: {},
+      selectedFrom: null,
+      selectedTo: null,
       keyvalue: 0,
       patient_id: '010101-1234',
       measurement_types: ['blood_pressure_diastolic','blood_pressure_systolic','cnt_steps','sleep_light','sleep_rem','sleep_deep'],
@@ -94,9 +99,6 @@ export default {
       this.retrieveThresholds();
       await sleep(2000);
       this.dataloaded = true;
-      /*this.retrieveMeasurements();
-      this.retrieveThresholds();
-      this.updateCharts();*/
       console.log("updated to patient: "+newPatient_id);
     },
     updateCharts() {
@@ -134,7 +136,25 @@ export default {
           console.log(e);
         });
     },
-
+    async updateTime(from,to) {
+      this.selectedFrom = from;
+      this.selectedTo = to;
+      this.data = {};
+      this.dates = [];
+      for (var typ in (this.measurement_types)) {
+        MeasurementDataService.getMeasurementsFromTo(this.patient_id,this.measurement_types[typ],from,to)
+        .then(response => {
+          response.data.map(m => this.pushMeasurementsIntoData(m));
+        })
+        .catch(e => {
+          console.log(e);
+        });
+      };
+      this.dataloaded = false;
+      await sleep(2000);
+      this.updateCharts();
+      this.dataloaded = true;
+    },
     retrieveMeasurements() {
       var typ;
       for (typ in (this.measurement_types)) {
@@ -155,7 +175,8 @@ export default {
       
       //special case for dates, need to be fixed someday
       if (m.measurementtype == "cnt_steps") {
-        this.dates.push(m.datepost.substring(0,11));
+        var date = new Date(m.datepost);
+        this.dates.push(date.toDateString());
       }
     },
     retrieveThresholds() {

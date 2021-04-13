@@ -1,6 +1,7 @@
 package com.bachelor.Heartapp.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,20 @@ public class MeasurementController {
 	public ResponseEntity<List<Measurement>> get7LatestOfCertainMeasurement(@PathVariable("patient_id") String patient_id, @PathVariable("measurement_type") String measurement_type) {
 		try {
 			List<Measurement> measurements = measurementRepository.findFirst7ByPatientidAndMeasurementtypeOrderByDatepostDesc(patient_id,measurement_type);
+
+			if (measurements.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(measurements, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/measurements/{patient_id}/{measurement_type}/{from}/{to}")
+	public ResponseEntity<List<Measurement>> getMeasurementFromTo(@PathVariable("patient_id") String patient_id, @PathVariable("measurement_type") String measurement_type, @PathVariable("from") Date from, @PathVariable("to") Date to) {
+		try {
+			List<Measurement> measurements = measurementRepository.findAllByPatientidAndMeasurementtypeAndDatepostBetweenOrderByDatepostDesc(patient_id,measurement_type,from,to);
 
 			if (measurements.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);

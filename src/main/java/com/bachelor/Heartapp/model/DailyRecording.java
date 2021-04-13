@@ -1,6 +1,7 @@
 package com.bachelor.Heartapp.model;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,7 +40,7 @@ public class DailyRecording {
 	private Long csq;
 	
 	@Column(name = "date_post")
-	private String date_post;
+	private Date date_post;
 	
 	@Column(name = "imei")
 	private BigInteger imei;
@@ -64,7 +65,7 @@ public class DailyRecording {
 		
 	}
 		public DailyRecording(BigInteger blood_pressure_diastolic, BigInteger blood_pressure_systolic, BigInteger cnt_steps,
-			String device_id, String patient_id, Long csq, String date_post, BigInteger imei, BigInteger sim_number,
+			String device_id, String patient_id, Long csq, Date date_post, BigInteger imei, BigInteger sim_number,
 			float sleep_deep, float sleep_light, float sleep_rem, float weight) {
 		super();
 		this.blood_pressure_diastolic = blood_pressure_diastolic;
@@ -143,12 +144,12 @@ public class DailyRecording {
 	}
 
 
-	public String getDate_post() {
+	public Date getDate_post() {
 		return date_post;
 	}
 
 
-	public void setDate_post(String date_post) {
+	public void setDate_post(Date date_post) {
 		this.date_post = date_post;
 	}
 
