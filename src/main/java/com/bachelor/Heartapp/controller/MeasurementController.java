@@ -26,22 +26,6 @@ public class MeasurementController {
 		
 	@Autowired
 	MeasurementRepository measurementRepository;
-
-	@GetMapping("/measurements")
-	public ResponseEntity<List<Measurement>> getAllMeasurements() {
-		try {
-			List<Measurement> measurements = new ArrayList<Measurement>();
-		
-			measurementRepository.findAll().forEach(measurements::add);
-
-			if (measurements.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>(measurements, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
 	
 	@GetMapping("/7measurements/{patient_id}")
 	public ResponseEntity<List<Measurement>> get7LatestOfPatientsMeasurements(@PathVariable("patient_id") String patient_id) {
