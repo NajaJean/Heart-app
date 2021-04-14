@@ -32,7 +32,6 @@ public class RealTimeController {
 			RealTime _realtime = realtimeRepository.save(new RealTime(
 					realtime.getPatientid(),
 					realtime.getDatepost(),
-					realtime.getMeasurementtype(),
 					realtime.getMeasurementvalue()
 					));
 			return new ResponseEntity<>(_realtime, HttpStatus.CREATED);

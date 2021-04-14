@@ -15,28 +15,25 @@ import com.bachelor.Heartapp.HeartAppApplication;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RealTime {
 	
-	@Column(name = "Patientid")
+	@Column(name = "patient_id")
 	private String patientid;
 	
 	@Id
-	@Column(name = "Date")
+	@Column(name = "timestamp")
 	private Date datepost;
 	
-	@Column(name = "Measurementtype")
-	private String measurementtype;
 	
-	@Column(name = "Measurementvalue")
+	@Column(name = "ecg_data")
 	private int[] measurementvalue;
 	
 	public RealTime() {
 		
 	}
 
-	public RealTime(String patientid, Date datepost, String measurementtype, int[] measurementvalue) {
+	public RealTime(String patientid, Date datepost, int[] measurementvalue) {
 		super();
 		this.patientid = patientid;
 		this.datepost = datepost;
-		this.measurementtype = measurementtype;
 		this.measurementvalue = measurementvalue;
 	}
 
@@ -54,14 +51,6 @@ public class RealTime {
 
 	public void setDatepost(Date datepost) {
 		this.datepost = datepost;
-	}
-
-	public String getMeasurementtype() {
-		return measurementtype;
-	}
-
-	public void setMeasurementtype(String measurementtype) {
-		this.measurementtype = measurementtype;
 	}
 
 	public int[] getMeasurementvalue() {

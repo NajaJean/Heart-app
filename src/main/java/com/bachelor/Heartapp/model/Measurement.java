@@ -20,16 +20,16 @@ public class Measurement {
 	@Id
 	private long id;
 	
-	@Column(name = "Patientid")
+	@Column(name = "patientid")
 	private String patientid;
 	
-	@Column(name = "Date")
+	@Column(name = "datepost")
 	private Date datepost;
 	
-	@Column(name = "Measurementtype")
+	@Column(name = "measurementtype")
 	private String measurementtype;
 	
-	@Column(name = "Measurementvalue")
+	@Column(name = "measurementvalue")
 	private String measurementvalue;
 	
 	

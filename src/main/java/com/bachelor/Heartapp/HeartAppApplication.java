@@ -70,7 +70,7 @@ public class HeartAppApplication {
 			dr.forEach(d -> transform(d));
 			System.out.println("DONE!");*/
 			
-			postMockECG();
+			//postMockECG();
 		};
 	}
 	
@@ -99,7 +99,7 @@ public class HeartAppApplication {
 				for (int i=0; i<data.length; i++) {
 					data[i] = i;
 				}
-				realtimeController.createRealTime(new RealTime("010101-1234", timestamp, "ECG", data));
+				realtimeController.createRealTime(new RealTime("010101-1234", timestamp, data));
 				
 				
 				System.out.println("ecg post");
