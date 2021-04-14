@@ -1,7 +1,6 @@
 package com.bachelor.Heartapp.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.bachelor.Heartapp.HeartAppApplication;
 
 @Entity
-@Table(name = "realtime")
+@Table(name = HeartAppApplication.realtimeTableName)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RealTime {
 	

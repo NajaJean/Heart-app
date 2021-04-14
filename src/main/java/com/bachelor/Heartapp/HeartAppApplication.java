@@ -30,6 +30,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class HeartAppApplication {
 	
 	public final static String backendUrlRoot = "http://localhost:8081";
+	public final static String measurementTableName = "measurements";
+	public final static String realtimeTableName = "realtime";
 	
 	@Autowired
 	MeasurementController measurementController;
@@ -53,7 +55,7 @@ public class HeartAppApplication {
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
-			System.out.println("Start getting data into local database");
+			/*System.out.println("Start getting data into local database");
 			ResponseEntity<Object[]> responseEntity =
 					   restTemplate.getForEntity("http://167.99.133.167:54532/all", Object[].class);
 			
@@ -66,7 +68,7 @@ public class HeartAppApplication {
 					  .collect(Collectors.toList());
 
 			dr.forEach(d -> transform(d));
-			System.out.println("DONE!");
+			System.out.println("DONE!");*/
 			
 			postMockECG();
 		};

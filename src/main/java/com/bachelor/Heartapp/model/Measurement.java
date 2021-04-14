@@ -8,16 +8,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import com.bachelor.Heartapp.HeartAppApplication;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "measurements")
+@Table(name = HeartAppApplication.measurementTableName)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Measurement {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
 	@Column(name = "Patientid")
