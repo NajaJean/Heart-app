@@ -141,8 +141,9 @@ export default {
       this.selectedTo = to;
       this.data = {};
       this.dates = [];
+      const toPlus1 = new Date(to.getTime() + 86400000)
       for (var typ in (this.measurement_types)) {
-        MeasurementDataService.getMeasurementsFromTo(this.patient_id,this.measurement_types[typ],from,to)
+        MeasurementDataService.getMeasurementsFromTo(this.patient_id,this.measurement_types[typ],from,toPlus1)
         .then(response => {
           response.data.map(m => this.pushMeasurementsIntoData(m));
         })
