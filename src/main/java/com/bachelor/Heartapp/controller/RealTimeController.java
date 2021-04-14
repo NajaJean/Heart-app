@@ -43,7 +43,7 @@ public class RealTimeController {
 	@GetMapping("/latestecg/{patient_id}")
 	public ResponseEntity<List<RealTime>> getLatestPatientsECG(@PathVariable("patient_id") String patient_id) {
 		try {
-			List<RealTime> ecgs = realtimeRepository.findFirstByPatientidAndMeasurementtypeOrderByDatepostDesc(patient_id,"ECG");
+			List<RealTime> ecgs = realtimeRepository.findFirstByPatientidOrderByDatepostDesc(patient_id);
 
 			if (ecgs.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);

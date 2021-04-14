@@ -15,7 +15,7 @@ import com.bachelor.Heartapp.HeartAppApplication;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RealTime {
 	
-	@Column(name = "patient_id")
+	@Column(name = "patientid")
 	private String patientid;
 	
 	@Id
@@ -23,7 +23,7 @@ public class RealTime {
 	private Date datepost;
 	
 	
-	@Column(name = "ecg_data")
+	@Column(name = "ecgdata")
 	private int[] measurementvalue;
 	
 	public RealTime() {

@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Measurement {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
 	@Column(name = "patientid")
