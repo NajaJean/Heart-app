@@ -29,6 +29,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 @EnableSwagger2
 public class HeartAppApplication {
 	
+	public final static String backendUrlRoot = "http://localhost:8081";
+	
 	@Autowired
 	MeasurementController measurementController;
 	

@@ -16,11 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bachelor.Heartapp.model.Measurement;
 import com.bachelor.Heartapp.repository.MeasurementRepository;
-import com.bachelor.Heartapp.BackendConfig;
-	
+import com.bachelor.Heartapp.HeartAppApplication;
 
-
-//@CrossOrigin(origins = {"${app.api.settings.cross-origin.urls}"})
+@CrossOrigin(origins = HeartAppApplication.backendUrlRoot)
 @RestController
 @RequestMapping("/api")
 public class MeasurementController {
