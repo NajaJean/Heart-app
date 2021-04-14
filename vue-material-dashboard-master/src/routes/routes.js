@@ -6,34 +6,40 @@ import Notifications from "@/pages/Notifications.vue";
 import LogIn from "@/pages/LogIn.vue";
 
 const routes = [
-  {
-    path: "/",
-    component: DashboardLayout,
-    redirect: "/dashboard",
-    children: [
-      {
-        path: "dashboard",
-        name: "Dashboard",
-        component: Dashboard
-      },
-      {
-        path: "ecglive",
-        name: "ECGLive",
-        component: ECGLive
-      },
-      {
-        path: "measurements",
-        name: "Measurements",
-        component: MeasurementsList
-      },
-      {
-        path: "notifications",
-        name: "Notifications",
-        component: Notifications
-      }
+    {
+        path: "/",
+        component: LogIn,
+ //       redirect: "/dashboard",
+    },
+    {
+        path: "/",
+        component: DashboardLayout,
+        redirect: "/dashboard",
+        children: [
+                {
+                    path: "dashboard",
+                    name: "Dashboard",
+                    component: Dashboard
+                },
+                {
+                    path: "ecglive",
+                    name: "ECGLive",
+                    component: ECGLive
+                },
+                {
+                    path: "measurements",
+                    name: "Measurements",
+                    component: MeasurementsList
+                },
+                {
+                    path: "notifications",
                     name: "Notifications",
+                    component: Notifications
+                }
+            ]
+        }
+   
     ]
-  }
 /*
 const routes = [
     {
