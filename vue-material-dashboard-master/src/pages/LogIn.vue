@@ -25,18 +25,14 @@
                 authenticated: false
             }
         },
-        mounted() {
-            if (!this.authenticated) {
-                this.$router.replace({ path: "/" });
-            }
-        },
         methods: {
             login() {
                 if (this.input.username != "" && this.input.password != "") {
                     if (this.input.username == "admin" && this.input.password == "mathilde") {
-                        this.authenticated = true;
+                        this.$emit("authenticated", true);
                         this.$router.replace({ path: "/dashboard" });
                     } else {
+                        this.$emit("authenticated",false);
                         console.log("The username and / or password is incorrect");
                     }
                 } else {

@@ -8,8 +8,11 @@ import LogIn from "@/pages/LogIn.vue";
 const routes = [
     {
         path: "/",
+        redirect: "/login",
+    },
+    {
+        path: "/login",
         component: LogIn,
- //       redirect: "/dashboard",
     },
     {
         path: "/",
@@ -37,44 +40,8 @@ const routes = [
                     component: Notifications
                 }
             ]
-        }
+    }
+
    
     ]
-/*
-const routes = [
-    {
-        path: "/",
-        component: LogIn,
-        children: [{
-            path: "/dashboardLayout",
-            name: "DashboardLayout",
-            component: DashboardLayout,
-            redirect: "/dashboard",
-            children: [
-                {
-                    path: "dashboard",
-                    name: "Dashboard",
-                    component: Dashboard
-                },
-                {
-                    path: "ecglive",
-                    name: "ECGLive",
-                    component: ECGLive
-                },
-                {
-                    path: "measurements",
-                    name: "Measurements",
-                    component: MeasurementsList
-                },
-                {
-                    path: "notifications",
-                    name: "Notifications",
-                    component: Notifications
-                }
-            ]
-        }
-        ]
-    }
-];
-*/
 export default routes;

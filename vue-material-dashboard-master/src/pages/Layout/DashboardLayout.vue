@@ -41,11 +41,11 @@ export default {
     TopNavbar,
     DashboardContent
   },
-  data() {
-    return {
-      sidebarBackground: "green",
-      sidebarBackgroundImage: require("@/assets/img/HeartAppSideBar.png")
-    };
-  }
+    data() {
+        return {
+          sidebarBackground: "green",
+          sidebarBackgroundImage: require("@/assets/img/HeartAppSideBar.png")
+        };
+    }
 };
 </script>
