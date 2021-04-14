@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bachelor.Heartapp.BackendConfig;
 import com.bachelor.Heartapp.model.RealTime;
 import com.bachelor.Heartapp.repository.RealTimeRepository;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = BackendConfig.backendUrlRoot)
 @RestController
 @RequestMapping("/api")
 public class RealTimeController {

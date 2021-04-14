@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bachelor.Heartapp.BackendConfig;
 import com.bachelor.Heartapp.model.Patient;
 import com.bachelor.Heartapp.repository.PatientRepository;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = BackendConfig.backendUrlRoot)
 @RestController
 @RequestMapping("/api")
 public class PatientController {

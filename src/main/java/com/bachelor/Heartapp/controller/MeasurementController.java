@@ -1,6 +1,5 @@
 package com.bachelor.Heartapp.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,13 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bachelor.Heartapp.model.Measurement;
 import com.bachelor.Heartapp.repository.MeasurementRepository;
+import com.bachelor.Heartapp.BackendConfig;
+	
 
 
-@CrossOrigin(origins = "http://localhost:8081")
+//@CrossOrigin(origins = {"${app.api.settings.cross-origin.urls}"})
 @RestController
 @RequestMapping("/api")
 public class MeasurementController {
-		
+	
 	@Autowired
 	MeasurementRepository measurementRepository;
 	
