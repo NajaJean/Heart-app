@@ -30,21 +30,21 @@ public class RealTimeController {
 	public ResponseEntity<RealTime> createRealTime(@RequestBody RealTime realtime) {
 		try {
 			RealTime _realtime = realtimeRepository.save(new RealTime(
-					realtime.getPatientid(),
-					realtime.getDatepost(),
-					realtime.getMeasurementvalue()
+					realtime.getPatientid(),					
+					realtime.getMeasurementvalue(),
+					realtime.getDatepost()
 					));
 			return new ResponseEntity<>(_realtime, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}
+	} 
 	
 	@GetMapping("/latestecg/{patient_id}")
 	public ResponseEntity<List<RealTime>> getLatestPatientsECG(@PathVariable("patient_id") String patient_id) {
 		try {
 			List<RealTime> ecgs = realtimeRepository.findFirstByPatientidOrderByDatepostDesc(patient_id);
-
+			System.out.print(ecgs.get(0).toString());
 			if (ecgs.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}

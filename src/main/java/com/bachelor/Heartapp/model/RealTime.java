@@ -1,5 +1,6 @@
 package com.bachelor.Heartapp.model;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -24,13 +25,13 @@ public class RealTime {
 	
 	
 	@Column(name = "ecgdata")
-	private int[] measurementvalue;
+	private byte[] measurementvalue;
 	
 	public RealTime() {
 		
 	}
 
-	public RealTime(String patientid, Date datepost, int[] measurementvalue) {
+	public RealTime(String patientid, byte[] measurementvalue,Date datepost) {
 		super();
 		this.patientid = patientid;
 		this.datepost = datepost;
@@ -53,12 +54,18 @@ public class RealTime {
 		this.datepost = datepost;
 	}
 
-	public int[] getMeasurementvalue() {
+	public byte[] getMeasurementvalue() {
 		return measurementvalue;
 	}
 
-	public void setMeasurementvalue(int[] measurementvalue) {
+	public void setMeasurementvalue(byte[] measurementvalue) {
 		this.measurementvalue = measurementvalue;
+	}
+
+	@Override
+	public String toString() {
+		return "RealTime [patientid=" + patientid + ", datepost=" + datepost + ", measurementvalue="
+				+ Arrays.toString(measurementvalue) + "]";
 	}
 	
 
