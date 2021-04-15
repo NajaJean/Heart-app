@@ -43,13 +43,14 @@ public class RealTimeController {
 	@GetMapping("/latestecg/{patient_id}")
 	public ResponseEntity<List<RealTime>> getLatestPatientsECG(@PathVariable("patient_id") String patient_id) {
 		try {
-			List<RealTime> ecgs = realtimeRepository.findFirstByPatientidOrderByDatepostDesc(patient_id);
-			System.out.print(ecgs.get(0).toString());
+			List<RealTime> ecgs =  realtimeRepository.findFirstByPatientidOrderByDatepostDesc(patient_id);
+			System.out.println(ecgs.toString());
 			if (ecgs.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			return new ResponseEntity<>(ecgs, HttpStatus.OK);
 		} catch (Exception e) {
+			System.out.println(e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

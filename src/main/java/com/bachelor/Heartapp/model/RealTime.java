@@ -1,12 +1,17 @@
 package com.bachelor.Heartapp.model;
 
+import java.math.BigInteger;
+import java.sql.Array;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.bachelor.Heartapp.HeartAppApplication;
@@ -25,15 +30,15 @@ public class RealTime {
 	@Column(name = "timestamp")
 	private Date datepost;
 	
-	
+    @Type(type = "com.bachelor.Heartapp.model.IntArrayUserType")
 	@Column(name = "ecg_data")
-	private byte[] measurementvalue;
+	private Integer[] measurementvalue;
 	
 	public RealTime() {
 		
 	}
 
-	public RealTime(String patientid, Date datepost, byte[] measurementvalue) {
+	public RealTime(String patientid, Date datepost, Integer[] measurementvalue) {
 		super();
 		this.patientid = patientid;
 		this.datepost = datepost;
@@ -56,19 +61,20 @@ public class RealTime {
 		this.datepost = datepost;
 	}
 
-	public byte[] getMeasurementvalue() {
+//    @Type(type = "com.bachelor.Heartapp.model.IntArrayUserType")
+	public Integer[] getMeasurementvalue() {
 		return measurementvalue;
 	}
 
-	public void setMeasurementvalue(byte[] measurementvalue) {
+	public void setMeasurementvalue(Integer[] measurementvalue) {
 		this.measurementvalue = measurementvalue;
 	}
 
 	@Override
 	public String toString() {
-		return "RealTime [patientid=" + patientid + ", datepost=" + datepost + ", measurementvalue="
+		return "RealTime [id=" + id + ", patientid=" + patientid + ", datepost=" + datepost + ", measurementvalue="
 				+ Arrays.toString(measurementvalue) + "]";
 	}
-	
+
 
 }

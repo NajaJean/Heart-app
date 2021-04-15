@@ -1,10 +1,10 @@
 <script>
-import { Line } from 'vue-chartjs'
+import { Scatter } from 'vue-chartjs'
 import 'chartjs-plugin-streaming';
 import MeasurementDataService from "../../services/MeasurementDataService";
 
 export default {
-  extends: Line,
+  extends: Scatter,
   props:['pauseX'],
   mounted () {
     this.renderChart({
@@ -71,35 +71,27 @@ export default {
 
                 MeasurementDataService.getLatestECG("1")
                 .then(response => {
-                  const ecg = response.data[0];
-                  console.log(dataset.lastRecordedTime+" <="+ new Date(ecg.datepost))
-                  if (dataset.lastRecordedTime <= new Date(ecg.datepost)) {
-                    
-                      for (var i = 0; i < ecg.measurementvalue.length-2; i = i + 2) {
-                        /*var byteArray = new byteArray(2);
-                        byteArray[0] = ecg.measurementvalue[i];
-                        byteArray[1] = ecg.measurementvalue[i + 1];
+                    const ecg = response.data[0];
+                  //  console.log(ecg);
+                    const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";
+                    //console.log(new Date(new Date(ecg.datepost).getTime() + 8640000/24*2));
+                    //console.log(new Date(datepost));
+
+                    if (dataset.lastRecordedTime <= new Date(datepost)) {
+
+                      for (var i = 0; i < ecg.measurementvalue.length-1; i++) {
                         
-                        var value = 0;
-                        for (var i = byteArray.length - 1; i >= 0; i--) {
-                            value = (value * 256) + byteArray[i];
-                          }*/
-                          var value = ecg.measurementvalue[i+1] << 8 | ecg.measurementvalue[i]
-
-                          console.log(value)
-                            
-                        //var ecgValue = ecg.measurementvalue[i] + ecg.measurementvalue[i + 1];
-                      var spreadtime = ((i*1000)/ecg.measurementvalue.length);
-
-                      dataset.data.push({
-                        x: new Date((new Date(ecg.datepost)).getTime()+spreadtime),
-                        y: value
-                      })
+                        var spreadtime = ((i*1000)/(ecg.measurementvalue.length-1));
+                   //       console.log(ecg.measurementvalue[i])
+                        dataset.data.push({
+                          x: new Date((new Date(datepost)).getTime()+spreadtime),
+                          y: ecg.measurementvalue[i]
+                        })
 
                     }
 
                     chart.update();
-                    dataset.lastRecordedTime = new Date(ecg.datepost);
+                    dataset.lastRecordedTime = new Date(datepost);
                   }     
                 })
                 .catch(e => {
