@@ -69,7 +69,7 @@ export default {
             onRefresh: function(chart) {
               chart.data.datasets.forEach(function(dataset) {
 
-                MeasurementDataService.getLatestECG("010101-1234")
+                MeasurementDataService.getLatestECG("1")
                 .then(response => {
                   const ecg = response.data[0];
                   console.log(dataset.lastRecordedTime+" <="+ new Date(ecg.datepost))

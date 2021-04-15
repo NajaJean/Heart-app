@@ -16,22 +16,24 @@ import com.bachelor.Heartapp.HeartAppApplication;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RealTime {
 	
-	@Column(name = "patientid")
+	@Id
+	private long id;
+	
+	@Column(name = "patient_id")
 	private String patientid;
 	
-	@Id
 	@Column(name = "timestamp")
 	private Date datepost;
 	
 	
-	@Column(name = "ecgdata")
+	@Column(name = "ecg_data")
 	private byte[] measurementvalue;
 	
 	public RealTime() {
 		
 	}
 
-	public RealTime(String patientid, byte[] measurementvalue,Date datepost) {
+	public RealTime(String patientid, Date datepost, byte[] measurementvalue) {
 		super();
 		this.patientid = patientid;
 		this.datepost = datepost;

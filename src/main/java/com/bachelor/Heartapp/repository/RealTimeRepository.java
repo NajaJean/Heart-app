@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bachelor.Heartapp.model.RealTime;
 
-public interface RealTimeRepository extends JpaRepository<RealTime, String> {
+public interface RealTimeRepository extends JpaRepository<RealTime, Long> {
 	List<RealTime> findFirstByPatientidOrderByDatepostDesc(String patient_id);
 }

@@ -30,9 +30,9 @@ public class RealTimeController {
 	public ResponseEntity<RealTime> createRealTime(@RequestBody RealTime realtime) {
 		try {
 			RealTime _realtime = realtimeRepository.save(new RealTime(
-					realtime.getPatientid(),					
-					realtime.getMeasurementvalue(),
-					realtime.getDatepost()
+					realtime.getPatientid(),
+					realtime.getDatepost(),
+					realtime.getMeasurementvalue()
 					));
 			return new ResponseEntity<>(_realtime, HttpStatus.CREATED);
 		} catch (Exception e) {
