@@ -18,10 +18,11 @@
         <md-icon>notifications</md-icon>
         <p>Measurements</p>
       </sidebar-link>
+        <!---
       <sidebar-link to="/notifications">
         <md-icon>alarm</md-icon>
         <p>Notifications</p>
-      </sidebar-link>
+      </sidebar-link> -->
     </side-bar>
 
     <div class="main-panel">
