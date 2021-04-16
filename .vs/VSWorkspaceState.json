@@ -7,13 +7,14 @@
     "\\src\\main\\java\\com",
     "\\src\\main\\java\\com\\bachelor",
     "\\src\\main\\java\\com\\bachelor\\Heartapp",
-    "\\src\\main\\java\\com\\bachelor\\Heartapp\\controller",
     "\\src\\main\\java\\com\\bachelor\\Heartapp\\model",
     "\\vue-material-dashboard-master",
     "\\vue-material-dashboard-master\\src",
+    "\\vue-material-dashboard-master\\src\\components",
+    "\\vue-material-dashboard-master\\src\\components\\Charts",
     "\\vue-material-dashboard-master\\src\\pages",
     "\\vue-material-dashboard-master\\src\\pages\\Layout"
   ],
-  "SelectedNode": "\\src\\main\\java\\com\\bachelor\\Heartapp\\HeartAppApplication.java",
+  "SelectedNode": "\\vue-material-dashboard-master\\src\\pages\\Dashboard.vue",
   "PreviewInSolutionExplorer": false
 }

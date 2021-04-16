@@ -1,10 +1,7 @@
 package com.bachelor.Heartapp.model;
 
-import java.math.BigInteger;
-import java.sql.Array;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -61,7 +58,6 @@ public class RealTime {
 		this.datepost = datepost;
 	}
 
-//    @Type(type = "com.bachelor.Heartapp.model.IntArrayUserType")
 	public Integer[] getMeasurementvalue() {
 		return measurementvalue;
 	}

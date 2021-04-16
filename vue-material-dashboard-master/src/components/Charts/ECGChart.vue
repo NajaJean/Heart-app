@@ -1,10 +1,10 @@
 <script>
-import { Scatter } from 'vue-chartjs'
+import { Line } from 'vue-chartjs'
 import 'chartjs-plugin-streaming';
 import MeasurementDataService from "../../services/MeasurementDataService";
 
 export default {
-  extends: Scatter,
+  extends: Line,
   props:['pauseX'],
   mounted () {
     this.renderChart({
@@ -47,6 +47,12 @@ export default {
           },
           
       scales: {
+        yAxes: [{
+            ticks: {
+                min: 0,
+                max: 1200,
+            }
+        }],
         xAxes: [{
           ticks: {
             autoSkip: true,
@@ -64,31 +70,27 @@ export default {
           type: 'realtime',
           realtime: {
             duration: 5000,
-            refresh: 500,
+            refresh: 1000,
             pause: this.pauseX,
             onRefresh: function(chart) {
               chart.data.datasets.forEach(function(dataset) {
-
                 MeasurementDataService.getLatestECG("1")
                 .then(response => {
                     const ecg = response.data[0];
-                  //  console.log(ecg);
                     const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";
-                    //console.log(new Date(new Date(ecg.datepost).getTime() + 8640000/24*2));
-                    //console.log(new Date(datepost));
 
+                    var ptime = new Date((new Date(datepost)).getTime());
                     if (dataset.lastRecordedTime <= new Date(datepost)) {
+                    
+                        for (var i = 0; i < ecg.measurementvalue.length - 1; i++) {
+ //                         var spreadtime = ((i * 1000) / (ecg.measurementvalue.length - 1));
+                          ptime = new Date(ptime.getTime() + 8)
 
-                      for (var i = 0; i < ecg.measurementvalue.length-1; i++) {
-                        
-                        var spreadtime = ((i*1000)/(ecg.measurementvalue.length-1));
-                   //       console.log(ecg.measurementvalue[i])
-                        dataset.data.push({
-                          x: new Date((new Date(datepost)).getTime()+spreadtime),
+                          dataset.data.push({
+                          x: ptime,
                           y: ecg.measurementvalue[i]
-                        })
-
-                    }
+                          })
+                        }
 
                     chart.update();
                     dataset.lastRecordedTime = new Date(datepost);
@@ -99,7 +101,7 @@ export default {
                 });
               });
             },
-            delay: 2000
+              delay: 2000
           }
         }]
       }
@@ -107,7 +109,7 @@ export default {
   },
   plugins: {
       streaming: {            // per-chart option
-          frameRate: 30       // chart is drawn 30 times every second
+          frameRate: 20       // chart is drawn 30 times every second
       }
   }
 }

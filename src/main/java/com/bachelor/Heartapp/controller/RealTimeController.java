@@ -44,7 +44,7 @@ public class RealTimeController {
 	public ResponseEntity<List<RealTime>> getLatestPatientsECG(@PathVariable("patient_id") String patient_id) {
 		try {
 			List<RealTime> ecgs =  realtimeRepository.findFirstByPatientidOrderByDatepostDesc(patient_id);
-			System.out.println(ecgs.toString());
+
 			if (ecgs.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
