@@ -100,7 +100,7 @@ public class HeartAppApplication {
 				//System.arraycopy(dataLong, 0, data, 0, 124);				
 				Date timestamp = new Date(System.currentTimeMillis());
 
-				realtimeController.createRealTime(new RealTime("010101-1234", timestamp, dataByte));
+				realtimeController.createRealTime(new RealTime("1", timestamp, dataByte));
 				
 				System.out.println("ecg post"); 
 				TimeUnit.SECONDS.sleep(1);
