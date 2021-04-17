@@ -8,6 +8,7 @@
             <h2 class="title" font-weight="bold">Live ECG</h2>
           </md-card-header>
           <md-card-content>
+            <h2 :key="heartRate" class="title" font-weight="bold" text-align="center">Heart Rate: {{this.heartRate}}</h2>
             <e-c-g-chart :key="pause" name='ecg-chart' :width="370" :height="246" :pauseX="pause"></e-c-g-chart> 
           </md-card-content>
         </md-card>
@@ -18,6 +19,7 @@
 
 <script>
 import ECGChart from '../components/Charts/ECGChart.vue';
+import MeasurementDataService from "../services/MeasurementDataService";
 
 export default {
   components: {
@@ -25,16 +27,31 @@ export default {
   },
   data() {
     return {
-      pause: false
+      pause: false,
+      heartRate: null
     };
+  },
+  created() {
+    this.interval = setInterval(() => this.getHeartRate(), 500);
   },
   methods: {
     togglePause() {
       //this.ECGChart.options.scales.xAxes.realtime.pause = true,
       this.pause = !this.pause;
       console.log("pause: "+this.pause);
-    }
+    },
+    getHeartRate() {
+      MeasurementDataService.getLatestECG("1")
+        .then(response => {
+          const newrate = response.data[0].measurementvalue[response.data[0].measurementvalue.length-1];
+          if (this.heartRate != newrate) {
+            this.heartRate = newrate;
+          }     
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    } 
   }
 };
-
 </script>
