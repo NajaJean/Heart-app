@@ -66,20 +66,4 @@ public class ThresholdController {
 			});
 		}
 	}
-
-	@GetMapping("/thresholds")
-	public ResponseEntity<List<Threshold>> getAllThresholds() {
-		try {
-			List<Threshold> thresholds = new ArrayList<Threshold>();
-		
-			thresholdRepository.findAll().forEach(thresholds::add);
-
-			if (thresholds.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>(thresholds, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
 }
