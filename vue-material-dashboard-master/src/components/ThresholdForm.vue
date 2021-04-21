@@ -10,13 +10,13 @@
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Systolic lower limit</label>
-              <md-input v-model="form.blood_pressure_systoliclower" type="number"></md-input>
+              <md-input name="bloodSysLower" v-model="form.blood_pressure_systoliclower" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Systolic upper limit</label>
-              <md-input v-model="form.blood_pressure_systolicupper" type="number"></md-input>
+              <md-input name="bloodSysUpper" v-model="form.blood_pressure_systolicupper" type="number"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
@@ -82,7 +82,7 @@
             </md-field>
           </div>
           <div class="md-layout-item md-size-100 text-right">
-            <md-button class="md-raised md-info" @click="submitThresholds()">Update Thresholds</md-button>
+            <md-button name="updateThreshold" class="md-raised md-info" @click="submitThresholds()">Update Thresholds</md-button>
           </div>
         </div>
       </md-card-content>

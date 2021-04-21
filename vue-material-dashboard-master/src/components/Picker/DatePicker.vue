@@ -1,8 +1,8 @@
 <template>
   <md-field class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
-    <md-datepicker v-model="selectedFrom" md-immediately :md-disabled-dates="disabledDatesFrom"><label>From:</label></md-datepicker>
-    <md-datepicker v-model="selectedTo" md-immediately :md-disabled-dates="disabledDatesTo"><label>To:</label></md-datepicker>
-    <md-button class="md-dense md-raised md-info" :disabled="selectedFrom == null || selectedTo == null" @click="updateTime()">Update time</md-button>
+    <md-datepicker name="from" v-model="selectedFrom" md-immediately :md-disabled-dates="disabledDatesFrom"><label>From:</label></md-datepicker>
+    <md-datepicker name="to" v-model="selectedTo" md-immediately :md-disabled-dates="disabledDatesTo"><label>To:</label></md-datepicker>
+    <md-button name="updateDate" class="md-dense md-raised md-info" :disabled="selectedFrom == null || selectedTo == null" @click="updateTime()">Update time</md-button>
 </md-field>
 </template>
 <script>
