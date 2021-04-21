@@ -7,9 +7,9 @@
       <div class="md-layout">
         <md-field class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
           <label>CPR</label>
-          <md-input v-model="patient_id"></md-input>
-          <md-button class="md-dense md-raised md-info" @click="changePatient(patient_id)">Change Patient</md-button>
-          <md-button class="md-dense md-raised md-info" @click="toggleThresholdsForm()">{{this.setThresholds ? "Cancel" : "Set Thresholds"}}</md-button>
+          <md-input name="patientID" v-model="patient_id"></md-input>
+          <md-button name="changePatient" class="md-dense md-raised md-info" @click="changePatient(patient_id)">Change Patient</md-button>
+          <md-button name="thresholdButton" class="md-dense md-raised md-info" @click="toggleThresholdsForm()">{{this.setThresholds ? "Cancel" : "Set Thresholds"}}</md-button>
         </md-field>
       </div>
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
@@ -19,7 +19,7 @@
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
-            <h2 class="title" font-weight="bold">Blood Pressure During the Week</h2>
+            <h2 class="title" font-weight="bold">Blood Pressure</h2>
           </md-card-header>
           <md-card-content>
             <blood-pressure-chart :key="keyvalue" :width="370" :height="246" :chart="[dates,data.blood_pressure_diastolic,data.blood_pressure_systolic]" :thresholds="thresholds"></blood-pressure-chart> 
@@ -29,7 +29,7 @@
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
-            <h2 class="title">Steps During the Week</h2>
+            <h2 class="title">Steps</h2>
           </md-card-header>
           <md-card-content>
             <steps-chart :key="keyvalue" :width="370" :height="246" :chart="[dates,data.cnt_steps]" :thresholds="thresholds"></steps-chart>
@@ -39,7 +39,7 @@
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
-            <h2 class="title">Sleep During the Week</h2>
+            <h2 class="title">Sleep</h2>
           </md-card-header>
           <md-card-content>
             <sleep-chart :key="keyvalue" :width="370" :height="246" :chart="[dates,data.sleep_light,data.sleep_rem,data.sleep_deep]" :thresholds="thresholds"></sleep-chart>

@@ -69,9 +69,9 @@ public class HeartAppApplication {
 					  .collect(Collectors.toList());
 
 //			dr.forEach(d -> transform(d)); 
-			System.out.println("DONE!");*/
+			System.out.println("DONE!");
 			
-		//	postMockECG();
+			postMockECG();*/
 		};
 	}
 	
