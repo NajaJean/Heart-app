@@ -12,9 +12,11 @@
     "\\vue-material-dashboard-master\\cypress",
     "\\vue-material-dashboard-master\\cypress\\integration",
     "\\vue-material-dashboard-master\\src",
+    "\\vue-material-dashboard-master\\src\\components",
     "\\vue-material-dashboard-master\\src\\components\\Charts",
+    "\\vue-material-dashboard-master\\src\\pages",
     "\\vue-material-dashboard-master\\src\\pages\\Layout"
   ],
-  "SelectedNode": "\\vue-material-dashboard-master\\cypress\\integration\\dashboard.specs.js",
+  "SelectedNode": "\\vue-material-dashboard-master\\src\\pages\\Notifications.vue",
   "PreviewInSolutionExplorer": false
 }

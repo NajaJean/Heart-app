@@ -14,15 +14,6 @@
         <md-icon>favorite</md-icon>
         <p>ECG Live</p>
       </sidebar-link>
-      <sidebar-link to="/measurements">
-        <md-icon>notifications</md-icon>
-        <p>Measurements</p>
-      </sidebar-link>
-        <!---
-      <sidebar-link to="/notifications">
-        <md-icon>alarm</md-icon>
-        <p>Notifications</p>
-      </sidebar-link> -->
     </side-bar>
 
     <div class="main-panel">
