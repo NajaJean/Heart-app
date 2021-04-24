@@ -20,6 +20,7 @@ import com.bachelor.Heartapp.controller.RealTimeController;
 import com.bachelor.Heartapp.model.DailyRecording;
 import com.bachelor.Heartapp.model.Measurement;
 import com.bachelor.Heartapp.model.RealTime;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.BaseEncoding;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -56,8 +57,8 @@ public class HeartAppApplication {
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
-			System.out.println("Start getting data into local database");
-/*			ResponseEntity<Object[]> responseEntity =
+			/*System.out.println("Start getting data into local database");
+			ResponseEntity<Object[]> responseEntity =
 					   restTemplate.getForEntity("http://167.99.133.167:54532/all", Object[].class);
 			
 			Object[] objects = responseEntity.getBody();
@@ -68,7 +69,7 @@ public class HeartAppApplication {
 					  .map(object -> mapper.convertValue(object, DailyRecording.class))
 					  .collect(Collectors.toList());
 
-//			dr.forEach(d -> transform(d)); 
+			dr.forEach(d -> transform(d)); 
 			System.out.println("DONE!");*/
 			
 		//	postMockECG();

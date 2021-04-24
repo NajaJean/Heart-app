@@ -4,12 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -18,15 +15,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.RequestCallback;
-
 
 import com.bachelor.Heartapp.HeartAppApplication;
 import com.bachelor.Heartapp.model.Threshold;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.*;
 
 
@@ -43,8 +36,9 @@ public class ThresholdControllerTest {
 	ThresholdController thresholdController;
 
 	HttpHeaders headers = new HttpHeaders();
-	Gson gson = new GsonBuilder().create();
 	HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+	
+	Gson gson = new GsonBuilder().create();
 	
 	Threshold thresholdInDatabase;
 	
@@ -90,7 +84,7 @@ public class ThresholdControllerTest {
 	public void testGetThresholdsNoContent() throws JSONException {	
 		//Act
 		ResponseEntity<String> response = restTemplate.exchange(
-				createURLWithPort("/thresholds/999999-9999"),
+				createURLWithPort("/thresholds/999"),
 				HttpMethod.GET, entity, String.class);
 		
 		//Assert
@@ -98,7 +92,7 @@ public class ThresholdControllerTest {
 	}
 	
 	@Test
-    public void testPutThresholdThatDoesNotExist() throws JSONException {
+    public void testPutThreshold() throws JSONException {
         //Act
    	 	thresholdInDatabase.setThresholdvalue(6000);
         restTemplate.put(createURLWithPort("/thresholds/"+thresholdInDatabase.getId()), thresholdInDatabase);

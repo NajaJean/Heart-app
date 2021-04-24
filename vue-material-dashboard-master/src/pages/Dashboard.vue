@@ -92,6 +92,8 @@ export default {
       this.data = {};
       this.thresholds = {};
       this.thresholdIds = {};
+      this.selectedFrom = null,
+      this.selectedTo = null,
       this.dates = [];
       this.dataloaded = false;
       
