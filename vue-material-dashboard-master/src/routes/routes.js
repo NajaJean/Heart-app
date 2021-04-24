@@ -25,7 +25,7 @@ const routes = [
                 },
                 {
                     path: "ecglive",
-                    name: "ECGLive",
+                    name: "ECG Live",
                     component: ECGLive
                 },
                 {
