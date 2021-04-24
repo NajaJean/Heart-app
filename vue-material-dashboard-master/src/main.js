@@ -24,6 +24,7 @@ import routes from "./routes/routes";
 // Plugins
 import GlobalComponents from "./globalComponents";
 import GlobalDirectives from "./globalDirectives";
+import VueSimpleAlert from "vue-simple-alert";
 
 // MaterialDashboard plugin
 import MaterialDashboard from "./material-dashboard";
@@ -46,6 +47,7 @@ Vue.use(VueRouter);
 Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
+Vue.use(VueSimpleAlert);
 
 /* eslint-disable no-new */
 new Vue({

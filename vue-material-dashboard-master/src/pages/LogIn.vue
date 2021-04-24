@@ -40,14 +40,12 @@ export default ({
       login() {
         if (this.input.username != "" && this.input.password != "") {
             if (this.input.username == "admin" && this.input.password == "mathilde") {
-                //this.$emit("authenticated", true);
                 this.$router.replace({ path: "/dashboard" });
             } else {
-                //this.$emit("authenticated",false);
-                console.log("The username and / or password is incorrect");
+                this.$alert("The username and/or password is incorrect",'Failed to log in','error');
             }
         } else {
-        console.log("A username and password must be present");
+            this.$alert("Both username and password must be present",'','warning');
         }
       }
     }
