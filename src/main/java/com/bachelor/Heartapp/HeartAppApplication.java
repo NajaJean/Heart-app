@@ -2,19 +2,24 @@ package com.bachelor.Heartapp;
 
 import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.bachelor.Heartapp.controller.MeasurementController;
 import com.bachelor.Heartapp.controller.RealTimeController;
 import com.bachelor.Heartapp.model.DailyRecording;
 import com.bachelor.Heartapp.model.Measurement;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.BaseEncoding;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -52,7 +57,7 @@ public class HeartAppApplication {
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
 			System.out.println("Start getting data into local database");
-/*			ResponseEntity<Object[]> responseEntity =
+			ResponseEntity<Object[]> responseEntity =
 					   restTemplate.getForEntity("http://167.99.133.167:54532/all", Object[].class);
 			
 			Object[] objects = responseEntity.getBody();
@@ -63,10 +68,10 @@ public class HeartAppApplication {
 					  .map(object -> mapper.convertValue(object, DailyRecording.class))
 					  .collect(Collectors.toList());
 
-//			dr.forEach(d -> transform(d)); 
+			dr.forEach(d -> transform(d)); 
 			System.out.println("DONE!");
 			
-			postMockECG();*/
+			postMockECG();
 		};
 	}
 	
