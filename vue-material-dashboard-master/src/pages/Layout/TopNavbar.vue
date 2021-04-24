@@ -10,6 +10,9 @@
           :class="{ toggled: $sidebar.showSidebar }"
           @click="toggleSidebar"
         >
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
         </md-button>   
       </div>
     </div>
