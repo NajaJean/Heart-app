@@ -2,7 +2,6 @@ import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 import Dashboard from "@/pages/Dashboard.vue";
 import ECGLive from "@/pages/ECGLive.vue";
 import MeasurementsList from "@/pages/MeasurementsList.vue";
-import Notifications from "@/pages/Notifications.vue";
 import LogIn from "@/pages/Login.vue";
 
 const routes = [
@@ -26,7 +25,7 @@ const routes = [
                 },
                 {
                     path: "ecglive",
-                    name: "ECGLive",
+                    name: "ECG Live",
                     component: ECGLive
                 },
                 {
@@ -34,11 +33,6 @@ const routes = [
                     name: "Measurements",
                     component: MeasurementsList
                 },
-                {
-                    path: "notifications",
-                    name: "Notifications",
-                    component: Notifications
-                }
             ]
     }
 

@@ -2,7 +2,10 @@
   <div class="content">
     <div class="md-layout">
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
-        <md-button class="md-dense md-raised md-info" @click="togglePause()">{{!this.pause ? "Pause" : "Start"}}</md-button>
+        <md-field class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
+          <label>CPR</label>
+          <md-input name="patientID" v-model="patient_id" disabled></md-input>
+        </md-field>
         <md-card>
           <md-card-header data-background-color="blue">
             <h2 class="title" font-weight="bold">Live ECG</h2>
@@ -28,7 +31,8 @@ export default {
   data() {
     return {
       pause: false,
-      heartRate: null
+      heartRate: null,
+      patient_id: '1',
     };
   },
   created() {
@@ -39,6 +43,22 @@ export default {
       //this.ECGChart.options.scales.xAxes.realtime.pause = true,
       this.pause = !this.pause;
       console.log("pause: "+this.pause);
+    },
+    async changePatient(newPatient_id) {
+      this.patient_id = newPatient_id;
+      this.data = {};
+      this.thresholds = {};
+      this.thresholdIds = {};
+      this.selectedFrom = null,
+      this.selectedTo = null,
+      this.dates = [];
+      this.dataloaded = false;
+      
+      this.retrieveMeasurements();
+      this.retrieveThresholds();
+      await sleep(2000);
+      this.dataloaded = true;
+      console.log("updated to patient: "+newPatient_id);
     },
     getHeartRate() {
       MeasurementDataService.getLatestECG("1")
