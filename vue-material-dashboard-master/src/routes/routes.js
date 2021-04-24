@@ -3,7 +3,7 @@ import Dashboard from "@/pages/Dashboard.vue";
 import ECGLive from "@/pages/ECGLive.vue";
 import MeasurementsList from "@/pages/MeasurementsList.vue";
 import Notifications from "@/pages/Notifications.vue";
-import LogIn from "@/pages/LogIn.vue";
+import LogIn from "@/pages/Login.vue";
 
 const routes = [
     {
