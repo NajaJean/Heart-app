@@ -17,8 +17,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.bachelor.Heartapp.controller.MeasurementController;
 import com.bachelor.Heartapp.controller.RealTimeController;
-import com.bachelor.Heartapp.model.DailyRecording;
 import com.bachelor.Heartapp.model.Measurement;
+import com.bachelor.Heartapp.model.DailyRecording;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.BaseEncoding;
 
@@ -71,7 +71,7 @@ public class HeartAppApplication {
 			dr.forEach(d -> transform(d)); 
 			System.out.println("DONE!");
 			
-			postMockECG();
+			//postMockECG();
 		};
 	}
 	
