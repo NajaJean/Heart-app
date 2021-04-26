@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,6 +21,7 @@ import com.bachelor.Heartapp.HeartAppApplication;
 public class RealTime {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
 	@Column(name = "patient_id")
