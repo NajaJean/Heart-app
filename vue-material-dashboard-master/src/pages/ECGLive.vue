@@ -2,17 +2,20 @@
   <div class="content">
     <div class="md-layout">
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
+        <h4>{{this.mock ? "This data is previously recorded data." : "This data is live data."}}<br/>{{this.mock ? "To get real time ECG, press the 'Live ECG' button." : "If no sensor is attached, they graph is empty."}}<br/>{{this.mock ? "" : "Press 'Get Recorded ECG' to see previously recorded data."}}</h4>
         <md-field class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
           <label>CPR</label>
           <md-input name="patientID" v-model="patient_id" disabled></md-input>
+          <md-button name="mockButton" class="md-dense md-raised md-info" @click="toggleMock()">{{this.mock ? "Get Live ECG" : "Get Recorded ECG"}}</md-button>
         </md-field>
         <md-card>
           <md-card-header data-background-color="blue">
-            <h2 class="title" font-weight="bold">Live ECG</h2>
+            <h2 class="title" font-weight="bold">{{this.mock ? "Recorded ECG" : "Live ECG"}}</h2>
           </md-card-header>
           <md-card-content>
             <h2 :key="heartRate" class="title" font-weight="bold" text-align="center">Heart Rate: {{this.heartRate}}</h2>
-            <e-c-g-chart :key="pause" name='ecg-chart' :width="370" :height="246" :pauseX="pause"></e-c-g-chart> 
+            <e-c-g-chart v-if="!this.mock" :key="mock" name='ecg-chart' :width="370" :height="246"></e-c-g-chart> 
+            <mocked-e-c-g-chart v-if="this.mock" :key="mock" name='ecg-chart' :width="370" :height="246"></mocked-e-c-g-chart> 
           </md-card-content>
         </md-card>
       </div>
@@ -22,27 +25,27 @@
 
 <script>
 import ECGChart from '../components/Charts/ECGChart.vue';
+import MockedECGChart from '../components/Charts/MockedECGChart.vue';
 import MeasurementDataService from "../services/MeasurementDataService";
 
 export default {
   components: {
-    ECGChart
+    ECGChart,
+    MockedECGChart
   },
   data() {
     return {
-      pause: false,
       heartRate: null,
       patient_id: '1',
+      mock: false
     };
   },
   created() {
     this.interval = setInterval(() => this.getHeartRate(), 500);
   },
   methods: {
-    togglePause() {
-      //this.ECGChart.options.scales.xAxes.realtime.pause = true,
-      this.pause = !this.pause;
-      console.log("pause: "+this.pause);
+    toggleMock() {
+      this.mock = !this.mock;
     },
     async changePatient(newPatient_id) {
       this.patient_id = newPatient_id;
@@ -61,7 +64,10 @@ export default {
       console.log("updated to patient: "+newPatient_id);
     },
     getHeartRate() {
-      MeasurementDataService.getLatestECG("1")
+      if (this.mock) {
+        this.heartRate = 84;
+      } else {
+        MeasurementDataService.getLatestECG("1")
         .then(response => {
           const newrate = response.data[0].measurementvalue[response.data[0].measurementvalue.length-1];
           if (this.heartRate != newrate) {
@@ -71,6 +77,7 @@ export default {
         .catch(e => {
           console.log(e);
         });
+      }
     } 
   }
 };
