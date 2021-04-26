@@ -21,7 +21,6 @@ import com.bachelor.Heartapp.HeartAppApplication;
 public class RealTime {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
 	@Column(name = "patient_id")
