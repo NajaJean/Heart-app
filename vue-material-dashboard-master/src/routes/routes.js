@@ -14,28 +14,25 @@ const routes = [
         component: LogIn,
     },
     {
-        path: "/",
+        path: "/dashboardLayout",
         component: DashboardLayout,
         redirect: "/dashboard",
         children: [
                 {
-                    path: "dashboard",
+                    path: "/dashboard",
                     name: "Dashboard",
                     component: Dashboard
                 },
                 {
-                    path: "ecglive",
+                    path: "/ecglive",
                     name: "ECG Live",
                     component: ECGLive
                 },
                 {
-                    path: "measurements",
+                    path: "/measurements",
                     name: "Measurements",
                     component: MeasurementsList
                 },
             ]
-    }
-
-   
-    ]
+    }]
 export default routes;

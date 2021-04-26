@@ -26,7 +26,6 @@
 
 <script>
 export default ({
-    props:['authenticated'],
     data: function() { 
       return {
         input: {
@@ -40,7 +39,7 @@ export default ({
       login() {
         if (this.input.username != "" && this.input.password != "") {
             if (this.input.username == "admin" && this.input.password == "1234") {
-                this.$router.replace({ path: "/dashboard" });
+                this.$router.replace({ path: "/dashboardLayout" });
             } else {
                 this.$alert("The username and/or password is incorrect",'Failed to log in','error');
             }
