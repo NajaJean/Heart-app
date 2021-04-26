@@ -1,11 +1,13 @@
 <script>
 import { Line } from 'vue-chartjs'
 import 'chartjs-plugin-streaming';
-import MeasurementDataService from "../../services/MeasurementDataService";
+import MockedData from "../Charts/MockedData"
+
+var count = 0;
 
 export default {
   extends: Line,
-  props:[],
+  props:['mocked'],
   mounted () {
     this.renderChart({
       datasets: [{
@@ -18,12 +20,13 @@ export default {
         backgroundColor:'#004346',
         borderColor: '#004346',
         fill: false,
+        //xAxisID: 'x-1',
       }]
     }, {responsive: true, 
           maintainAspectRatio: true,
           title:{
             display:false,
-            text:'Live ECG',
+            text:'Recorded ECG',
             fontSize:25
           },
           legend:{
@@ -48,8 +51,8 @@ export default {
       scales: {
         yAxes: [{
             ticks: {
-                min: 0,
-                max: 1200,
+                min: -3000,
+                max: 4000,
             }
         }],
         xAxes: [{
@@ -72,30 +75,19 @@ export default {
             refresh: 1000,
             onRefresh: function(chart) {
               chart.data.datasets.forEach(function(dataset) {
-                MeasurementDataService.getLatestECG("1")
-                .then(response => {
-                    const ecg = response.data[0];
-                    const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";
+                var yval = MockedData.getMockedData(count%129);
+                
+                var ptime = new Date();
+                for (var i = 0; i < yval.length - 1; i++) {
+                  ptime = new Date(ptime.getTime() + 8)
 
-                    var ptime = new Date((new Date(datepost)).getTime());
-                    if (dataset.lastRecordedTime <= new Date(datepost)) {
-                    
-                        for (var i = 0; i < ecg.measurementvalue.length - 1; i++) {
-                          ptime = new Date(ptime.getTime() + 8)
-
-                          dataset.data.push({
-                          x: ptime,
-                          y: ecg.measurementvalue[i]
-                          })
-                        }
-
-                    chart.update();
-                    dataset.lastRecordedTime = new Date(datepost);
-                  }     
-                })
-                .catch(e => {
-                  console.log(e);
-                });
+                  dataset.data.push({
+                    x: ptime,
+                    y: yval[i]
+                  })
+                }
+                chart.update();
+                count = count +1;                 
               });
             },
               delay: 2000

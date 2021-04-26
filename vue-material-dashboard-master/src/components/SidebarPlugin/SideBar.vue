@@ -47,7 +47,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Heart App"
+      default: "Heart Rater"
     },
     sidebarBackgroundImage: {
       type: String,
