@@ -65,7 +65,7 @@ export default {
     },
     getHeartRate() {
       if (this.mock) {
-        this.heartRate = 84;
+        this.heartRate = 84 + Math.floor((Math.random() * 10) + 1);;
       } else {
         MeasurementDataService.getLatestECG("1")
         .then(response => {

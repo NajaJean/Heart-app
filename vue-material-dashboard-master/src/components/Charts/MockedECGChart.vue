@@ -75,7 +75,7 @@ export default {
             refresh: 1000,
             onRefresh: function(chart) {
               chart.data.datasets.forEach(function(dataset) {
-                var yval = MockedData.getMockedData(count%129);
+                var yval = MockedData.getMockedData(count%50);
                 
                 var ptime = new Date();
                 for (var i = 0; i < yval.length - 1; i++) {
