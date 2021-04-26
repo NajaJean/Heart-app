@@ -48,8 +48,8 @@ export default {
       scales: {
         yAxes: [{
             ticks: {
-                min: 0,
-                max: 1200,
+                min: -3000,
+                max: 4000,
             }
         }],
         xAxes: [{
