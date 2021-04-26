@@ -12,6 +12,10 @@
         <md-icon>favorite</md-icon>
         <p>ECG Live</p>
       </sidebar-link>
+      <sidebar-link to="/">
+        <md-icon>logout</md-icon>
+        <p>Log Out</p>
+      </sidebar-link>
     </side-bar>
 
     <div class="main-panel">
