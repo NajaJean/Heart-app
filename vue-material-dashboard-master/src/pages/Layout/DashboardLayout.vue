@@ -22,6 +22,9 @@
       <top-navbar></top-navbar>
 
       <dashboard-content> </dashboard-content>
+      <div class="text-center">
+        Made with <i class="fa fa-heart heart"></i> by Naja Jean Larsen & Mathilde Tannebæk
+      </div>
     </div>
   </div>
 </template>
