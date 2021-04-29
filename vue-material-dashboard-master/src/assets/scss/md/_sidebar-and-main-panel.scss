@@ -207,7 +207,7 @@
         }
 
         .simple-text{
-            text-transform: uppercase;
+            text-transform: capitalize;
             padding: $padding-small-vertical $padding-zero;
             display: block;
             font-size: $font-size-large;
