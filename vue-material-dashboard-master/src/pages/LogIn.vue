@@ -10,13 +10,13 @@
           <div class="md-layout-item md-small-size-75 md-size-75">
             <md-field>
               <label>Username</label>
-              <md-input v-model="input.username" type="text"></md-input>
+              <md-input name="username" v-model="input.username" type="text"></md-input>
             </md-field>
             <md-field>
               <label>Password</label>
-              <md-input v-model="input.password" type="password"></md-input>
+              <md-input name ="password" v-model="input.password" type="password"></md-input>
             </md-field>
-            <md-button class="md-raised md-info" @click="login()">Log In</md-button>
+            <md-button name ="login" class="md-raised md-info" @click="login()">Log In</md-button>
           </div>          
         </div>
       </md-card-content>
@@ -38,7 +38,7 @@ export default ({
     methods: {
       login() {
         if (this.input.username != "" && this.input.password != "") {
-            if (this.input.username == "admin" && this.input.password == "1234") {
+            if (this.input.username == "admin" && this.input.password == "Mathilde") {
                 this.$router.replace({ path: "/dashboardLayout" });
             } else {
                 this.$alert("The username and/or password is incorrect",'Failed to log in','error');
