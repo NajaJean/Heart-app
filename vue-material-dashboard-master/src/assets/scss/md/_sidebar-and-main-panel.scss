@@ -222,15 +222,12 @@
             }
 
             .logo-img{
-              width: 40px;
+              width: 47px;
               display: inline-block;
-              height: 40px;
-              background: $white-color;
-              border-radius: 50%;
+              height: 47px;
               text-align: center;
               overflow: hidden;
               @include shadow-big();
-
                 img{
                   width: 85%;
                   vertical-align: -webkit-baseline-middle;
