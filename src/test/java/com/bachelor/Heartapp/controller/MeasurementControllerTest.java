@@ -176,16 +176,7 @@ class MeasurementControllerTest {
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 	}*/
 	
-	@Test
-	public void testPostThatAlreadyExists() throws JSONException {
-		//Act
-		ResponseEntity<String> response = restTemplate.exchange(
-				createURLWithPort("/7measurements/111/not_a_type_in_DB"),
-				HttpMethod.GET, entity, String.class);
-		
-		//Assert
-		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-	}
+	
 	
 	//POst that already exists = 404.METHOD_NOT_ALLOWED
 	

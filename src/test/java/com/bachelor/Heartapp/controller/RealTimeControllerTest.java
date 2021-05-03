@@ -1,5 +1,5 @@
 package com.bachelor.Heartapp.controller;
-/*
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,6 +23,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.bachelor.Heartapp.HeartAppApplication;
 import com.bachelor.Heartapp.model.RealTime;
+import com.bachelor.Heartapp.model.Threshold;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
@@ -95,10 +96,11 @@ class RealTimeControllerTest {
 		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 	}
 	
-	@Test
+	/*@Test
     public void testPostRealTime() throws JSONException {
-        //Act
 		
+		
+        //Act 
 		RealTime r = new RealTime("112", new Date(),new Integer[]{1,2,3});
 
 		
@@ -114,11 +116,11 @@ class RealTimeControllerTest {
 		RealTime postedRealTime = gson.fromJson((new JSONArray(responseAfterPost.getBody())).getJSONObject(0).toString(), RealTime.class);
 		
 		assertEquals(1, postedRealTime.getMeasurementvalue()[0]);
-    }
+    }*/
 	
 	
 	private String createURLWithPort(String uri) {
 		return "http://localhost:" + port +"/api"+ uri;
 	}
 
-}*/
+}

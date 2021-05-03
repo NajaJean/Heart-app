@@ -105,6 +105,21 @@ public class ThresholdControllerTest {
 		
 		assertEquals(6000, updatedThreshold.getThresholdvalue());
     }
+	
+	/*@Test
+    public void testPutFails() throws JSONException {
+        //Act
+		Object notAThreshold = new Object();
+        restTemplate.put(createURLWithPort("/thresholds/"+999), notAThreshold);
+        
+        //Assert
+        ResponseEntity<String> responseAfterUpdate = restTemplate.exchange(
+				createURLWithPort("/thresholds/111"),
+				HttpMethod.GET, entity, String.class);
+		Threshold updatedThreshold = gson.fromJson((new JSONArray(responseAfterUpdate.getBody())).getJSONObject(0).toString(), Threshold.class);
+		
+		assertEquals(6000, updatedThreshold.getThresholdvalue());
+    }*/
 
 	private String createURLWithPort(String uri) {
 		return "http://localhost:" + port +"/api"+ uri;
