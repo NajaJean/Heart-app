@@ -71,7 +71,7 @@ public class HeartAppApplication {
 			dr.forEach(d -> transform(d)); */
 			System.out.println("DONE!");
 			
-			//postMockECG();
+//			postMockECG();
 		};
 	}
 	

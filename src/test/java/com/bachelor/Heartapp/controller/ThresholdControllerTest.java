@@ -2,6 +2,7 @@ package com.bachelor.Heartapp.controller;
 
 import static org.junit.Assert.assertEquals;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
@@ -99,6 +100,21 @@ public class ThresholdControllerTest {
 		//Assert
 		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 	}
+	
+	@Test
+    public void testPutThresholdBadRequest() {
+		//Arrange
+		Threshold t = new Threshold("1","","",0);
+		HttpEntity<Threshold> entityPut = new HttpEntity<>(t);
+		
+		//Act
+		ResponseEntity<Threshold> response = restTemplate.exchange(
+				createURLWithPort("/thresholds/0"),
+				HttpMethod.PUT, entityPut, Threshold.class);
+		
+		//Assert
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    }
 	
 	
 	@Test

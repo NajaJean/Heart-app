@@ -113,6 +113,14 @@ class RealTimeControllerTest {
         assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
     }	
 	
+	@Test
+    public void testPostMeasurementBadRequest() {
+		RealTime realTime = new RealTime("", new Date(),new Integer[]{});
+        ResponseEntity<String> responseEntity = this.restTemplate
+            .postForEntity(createURLWithPort("/measurements"), realTime, String.class);
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+    }
+	
 	private String createURLWithPort(String uri) {
 		return "http://localhost:" + port +"/api"+ uri;
 	}

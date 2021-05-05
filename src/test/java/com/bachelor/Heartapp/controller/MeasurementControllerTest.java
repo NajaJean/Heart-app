@@ -51,7 +51,7 @@ class MeasurementControllerTest {
 	public void init() throws JsonSyntaxException, JSONException {
 		//Assert
 		ResponseEntity<String> response = this.restTemplate.exchange(
-				createURLWithPort("/7measurements/111"),
+				createURLWithPort("/7measurements/111/cnt_steps"),
 				HttpMethod.GET, entity, String.class);
 		
 		if (HttpStatus.NO_CONTENT == response.getStatusCode()) {
@@ -140,6 +140,22 @@ class MeasurementControllerTest {
 		//Assert
 		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 	}
+	
+	@Test
+    public void testPostMeasurement() {
+		Measurement measurement = new Measurement("111", new Date(),"type","1");
+        ResponseEntity<String> responseEntity = this.restTemplate
+            .postForEntity(createURLWithPort("/measurements"), measurement, String.class);
+        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+    }
+	
+	@Test
+    public void testPostMeasurementBadRequest() {
+		Measurement measurement = new Measurement("", new Date(),"","");
+        ResponseEntity<String> responseEntity = this.restTemplate
+            .postForEntity(createURLWithPort("/measurements"), measurement, String.class);
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+    }
 	
 	private String createURLWithPort(String uri) {
 		return "http://localhost:" + port +"/api"+ uri;
