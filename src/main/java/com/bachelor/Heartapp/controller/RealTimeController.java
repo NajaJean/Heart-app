@@ -29,12 +29,20 @@ public class RealTimeController {
 	@PostMapping("/realtime")
 	public ResponseEntity<RealTime> createRealTime(@RequestBody RealTime realtime) {
 		try {
-			RealTime _realtime = realtimeRepository.save(new RealTime(
+			RealTime r = new RealTime(
 					realtime.getPatientid(),
 					realtime.getDatepost(),
 					realtime.getMeasurementvalue()
-					));
-			return new ResponseEntity<>(_realtime, HttpStatus.CREATED);
+					);		 
+			
+			if (r.getDatepost().equals(null)|| r.getMeasurementvalue().length == 0|| r.getPatientid().equals("")) {
+				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+			}
+			else {
+				realtimeRepository.save(r);
+				return new ResponseEntity<>(r, HttpStatus.CREATED);
+			}
+			
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
