@@ -17,6 +17,6 @@
     "\\vue-material-dashboard-master\\src\\pages",
     "\\vue-material-dashboard-master\\src\\pages\\Layout"
   ],
-  "SelectedNode": "\\vue-material-dashboard-master\\src\\pages\\Notifications.vue",
+  "SelectedNode": "\\vue-material-dashboard-master\\cypress\\integration\\dashboard.specs.js",
   "PreviewInSolutionExplorer": false
 }

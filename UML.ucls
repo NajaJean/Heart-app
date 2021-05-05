@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="com.bachelor.Heartapp.model.Measurement" project="Heart-app" 
+    file="/Heart-app/src/main/java/com/bachelor/Heartapp/model/Measurement.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="817" y="328"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="com.bachelor.Heartapp.model.RealTime" project="Heart-app" 
+    file="/Heart-app/src/main/java/com/bachelor/Heartapp/model/RealTime.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="304" width="214" x="1211" y="176"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="com.bachelor.Heartapp.model.Threshold" project="Heart-app" 
+    file="/Heart-app/src/main/java/com/bachelor/Heartapp/model/Threshold.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="358" width="183" x="204" y="152"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.bachelor.Heartapp.controller.MeasurementController" project="Heart-app" 
+    file="/Heart-app/src/main/java/com/bachelor/Heartapp/controller/MeasurementController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="160" width="431" x="397" y="576"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.bachelor.Heartapp.controller.RealTimeController" project="Heart-app" 
+    file="/Heart-app/src/main/java/com/bachelor/Heartapp/controller/RealTimeController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1160" y="682"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="com.bachelor.Heartapp.controller.ThresholdController" project="Heart-app" 
+    file="/Heart-app/src/main/java/com/bachelor/Heartapp/controller/ThresholdController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="124" width="236" x="50" y="598"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="false">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="7" language="java" name="com.bachelor.Heartapp.repository.MeasurementRepository" project="Heart-app" 
+    file="/Heart-app/src/main/java/com/bachelor/Heartapp/repository/MeasurementRepository.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="124" width="419" x="401" y="-33"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="8" language="java" name="com.bachelor.Heartapp.repository.RealTimeRepository" project="Heart-app" 
+    file="/Heart-app/src/main/java/com/bachelor/Heartapp/repository/RealTimeRepository.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1146" y="14"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="9" language="java" name="com.bachelor.Heartapp.repository.ThresholdRepository" project="Heart-app" 
+    file="/Heart-app/src/main/java/com/bachelor/Heartapp/repository/ThresholdRepository.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="106" width="272" x="26" y="-29"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <dependency id="10">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <association id="11">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="12" name="thresholdRepository"/>      
+      <multiplicity id="13" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="14">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="15" name="realtimeRepository"/>      
+      <multiplicity id="16" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="17">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="18">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="20">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <association id="21">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="22" name="measurementRepository"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="24">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

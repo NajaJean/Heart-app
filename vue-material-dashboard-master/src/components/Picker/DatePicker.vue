@@ -16,6 +16,7 @@ export default {
       selectedFrom: this.selectedfrom,
       selectedTo: this.selectedto,
       disabledDatesFrom: date => { 
+      	console.log(this.selectedTo);
         if (this.selectedTo != null) { return date > new Date() || date > this.selectedTo }
         return date > new Date() },
       disabledDatesTo: date => {

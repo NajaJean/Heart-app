@@ -25,20 +25,6 @@ public class MeasurementController {
 	
 	@Autowired
 	MeasurementRepository measurementRepository;
-	
-	@GetMapping("/7measurements/{patient_id}")
-	public ResponseEntity<List<Measurement>> get7LatestOfPatientsMeasurements(@PathVariable("patient_id") String patient_id) {
-		try {
-			List<Measurement> measurements = measurementRepository.findFirst7ByPatientidAndMeasurementtypeNotOrderByDatepostDesc(patient_id, "ECG");
-
-			if (measurements.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>(measurements, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
 
 	@GetMapping("/7measurements/{patient_id}/{measurement_type}")
 	public ResponseEntity<List<Measurement>> get7LatestOfCertainMeasurement(@PathVariable("patient_id") String patient_id, @PathVariable("measurement_type") String measurement_type) {
@@ -71,13 +57,20 @@ public class MeasurementController {
 	@PostMapping("/measurements")
 	public ResponseEntity<Measurement> createMeasurement(@RequestBody Measurement measurement) {
 		try {
-			Measurement _measurement = measurementRepository.save(new Measurement(
+			Measurement m = new Measurement(
 					measurement.getPatientid(),
 					measurement.getDatepost(),
 					measurement.getMeasurementtype(),
 					measurement.getMeasurementvalue()
-					));
-			return new ResponseEntity<>(_measurement, HttpStatus.CREATED);
+					);
+
+			if (m.getDatepost().equals(null)|| m.getMeasurementtype().equals("")|| m.getMeasurementvalue().equals("")|| m.getPatientid().equals("")) {
+				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+			}
+			else {
+				measurementRepository.save(m);
+				return new ResponseEntity<>(m, HttpStatus.CREATED);
+			}
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
