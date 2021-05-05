@@ -2,12 +2,12 @@
     <form>
     <md-card class="md-layout-item md-small-size-75 md-size-50">
       <md-card-header data-background-color="blue">
-        <h4 class="title">Log in</h4>
+        <h2 class="title">Login</h2>
       </md-card-header>
 
       <md-card-content>
         <div class="md-layout">
-          <div class="md-layout-item md-small-size-75 md-size-75">
+          <div class="md-layout-item md-small-size-100 md-size-100">
             <md-field>
               <label>Username</label>
               <md-input name="username" v-model="input.username" type="text"></md-input>
