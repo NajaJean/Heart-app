@@ -22,8 +22,6 @@ import com.bachelor.Heartapp.HeartAppApplication;
 import com.bachelor.Heartapp.model.Threshold;
 import com.google.gson.*;
 
-
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = HeartAppApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class ThresholdControllerTest {
@@ -63,6 +61,17 @@ public class ThresholdControllerTest {
     }
 	
 	@Test
+	public void badURL() throws JSONException {
+		//Act
+		ResponseEntity<String> response = restTemplate.exchange(
+				createURLWithPort("/notAnUrl"),
+				HttpMethod.GET, entity, String.class);
+		System.out.println(response.getStatusCode());
+		//Assert
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+	}
+	
+	@Test
 	public void testGetThresholds() throws JSONException {
 		//Act
 		ResponseEntity<String> response = restTemplate.exchange(
@@ -91,6 +100,7 @@ public class ThresholdControllerTest {
 		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 	}
 	
+	
 	@Test
     public void testPutThreshold() throws JSONException {
         //Act
@@ -105,21 +115,6 @@ public class ThresholdControllerTest {
 		
 		assertEquals(6000, updatedThreshold.getThresholdvalue());
     }
-	
-	/*@Test
-    public void testPutFails() throws JSONException {
-        //Act
-		Object notAThreshold = new Object();
-        restTemplate.put(createURLWithPort("/thresholds/"+999), notAThreshold);
-        
-        //Assert
-        ResponseEntity<String> responseAfterUpdate = restTemplate.exchange(
-				createURLWithPort("/thresholds/111"),
-				HttpMethod.GET, entity, String.class);
-		Threshold updatedThreshold = gson.fromJson((new JSONArray(responseAfterUpdate.getBody())).getJSONObject(0).toString(), Threshold.class);
-		
-		assertEquals(6000, updatedThreshold.getThresholdvalue());
-    }*/
 
 	private String createURLWithPort(String uri) {
 		return "http://localhost:" + port +"/api"+ uri;

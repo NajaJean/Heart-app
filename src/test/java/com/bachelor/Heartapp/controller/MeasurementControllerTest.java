@@ -5,11 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,31 +76,14 @@ class MeasurementControllerTest {
     }
 	
 	@Test
-	public void testGet7Measurements() throws JSONException {
+	public void badURL() throws JSONException {
 		//Act
 		ResponseEntity<String> response = restTemplate.exchange(
-				createURLWithPort("/7measurements/111"),
+				createURLWithPort("/notAnUrl"),
 				HttpMethod.GET, entity, String.class);
-		
+		System.out.println(response.getStatusCode());
 		//Assert
-		Measurement gotMeasurement = gson.fromJson((new JSONArray(response.getBody())).getJSONObject(0).toString(), Measurement.class);
-		
-		assertEquals(measurementInDatabase.getMeasurementtype(), gotMeasurement.getMeasurementtype());
-		assertEquals(measurementInDatabase.getPatientid(), gotMeasurement.getPatientid());
-		assertEquals(measurementInDatabase.getMeasurementvalue(), gotMeasurement.getMeasurementvalue());
-		assertEquals(measurementInDatabase.getDatepost(), gotMeasurement.getDatepost());
-		assertEquals(HttpStatus.OK, response.getStatusCode());
-	}
-	
-	@Test
-	public void testGet7MeasurementsNoContent() throws JSONException {	
-		//Act
-		ResponseEntity<String> response = restTemplate.exchange(
-				createURLWithPort("/7measurements/999"),
-				HttpMethod.GET, entity, String.class);
-		
-		//Assert
-		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 	}
 	
 	@Test
@@ -125,7 +104,7 @@ class MeasurementControllerTest {
 	}
 	
 	@Test
-	public void testGet7MeasurementsOfWrongType() throws JSONException {
+	public void testGet7MeasurementsOfNotExistingType() throws JSONException {
 		//Act
 		ResponseEntity<String> response = restTemplate.exchange(
 				createURLWithPort("/7measurements/111/not_a_type_in_DB"),
@@ -135,66 +114,34 @@ class MeasurementControllerTest {
 		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 	}
 	
-	/*@Test
+	@Test
 	public void testGetMeasurementsFromTo() throws JSONException {
-	
-	
-		//String fromTo = "Sat%20Apr%2010%202021%2000:00:00%20GMT+0200%20(Centraleurop%C3%A6isk%20sommertid)/Thu%20Apr%2015%202021%2000:00:00%20GMT+0200%20(Centraleurop%C3%A6isk%20sommertid)";
-		//String to = "Thu%20Apr%2015%202021%2000:00:00%20GMT+0200%20(Centraleurop%C3%A6isk%20sommertid)";
-		//Assert
-		String from = "2021-04-9T06:00:00.000+0000";
-		String to = "2021-04-14T06:00:00.000+0000";
-		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-		Date fromd = null;
-		Date tod = null;
-		try {
-			fromd = dateFormat.parse(from);
-			tod = dateFormat.parse(to);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
 		//Act
 		ResponseEntity<String> response = restTemplate.exchange(
-				createURLWithPort("/measurements/111/cnt_steps/"+fromd+"/"+tod),
+				createURLWithPort("/measurements/111/cnt_steps/Sat Apr 10 2021 00:00:00 GMT+0100/Wed Apr 14 2021 00:00:00 GMT+0100"),
 				HttpMethod.GET, entity, String.class);
 		
 		//Assert
-		System.out.println(measurementInDatabase.getDatepost());
-		System.out.println(fromd);
-		System.out.println(tod);
-		System.out.println(response.getBody());
-		
-		
 		Measurement gotMeasurement = gson.fromJson((new JSONArray(response.getBody())).getJSONObject(0).toString(), Measurement.class);
-		System.out.println(gotMeasurement);
 		assertEquals(measurementInDatabase.getMeasurementtype(), gotMeasurement.getMeasurementtype());
 		assertEquals(measurementInDatabase.getPatientid(), gotMeasurement.getPatientid());
 		assertEquals(measurementInDatabase.getMeasurementvalue(), gotMeasurement.getMeasurementvalue());
 		assertEquals(measurementInDatabase.getDatepost(), gotMeasurement.getDatepost());
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-	}*/
+	}
 	
-	
-	
-	//POst that already exists = 404.METHOD_NOT_ALLOWED
+	@Test
+	public void testGetMeasurementsFromToNoContent() throws JSONException {
+		//Act
+		ResponseEntity<String> response = restTemplate.exchange(
+				createURLWithPort("/measurements/111/cnt_steps/Sat Apr 10 2019 00:00:00 GMT+0100/Wed Apr 14 2019 00:00:00 GMT+0100"),
+				HttpMethod.GET, entity, String.class);
+		
+		//Assert
+		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+	}
 	
 	private String createURLWithPort(String uri) {
 		return "http://localhost:" + port +"/api"+ uri;
-	}
-	
-	public static Date addDays(Date date, int days) {
-		GregorianCalendar cal = new GregorianCalendar();
-		cal.setTime(date);
-		cal.add(Calendar.DATE, days);
-				
-		return cal.getTime();
-	}
-	
-	public LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
-	    return dateToConvert.toInstant()
-	      .atZone(ZoneId.systemDefault())
-	      .toLocalDate();
 	}
 }

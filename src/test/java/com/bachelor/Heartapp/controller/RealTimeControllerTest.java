@@ -1,7 +1,6 @@
 package com.bachelor.Heartapp.controller;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 
@@ -23,7 +22,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.bachelor.Heartapp.HeartAppApplication;
 import com.bachelor.Heartapp.model.RealTime;
-import com.bachelor.Heartapp.model.Threshold;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
@@ -32,11 +30,11 @@ import com.google.gson.JsonSyntaxException;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = HeartAppApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class RealTimeControllerTest {
-	
 	@LocalServerPort
-	private int port;
-
-	TestRestTemplate restTemplate = new TestRestTemplate();
+    private int port;
+ 
+    @Autowired
+    private TestRestTemplate restTemplate;
 	
 	@Autowired
 	RealTimeController realTimeController;
@@ -70,6 +68,17 @@ class RealTimeControllerTest {
     }
 	
 	@Test
+	public void badURL() throws JSONException {
+		//Act
+		ResponseEntity<String> response = restTemplate.exchange(
+				createURLWithPort("/notAnUrl"),
+				HttpMethod.GET, entity, String.class);
+		System.out.println(response.getStatusCode());
+		//Assert
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+	}
+	
+	@Test
 	public void testGetRealTime() throws JSONException {
 		//Act
 		ResponseEntity<String> response = restTemplate.exchange(
@@ -96,28 +105,13 @@ class RealTimeControllerTest {
 		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 	}
 	
-	/*@Test
-    public void testPostRealTime() throws JSONException {
-		
-		
-        //Act 
-		RealTime r = new RealTime("112", new Date(),new Integer[]{1,2,3});
-
-		
-		HttpEntity<RealTime> realtimeToPost = new HttpEntity<RealTime>(r, headers);
-		restTemplate.exchange(
-				createURLWithPort("/latestecg/112"),
-				HttpMethod.POST, realtimeToPost, String.class);
-        
-        //Assert
-        ResponseEntity<String> responseAfterPost = restTemplate.exchange(
-				createURLWithPort("/latestecg/112"),
-				HttpMethod.GET, entity, String.class);
-		RealTime postedRealTime = gson.fromJson((new JSONArray(responseAfterPost.getBody())).getJSONObject(0).toString(), RealTime.class);
-		
-		assertEquals(1, postedRealTime.getMeasurementvalue()[0]);
-    }*/
-	
+	@Test
+    public void testPostRealTime() {
+    	RealTime realTime = new RealTime("111", new Date(),new Integer[]{1,2,3});
+        ResponseEntity<String> responseEntity = this.restTemplate
+            .postForEntity(createURLWithPort("/realtime"), realTime, String.class);
+        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+    }	
 	
 	private String createURLWithPort(String uri) {
 		return "http://localhost:" + port +"/api"+ uri;
