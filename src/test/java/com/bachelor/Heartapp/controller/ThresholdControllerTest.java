@@ -2,6 +2,7 @@ package com.bachelor.Heartapp.controller;
 
 import static org.junit.Assert.assertEquals;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,8 +22,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.bachelor.Heartapp.HeartAppApplication;
 import com.bachelor.Heartapp.model.Threshold;
 import com.google.gson.*;
-
-
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = HeartAppApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -63,6 +62,17 @@ public class ThresholdControllerTest {
     }
 	
 	@Test
+	public void badURL() throws JSONException {
+		//Act
+		ResponseEntity<String> response = restTemplate.exchange(
+				createURLWithPort("/notAnUrl"),
+				HttpMethod.GET, entity, String.class);
+		System.out.println(response.getStatusCode());
+		//Assert
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+	}
+	
+	@Test
 	public void testGetThresholds() throws JSONException {
 		//Act
 		ResponseEntity<String> response = restTemplate.exchange(
@@ -90,6 +100,22 @@ public class ThresholdControllerTest {
 		//Assert
 		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 	}
+	
+	@Test
+    public void testPutThresholdBadRequest() {
+		//Arrange
+		Threshold t = new Threshold("1","","",0);
+		HttpEntity<Threshold> entityPut = new HttpEntity<>(t);
+		
+		//Act
+		ResponseEntity<Threshold> response = restTemplate.exchange(
+				createURLWithPort("/thresholds/0"),
+				HttpMethod.PUT, entityPut, Threshold.class);
+		
+		//Assert
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    }
+	
 	
 	@Test
     public void testPutThreshold() throws JSONException {

@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "thresholds")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Threshold {
-
+ 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;

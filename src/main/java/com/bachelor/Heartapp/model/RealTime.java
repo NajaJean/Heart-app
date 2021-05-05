@@ -30,7 +30,7 @@ public class RealTime {
 	@Column(name = "timestamp")
 	private Date datepost;
 	
-    @Type(type = "com.bachelor.Heartapp.model.IntArrayUserType")
+    @Type(type = "com.bachelor.Heartapp.model.helpertypes.IntArrayUserType")
 	@Column(name = "ecg_data")
 	private Integer[] measurementvalue;
 	
