@@ -75,7 +75,7 @@ describe('Dashboard check', () => {
 describe('Sidebar and ECG test', () => {
 
     it('Test Sidebare', () => {
-        cy.contains('Heart Rater').should('exist')
+        cy.contains('HeartRater').should('exist')
         cy.contains('Dashboard')
         cy.contains('ECG Live')
         cy.contains('Log Out')
