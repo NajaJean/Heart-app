@@ -2,21 +2,21 @@
     <form>
     <md-card class="md-layout-item md-small-size-75 md-size-50">
       <md-card-header data-background-color="blue">
-        <h4 class="title">Log in</h4>
+        <h2 class="title">Login</h2>
       </md-card-header>
 
       <md-card-content>
         <div class="md-layout">
-          <div class="md-layout-item md-small-size-75 md-size-75">
+          <div class="md-layout-item md-small-size-100 md-size-100">
             <md-field>
               <label>Username</label>
-              <md-input v-model="input.username" type="text"></md-input>
+              <md-input name="username" v-model="input.username" type="text"></md-input>
             </md-field>
             <md-field>
               <label>Password</label>
-              <md-input v-model="input.password" type="password"></md-input>
+              <md-input name ="password" v-model="input.password" type="password"></md-input>
             </md-field>
-            <md-button class="md-raised md-info" @click="login()">Log In</md-button>
+            <md-button name ="login" class="md-raised md-info" @click="login()">Log In</md-button>
           </div>          
         </div>
       </md-card-content>
@@ -26,7 +26,6 @@
 
 <script>
 export default ({
-    props:['authenticated'],
     data: function() { 
       return {
         input: {
@@ -39,8 +38,8 @@ export default ({
     methods: {
       login() {
         if (this.input.username != "" && this.input.password != "") {
-            if (this.input.username == "admin" && this.input.password == "mathilde") {
-                this.$router.replace({ path: "/dashboard" });
+            if (this.input.username == "admin" && this.input.password == "Mathilde") {
+                this.$router.replace({ path: "/dashboardLayout" });
             } else {
                 this.$alert("The username and/or password is incorrect",'Failed to log in','error');
             }
