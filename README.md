@@ -10,6 +10,10 @@
 
 **Run the project:**
 1. Open two terminals.
-2. In first terminal:  In the Heart-app folder, do:   *mvn spring-boot:run*
-3. In second terminal:  In the Heart-app/vue-material-dashboard-master folder, do:   *npm run serve*
+2. In first terminal:  In the Heart-app folder, run back end by doing:   *mvn spring-boot:run*
+3. In second terminal:  In the Heart-app/vue-material-dashboard-master folder, run front end by doing:   *npm run serve*
 4. The project will now be running on http://localhost:8081/
+
+**Run tests:**
+- Integration tests: In the Heart-app folder, do:   *mvn test*
+- API Unit tests and front end tests: run back and front end. In the Heart-app/vue-material-dashboard-master folder, do:  *npx cypress run*
