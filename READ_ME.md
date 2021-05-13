@@ -11,4 +11,4 @@
 1. Open two terminals.
 2. In the Heart-app folder, do:   mvn spring-boot:run
 3. In the Heart-app/vue-material-dashboard-master folder, do:   npm run serve
-4. The project will now be running on http://localhost:8081/#/dashboard 
+4. The project will now be running on http://localhost:8081/
