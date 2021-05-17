@@ -7,6 +7,8 @@
 5. Navigate to /Heart-app/src/main/resources and open the file application.properties and set the chosen settings for the postgreSQL database
 6. In the root of the Heart-app folder, install dependencies by doing:  *mvn package*
 7. Navigate to Heart-app/vue-material-dashboard-master folder and do: *npm install*
+8. Inside your database (preferrably in SQL Shell) run the following command to create a table for ECG:
+- CREATE TABLE ecg(id SERIAL, patient_id varchar(20) NOT NULL, ecg_data int4[], timestamp timestamp default current_timestamp);
 
 **Run the project:**
 1. Open two terminals.
