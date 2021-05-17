@@ -52,10 +52,10 @@ public class HeartAppApplication {
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
 			
-			//To mock data for running application locally, please comment ETL in again:
-			//ETL(restTemplate);
+			// Mocks data for running application locally
+			ETL(restTemplate);
 			
-			System.out.println("Backend is running!");
+			System.out.println("Back end is running!");
 		};
 	}
 	
