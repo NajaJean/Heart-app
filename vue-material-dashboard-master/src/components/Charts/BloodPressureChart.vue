@@ -11,7 +11,7 @@ export default {
         datasets:[
           {
           label:'Systolic',
-                data: this.chart[1].reverse(),
+                data: this.chart[2].reverse(),
               backgroundColor:'#477b91',
           borderColor: '#477b91',
           fill: false,
@@ -26,7 +26,7 @@ export default {
           },
         },{
           label:'Diastolic',
-                data:this.chart[2].reverse(),
+                data:this.chart[1].reverse(),
               backgroundColor:'rgba(29, 179, 44, 0.6)',
           borderColor: 'rgba(29, 179, 44, 0.6)',
           fill: false,

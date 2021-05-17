@@ -9,8 +9,8 @@
       <h2 class="card-title">Bachelor Project</h2>
       <p class="card-description">
         This application is a product of a bachelor project for DTU.<br>
-        The project aims to build an application for that can visualize meaningful data about a patient suffering from Atrial Fibrillation.<br>
-        The intended users the of the application are cardiologists, medical professionals and researchers.
+        The project aims to build a web-application that can visualize meaningful data about a patient suffering from Atrial Fibrillation.<br>
+        The intended users the of the application are researchers and in the future also cardiologists and nurses working with patients with atrial fibrillation.
       </p>
       
     </md-card-content>
