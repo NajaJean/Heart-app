@@ -86,4 +86,9 @@ describe('Sidebar and ECG test', () => {
         cy.contains('Live ECG')
         cy.contains('Heart Rate')
     })
+    it('Log out', () => {
+        cy.contains('Log Out')
+            .click()
+        cy.contains('Login')
+    })
 })
