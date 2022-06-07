@@ -9,6 +9,7 @@ pushd vue-material-dashboard-master
 
 npm install
 npm run build
+npm install -g serve  
 serve -s dist && fg
 
 pop
