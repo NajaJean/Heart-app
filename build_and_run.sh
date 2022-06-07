@@ -7,7 +7,7 @@ sleep 10
 
 pushd vue-material-dashboard-master
 
-#npm install
+npm install
 npm run serve && fg
 
 pop
