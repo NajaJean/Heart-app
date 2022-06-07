@@ -9,8 +9,7 @@ pushd vue-material-dashboard-master
 
 npm install
 npm run build
-pushd dist
-tar -zcvf  dist.tar.gz  *Compress all files in the current directory && fg
+serve -s dist && fg
 
 pop
 pop
