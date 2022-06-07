@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://heartrater.live/api",
+  baseURL: "https://heartrater.live/api",
   withCredentials: false,
   headers: {
     "Access-Control-Allow-Origin": "*",
