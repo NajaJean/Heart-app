@@ -11,6 +11,7 @@ npm install
 npm run build
 
 pushd dist
+npm install serve
 serve && fg
 
 pop
