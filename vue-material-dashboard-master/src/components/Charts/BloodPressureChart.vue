@@ -1,6 +1,5 @@
 <script>
 import { Line } from 'vue-chartjs'
-import * as ChartAnnotation from 'chartjs-plugin-annotation';
 
 export default {
   extends: Line,

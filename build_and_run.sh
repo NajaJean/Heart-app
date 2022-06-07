@@ -3,11 +3,11 @@ set -e
 
 mvn spring-boot:run &
 
-sleep 10
+sleep 5
 
 pushd vue-material-dashboard-master
 
 npm install
-npm run serve && fg
+npm run build && fg
 
 pop
