@@ -19,8 +19,8 @@ class MeasurementDataService {
     return http.get(`/latestecg/${patient_id}`);
   }
 
-  getOldECG(index, patient_id) {
-    return http.get(`/oldecg/${index}/${patient_id}`);
+  getOldECG(patient_id) {
+    return http.get(`/oldecg/${patient_id}`);
   }
 
 }

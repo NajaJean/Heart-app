@@ -3,6 +3,8 @@ package com.bachelor.Heartapp.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -60,11 +62,10 @@ public class RealTimeController {
 		}
 	}
 
-	@GetMapping("/oldecg/{patient_id}/{index}")
-	public ResponseEntity<List<RealTime>> getPatientsOldECGByIndex(@PathVariable("patient_id") String patient_id,
-			@PathVariable("index") long index) {
+	@GetMapping("/oldecg/{patient_id}")
+	public ResponseEntity<List<RealTime>> getPatientsOldECGByIndex(@PathVariable("patient_id") String patient_id) {
 		try {
-			List<RealTime> ecgs = realtimeRepository.findByIdAndPatientidOrderByDatepostAsc(index, patient_id);
+			List<RealTime> ecgs = realtimeRepository.findTop2000ByPatientidOrderByDatepostAsc(patient_id);
 
 			if (ecgs.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
