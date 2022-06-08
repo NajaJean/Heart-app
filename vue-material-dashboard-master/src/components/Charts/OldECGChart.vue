@@ -97,9 +97,8 @@ export default {
 
 
               chart.data.datasets.forEach(function(dataset) {
-                console.log("hej malthe")
-                MeasurementDataService.getOldECG(count,"1")
-                .then(response => {
+                
+                try {
                     const ecg = this.oldECG[count%2000].data[0];
 
 
@@ -122,10 +121,9 @@ export default {
                     chart.update();
                     dataset.lastRecordedTime = new Date(datepost);
                   }     
-                })
-                .catch(e => {
+                } catch (e) {
                   console.log(e);
-                });
+                };
                 count++;
               });
             },
