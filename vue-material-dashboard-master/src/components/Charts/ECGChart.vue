@@ -81,7 +81,7 @@ export default {
                     if (dataset.lastRecordedTime <= new Date(datepost)) {
                     
                         for (var i = 0; i < ecg.measurementvalue.length - 1; i++) {
-                          ptime = new Date(ptime.getTime() + 8)
+                          ptime = new Date(ptime.getTime() + 7.8125)
 
                           dataset.data.push({
                           x: ptime,
