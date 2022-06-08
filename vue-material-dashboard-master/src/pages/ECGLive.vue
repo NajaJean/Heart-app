@@ -77,8 +77,8 @@ export default {
       if (this.mock) {
         const count = OldECGChart.fetchCount();
 
-        MeasurementDataService.getOldECG(count, this.patient_id).then(response => {
-          const newrate = response.data[0].measurementvalue[response.data[0].measurementvalue.length-1];
+        MeasurementDataService.getOldECG(this.patient_id).then(response => {
+          const newrate = response[count].data[0].measurementvalue[response.data[0].measurementvalue.length-1];
           if (this.heartRate != newrate) {
             this.heartRate = newrate;
           }     
