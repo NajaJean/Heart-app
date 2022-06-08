@@ -8,4 +8,6 @@ import com.bachelor.Heartapp.model.RealTime;
 
 public interface RealTimeRepository extends JpaRepository<RealTime, String> {
 	List<RealTime> findFirstByPatientidOrderByDatepostDesc(String patient_id);
+
+	List<RealTime> findByIdAndPatientidOrderByDatepostAsc(long id, String patient_id);
 }
