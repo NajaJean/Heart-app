@@ -26,7 +26,7 @@ export default {
         }],      
       }, {
         responsive:true,
-	      maintainAspectRatio: false,
+        maintainAspectRatio: false,
         title:{
           display:false,
           text:'Steps during the week',

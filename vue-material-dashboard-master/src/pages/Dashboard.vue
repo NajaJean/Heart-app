@@ -152,7 +152,7 @@ export default {
         .catch(e => {
           console.log(e);
         });
-      };
+      }
       this.dataloaded = false;
       await sleep(2000);
       this.updateCharts();
