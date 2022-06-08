@@ -18,6 +18,10 @@ class MeasurementDataService {
     return http.get(`/latestecg/${patient_id}`);
   }
 
+  getOldECG(index, patient_id) {
+    return http.get(`/oldecg/${index}/${patient_id}`);
+  }
+
 }
 
 export default new MeasurementDataService();
