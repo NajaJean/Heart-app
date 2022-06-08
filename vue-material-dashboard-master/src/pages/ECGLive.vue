@@ -15,7 +15,7 @@
           <md-card-content>
             <h2 :key="heartRate" class="title" font-weight="bold" text-align="center">Heart Rate: {{this.heartRate}}</h2>
             <e-c-g-chart v-if="!this.mock" :key="mock" name='ecg-chart' :width="370" :height="246"></e-c-g-chart> 
-            <old-e-c-g-chart v-if="this.mock" :key="mock" name='ecg-chart' :width="370" :height="246"></old-e-c-g-chart> 
+            <old-e-c-g-chart v-if="this.mock" :key="mock" :oldECG="oldECG" name='ecg-chart' :width="370" :height="246"></old-e-c-g-chart> 
           </md-card-content>
         </md-card>
       </div>
@@ -46,7 +46,8 @@ export default {
     return {
       heartRate: null,
       patient_id: '1',
-      mock: false
+      mock: false,
+      oldECG: MeasurementDataService.getOldECG("1"),
     };
   },
   created() {

@@ -11,7 +11,7 @@ export default {
     return count;
   },
   extends: Line,
-  props:[],
+  props:['oldECG'],
   mounted () {
     this.renderChart({
       datasets: [{
@@ -77,10 +77,34 @@ export default {
             duration: 5000,
             refresh: 1000,
             onRefresh: function(chart) {
+            //   onRefresh: function(chart) {
+            //   chart.data.datasets.forEach(function(dataset) {
+            //     var yval = MockedData.getMockedData(count%50);
+                
+            //     var ptime = new Date();
+            //     for (var i = 0; i < yval.length - 1; i++) {
+            //       ptime = new Date(ptime.getTime() + 8)
+
+            //       dataset.data.push({
+            //         x: ptime,
+            //         y: yval[i]
+            //       })
+            //     }
+            //     chart.update();
+            //     count = count +1;                 
+            //   });
+            // },
+
+
               chart.data.datasets.forEach(function(dataset) {
+                console.log("hej malthe")
                 MeasurementDataService.getOldECG(count,"1")
                 .then(response => {
-                    const ecg = response.data[0];
+                    const ecg = this.oldECG[count%2000].data[0];
+
+
+                    //const ecg = response.data[0];
+                    console.log(ecg)
                     const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";
 
                     var ptime = new Date((new Date(datepost)).getTime());
