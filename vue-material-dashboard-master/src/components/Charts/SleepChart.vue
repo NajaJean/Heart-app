@@ -58,7 +58,7 @@ export default {
         },],      
       }, {
         responsive:true,
-		    maintainAspectRatio: false,
+        maintainAspectRatio: false,
         title:{
           display:false,
           text:'Sleep during the week',
