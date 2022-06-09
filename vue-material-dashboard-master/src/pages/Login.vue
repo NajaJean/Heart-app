@@ -38,7 +38,7 @@ export default ({
     methods: {
       login() {
         if (this.input.username != "" && this.input.password != "") {
-            if (this.input.username == "admin" && this.input.password == "Mathilde") {
+            if (this.input.username == "najalarsen" && this.input.password == "Mathilde") {
                 this.$router.replace({ path: "/dashboardLayout" });
             } else {
                 this.$alert("The username and/or password is incorrect",'Failed to log in','error');
