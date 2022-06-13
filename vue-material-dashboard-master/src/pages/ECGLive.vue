@@ -63,8 +63,8 @@ export default {
       heartRate: null,
       patient_id: '1',
       mock: false,
-      ECGclassification: 0,
-      latestFetch: Date.now(),
+      ECGclassification: null,
+      latestFetch: new Date(),
     };
   },
   created() {
@@ -83,7 +83,7 @@ export default {
       this.selectedTo = null,
       this.dates = [];
       this.dataloaded = false;
-      this.ECGclassification = 0;
+      this.ECGclassification = null;
       
       this.retrieveMeasurements();
       this.retrieveThresholds();
@@ -96,9 +96,12 @@ export default {
         this.ECGclassification = Math.round(Math.random())
       } else {
         ECGClassificationDataService.getLatestECGClassification(this.patient_id).then(response => {
-          const newClassification = response.data.mldata;
-          console.log(newClassification);
-          this.ECGclassification = newClassification;
+          const tstamp = new Date(response.timestamp);
+          if (tstamp > this.latestFetch) {
+            this.latestFetch = tstamp;
+            const newClassification = response.data.mldata;
+            this.ECGclassification = newClassification;
+          }
         }).catch(e => {
           console.log(e);
         });
