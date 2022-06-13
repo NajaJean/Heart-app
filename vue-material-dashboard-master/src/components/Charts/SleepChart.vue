@@ -1,4 +1,7 @@
 <script>
+import { Chart, registerables } from 'chart.js';
+import 'chartjs-adapter-moment'; // or another adapter to avoid moment
+Chart.register(...registerables);
 import { Bar } from 'vue-chartjs'
 
 export default {

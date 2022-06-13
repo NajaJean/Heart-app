@@ -1,6 +1,7 @@
 <script>
 import { Line } from 'vue-chartjs'
 import 'chartjs-plugin-streaming';
+import 'chartjs-adapter-date-fns';
 import MeasurementDataService from '../../services/MeasurementDataService';
 
 var count = 0;
@@ -14,11 +15,11 @@ export default {
   mounted () {
     this.renderChart({
       datasets: [{
-        lastRecordedTime: new Date("2021-01-01T00:00:32.689+00:00"),
+        lastRecordedECG: [],
         data: [],
         label: 'ECG',
         pointHitRadius: 0,
-        pointRadius: 1,
+        pointRadius: 0.5,
         tension: 0,
         backgroundColor:'#004346',
         borderColor: '#004346',
@@ -58,6 +59,7 @@ export default {
             }
         }],
         xAxes: [{
+          reverse: true,
           ticks: {
             autoSkip: true,
             maxTicksLimit: 15
@@ -82,18 +84,18 @@ export default {
                     const ecg = response.data[count%5000];
                     //const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";
 
-                    var ptime = new Date();
-                    if (dataset.lastRecordedTime <= ptime) {
-                        for (var i = 0; i < ecg.measurementvalue.length - 1; i++) {
-                          ptime = new Date(ptime.getTime() + 7.8125)
-                          dataset.data.push({
-                          x: ptime,
-                          y: ecg.measurementvalue[i]
-                          })
-                        }
+                    if (dataset.lastRecordedECG != ecg && ecg) {
+                      var ptime = new Date();
+                      for (var i = 0; i < ecg.measurementvalue.length - 1; i++) {
+                        ptime = new Date(ptime.getTime() + 7.8125)
+                        dataset.data.push({
+                        x: ptime,
+                        y: ecg.measurementvalue[i]
+                        })
+                      }
 
                     chart.update();
-                    dataset.lastRecordedTime = ptime; 
+                    dataset.lastRecordedECG = ecg; 
                   }     
                 })
                 .catch(e => {

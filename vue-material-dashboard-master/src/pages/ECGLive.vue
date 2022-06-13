@@ -5,7 +5,8 @@
         <h4>{{this.mock ? "This data is previously recorded data." : "This data is live data."}}<br/>{{this.mock ? "To get real time ECG, press the 'Get Live ECG' button." : "If no sensor is attached, the graph is empty."}}<br/>{{this.mock ? "" : "Press 'Get Recorded ECG' to see previously recorded data."}}</h4>
         <md-field class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
           <label>CPR</label>
-          <md-input name="patientID" v-model="patient_id" disabled></md-input>
+          <md-input name="patientID" v-model="patient_id"></md-input>
+          <md-button name="changePatient" class="md-dense md-raised md-info" @click="changePatient(patient_id)">Change Patient</md-button>
           <md-button name="mockButton" class="md-dense md-raised md-info" @click="toggleMock()">{{this.mock ? "Get Live ECG" : "Get Recorded ECG"}}</md-button>
         </md-field>
         <md-card>
@@ -16,6 +17,15 @@
             <h2 :key="heartRate" class="title" font-weight="bold" text-align="center">Heart Rate: {{this.heartRate}}</h2>
             <e-c-g-chart v-if="!this.mock" :key="mock" name='ecg-chart' :width="370" :height="246"></e-c-g-chart> 
             <old-e-c-g-chart v-if="this.mock" :key="mock" name='ecg-chart' :width="370" :height="246"></old-e-c-g-chart> 
+          </md-card-content>
+        </md-card>
+        <md-card>
+          <md-card-header data-background-color="blue">
+            <h2 class="title" font-weight="bold">{{"The new shit"}}</h2>
+          </md-card-header>
+          <md-card-content>
+            <h2 :key="heartRate" class="title" font-weight="bold" text-align="center">Heart Rate: {{this.heartRate}}</h2>
+            <old-e-c-g-chartnew :key="mock" name='ecg-chart' :width="370" :height="246"></old-e-c-g-chartnew>
           </md-card-content>
         </md-card>
       </div>
@@ -33,14 +43,22 @@
 
 import ECGChart from '../components/Charts/ECGChart.vue';
 import OldECGChart from '../components/Charts/OldECGChart.vue';
+import OldECGChartnew from '../components/Charts/OldECGChartnew.vue';
 //import MockedECGChart from '../components/Charts/MockedECGChart.vue';
 import MeasurementDataService from "../services/MeasurementDataService";
 import MockedData from '../components/Charts/MockedData';
+import 'chartjs-plugin-streaming';
+import 'chartjs-adapter-moment';
+import { Chart, registerables } from 'chart.js';
+import 'chartjs-adapter-moment'; // or another adapter to avoid moment
+import 'chartjs-plugin-annotation';
+Chart.register(...registerables);
 
 export default {
   components: {
     ECGChart,
     OldECGChart,
+    OldECGChartnew,
     //MockedECGChart
   },
   data() {
