@@ -17,6 +17,7 @@
     "core-js": "3.6.4",
     "cors": "^2.8.5",
     "date-time": "^3.1.0",
+    "serve": "^13.0.2",
     "vue": "2.6.11",
     "vue-chartjs": "^3.5.1",
     "vue-clickaway": "2.2.2",
@@ -29,7 +30,6 @@
   "devDependencies": {
     "@types/chartjs-plugin-annotation": "^0.5.1",
     "@vue/cli-plugin-babel": "4.2.3",
-    "@vue/cli-plugin-eslint": "4.2.3",
     "@vue/cli-plugin-router": "4.2.3",
     "@vue/cli-service": "4.2.3",
     "@vue/eslint-config-prettier": "6.0.0",

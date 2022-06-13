@@ -1,15 +1,20 @@
 <script>
 import { Line } from 'vue-chartjs'
 import 'chartjs-plugin-streaming';
-import MeasurementDataService from "../../services/MeasurementDataService";
+import MeasurementDataService from '../../services/MeasurementDataService';
+
+var count = 0;
 
 export default {
+  fetchCount() {
+    return count;
+  },
   extends: Line,
   props:[],
   mounted () {
     this.renderChart({
       datasets: [{
-        lastRecordedTime: new Date(),
+        lastRecordedTime: new Date("2021-01-01T00:00:32.689+00:00"),
         data: [],
         label: 'ECG',
         pointHitRadius: 0,
@@ -23,7 +28,7 @@ export default {
           maintainAspectRatio: true,
           title:{
             display:false,
-            text:'Live ECG',
+            text:'Old recorded ECG',
             fontSize:25
           },
           legend:{
@@ -72,17 +77,15 @@ export default {
             refresh: 1000,
             onRefresh: function(chart) {
               chart.data.datasets.forEach(function(dataset) {
-                MeasurementDataService.getLatestECG("1")
+                MeasurementDataService.getOldECG("1")
                 .then(response => {
-                    const ecg = response.data[0];
-                    const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";
+                    const ecg = response.data[count%5000];
+                    //const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";
 
-                    var ptime = new Date((new Date(datepost)).getTime());
-                    if (dataset.lastRecordedTime <= new Date(datepost)) {
-                    
+                    var ptime = new Date();
+                    if (dataset.lastRecordedTime <= ptime) {
                         for (var i = 0; i < ecg.measurementvalue.length - 1; i++) {
                           ptime = new Date(ptime.getTime() + 7.8125)
-
                           dataset.data.push({
                           x: ptime,
                           y: ecg.measurementvalue[i]
@@ -90,12 +93,13 @@ export default {
                         }
 
                     chart.update();
-                    dataset.lastRecordedTime = new Date(datepost);
+                    dataset.lastRecordedTime = ptime; 
                   }     
                 })
                 .catch(e => {
                   console.log(e);
                 });
+                count++;
               });
             },
               delay: 2000
