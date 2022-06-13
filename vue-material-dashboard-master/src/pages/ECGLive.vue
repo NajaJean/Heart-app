@@ -19,8 +19,8 @@
               </div>
               <div class="md-layout-item" style="text-align: right">
                   <span v-if="this.ECGclassification == null">No ML is available </span>
-                  <span v-if="this.ECGclassification == 0">No irregularities detected </span>
-                  <span v-if="this.ECGclassification == 1">Irregularities detected </span>
+                  <span v-if="this.ECGclassification == 0">Normal </span>
+                  <span v-if="this.ECGclassification == 1">Irregular </span>
 
                   <span class="dot" style="background-color:crimson;" v-if="this.ECGclassification == 1"></span>
                   <span class="dot" style="background-color:darkgreen" v-if="this.ECGclassification == 0"></span>
