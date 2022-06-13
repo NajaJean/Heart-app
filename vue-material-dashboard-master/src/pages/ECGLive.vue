@@ -2,20 +2,7 @@
   <div class="content">
     <div class="md-layout">
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
-        <div class="md-layout">
-          <div class="md-layout-item">
-            <h4>{{this.mock ? "This data is previously recorded data." : "This data is live data."}}<br/>{{this.mock ? "To get real time ECG, press the 'Get Live ECG' button." : "If no sensor is attached, the graph is empty."}}<br/>{{this.mock ? "" : "Press 'Get Recorded ECG' to see previously recorded data."}}</h4>
-          </div>
-          <div class="md-layout-item md-alignment-center-right">
-            <span style="background-color: crimson"></span>
-            <p style="text-align:right">
-              <span>Result of machine learning classification on ECG:</span><br/>
-              <span v-if="this.ECGclassification == null">No ML is available</span>
-              <span style="background-color:green; color: whitesmoke;" v-if="this.ECGclassification == 0">No irregularities detected</span>
-              <span style="background-color:red; color: whitesmoke;" v-if="this.ECGclassification == 1">Irregularities detected</span>
-            </p>
-          </div>
-        </div>
+        <h4>{{this.mock ? "This data is previously recorded data." : "This data is live data."}}<br/>{{this.mock ? "To get real time ECG, press the 'Get Live ECG' button." : "If no sensor is attached, the graph is empty."}}<br/>{{this.mock ? "" : "Press 'Get Recorded ECG' to see previously recorded data."}}</h4>
         <md-field class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
           <label>CPR</label>
           <md-input name="patientID" v-model="patient_id" disabled></md-input>
@@ -26,7 +13,20 @@
             <h2 class="title" font-weight="bold">{{this.mock ? "Recorded ECG" : "Live ECG"}}</h2>
           </md-card-header>
           <md-card-content>
-            <h2 :key="heartRate" class="title" font-weight="bold" text-align="center">Heart Rate: {{this.heartRate}}</h2>
+            <div class="md-layout">
+              <div class="md-layout-item">
+                <h2 :key="heartRate" class="title" font-weight="bold" text-align="center">Heart Rate: {{this.heartRate}}</h2>
+              </div>
+              <div class="md-layout-item" style="text-align: right">
+                  <span v-if="this.ECGclassification == null">No ML is available </span>
+                  <span v-if="this.ECGclassification == 0">No irregularities detected </span>
+                  <span v-if="this.ECGclassification == 1">Irregularities detected </span>
+
+                  <span class="dot" style="background-color:crimson;" v-if="this.ECGclassification == 1"></span>
+                  <span class="dot" style="background-color:darkgreen" v-if="this.ECGclassification == 0"></span>
+                  <span class="dot" style="background-color:blanchedalmond" v-if="this.ECGclassification == null"></span>
+              </div>
+            </div>
             <e-c-g-chart v-if="!this.mock" :key="mock" name='ecg-chart' :width="370" :height="246"></e-c-g-chart> 
             <old-e-c-g-chart v-if="this.mock" :key="mock" name='ecg-chart' :width="370" :height="246"></old-e-c-g-chart> 
           </md-card-content>
@@ -64,6 +64,7 @@ export default {
       patient_id: '1',
       mock: false,
       ECGclassification: 0,
+      latestFetch: Date.now(),
     };
   },
   created() {
@@ -135,4 +136,6 @@ export default {
 };
 </script>
 
-
+<style>
+  @import '../assets/scss/extracss.css';
+</style>
