@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,10 +23,11 @@ public class ECGClassificationController {
 
 	// public ResponseEntity<?> getPatient(@PathVariable("patient_id") String
 	// patient_id) {
-	@GetMapping("/latestclassification")
-	public ResponseEntity<?> getLatestECGClassification() {
+	@GetMapping("/latestclassification/{patient_id}")
+	public ResponseEntity<?> getLatestECGClassification(@PathVariable("patient_id") String patient_id) {
 		try {
-			ECGClassification ecgClassification = ecgClassificationRepository.findFirstByOrderByTimestampDesc();
+					
+			ECGClassification ecgClassification = ecgClassificationRepository.findFirstByPatientidOrderByTimestampDesc(patient_id);
 
 			if (ecgClassification == null) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);

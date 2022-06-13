@@ -2,7 +2,20 @@
   <div class="content">
     <div class="md-layout">
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
-        <h4>{{this.mock ? "This data is previously recorded data." : "This data is live data."}}<br/>{{this.mock ? "To get real time ECG, press the 'Get Live ECG' button." : "If no sensor is attached, the graph is empty."}}<br/>{{this.mock ? "" : "Press 'Get Recorded ECG' to see previously recorded data."}}</h4>
+        <div class="md-layout">
+          <div class="md-layout-item">
+            <h4>{{this.mock ? "This data is previously recorded data." : "This data is live data."}}<br/>{{this.mock ? "To get real time ECG, press the 'Get Live ECG' button." : "If no sensor is attached, the graph is empty."}}<br/>{{this.mock ? "" : "Press 'Get Recorded ECG' to see previously recorded data."}}</h4>
+          </div>
+          <div class="md-layout-item md-alignment-center-right">
+            <span style="background-color: crimson"></span>
+            <p style="text-align:right">
+              <span>Result of machine learning classification on ECG:</span><br/>
+              <span v-if="this.ECGclassification == null">No ML is available</span>
+              <span style="background-color:green; color: whitesmoke;" v-if="this.ECGclassification == 0">No irregularities detected</span>
+              <span style="background-color:red; color: whitesmoke;" v-if="this.ECGclassification == 1">Irregularities detected</span>
+            </p>
+          </div>
+        </div>
         <md-field class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
           <label>CPR</label>
           <md-input name="patientID" v-model="patient_id" disabled></md-input>
@@ -50,10 +63,11 @@ export default {
       heartRate: null,
       patient_id: '1',
       mock: false,
+      ECGclassification: 0,
     };
   },
   created() {
-    this.interval = setInterval(() => this.getHeartRate(), 500);
+    this.interval = setInterval(() => {this.getHeartRate(); this.getECGClassification()}, 500);
   },
   methods: {
     toggleMock() {
@@ -68,12 +82,26 @@ export default {
       this.selectedTo = null,
       this.dates = [];
       this.dataloaded = false;
+      this.ECGclassification = 0;
       
       this.retrieveMeasurements();
       this.retrieveThresholds();
       await sleep(2000);
       this.dataloaded = true;
       console.log("updated to patient: "+newPatient_id);
+    },
+    getECGClassification() {
+      if (this.mock) {
+        this.ECGclassification = Math.round(Math.random())
+      } else {
+        ECGClassificationDataService.getLatestECGClassification(this.patient_id).then(response => {
+          const newClassification = response.data.mldata;
+          console.log(newClassification);
+          this.ECGclassification = newClassification;
+        }).catch(e => {
+          console.log(e);
+        });
+      }
     },
     getHeartRate() {
       if (this.mock) {
@@ -106,3 +134,5 @@ export default {
   }
 };
 </script>
+
+

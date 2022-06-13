@@ -6,6 +6,6 @@ import com.bachelor.Heartapp.model.ECGClassification;
 
 public interface ECGClassificationRepository extends JpaRepository<ECGClassification, Long> {
 
-	ECGClassification findFirstByOrderByTimestampDesc();
+	ECGClassification findFirstByPatientidOrderByTimestampDesc(String patient_id);
 
 }

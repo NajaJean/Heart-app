@@ -1,8 +1,8 @@
 import http from "../http-common";
 
 class ECGClassificationDataService {
-  getLatestECGClassification() {
-    return http.get(`/latestclassification`);
+  getLatestECGClassification(patient_id) {
+    return http.get(`/latestclassification/${patient_id}`);
   }
 }
 
