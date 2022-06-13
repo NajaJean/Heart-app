@@ -54,7 +54,7 @@ public class HeartAppApplication {
 		return args -> {
 
 			// Mocks data for running application locally
-			// ETL(restTemplate);
+			ETL(restTemplate);
 
 			System.out.println("Back end is running!");
 		};
