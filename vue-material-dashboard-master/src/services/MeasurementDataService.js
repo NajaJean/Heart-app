@@ -1,12 +1,16 @@
 import http from "../http-common";
 
-class MeasurementDataService {
+class MeasurementDataService {  
   get7LatestMeasurements(patient_id) {
     return http.get(`/7measurements/${patient_id}`);
   }
 
   get7Latest(patient_id, measurement_type) {
     return http.get(`/7measurements/${patient_id}/${measurement_type}`);
+  }
+
+  get7LatestAau(patient_id, pwd, measurement_type) {
+    return http.get(`/aau/7measurements/${patient_id}/${pwd}/${measurement_type}`);
   }
 
   getMeasurementsFromTo(patient_id, measurement_type, from, to) {

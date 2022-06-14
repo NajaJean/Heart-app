@@ -21,10 +21,8 @@ public class ECGClassificationController {
 	@Autowired
 	ECGClassificationRepository ecgClassificationRepository;
 
-	// public ResponseEntity<?> getPatient(@PathVariable("patient_id") String
-	// patient_id) {
 	@GetMapping("/latestclassification/{patient_id}")
-	public ResponseEntity<?> getLatestECGClassification(@PathVariable("patient_id") String patient_id) {
+	public ResponseEntity<ECGClassification> getLatestECGClassification(@PathVariable("patient_id") String patient_id) {
 		try {
 					
 			ECGClassification ecgClassification = ecgClassificationRepository.findFirstByPatientidOrderByTimestampDesc(patient_id);

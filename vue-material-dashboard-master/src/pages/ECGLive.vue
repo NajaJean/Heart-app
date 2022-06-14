@@ -48,7 +48,7 @@ import ECGChart from '../components/Charts/ECGChart.vue';
 import OldECGChart from '../components/Charts/OldECGChart.vue';
 //import MockedECGChart from '../components/Charts/MockedECGChart.vue';
 import MeasurementDataService from "../services/MeasurementDataService";
-import MockedData from '../components/Charts/MockedData';
+//import MockedData from '../components/Charts/MockedData';
 import ECGClassificationDataService from '../services/ECGClassificationDataService';
 
 export default {
@@ -58,7 +58,6 @@ export default {
     //MockedECGChart
   },
   data() {
-    ECGClassificationDataService.getLatestECGClassification().then(d => console.log(d))
     return {
       heartRate: null,
       patient_id: '1',

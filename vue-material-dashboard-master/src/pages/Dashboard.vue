@@ -16,6 +16,7 @@
         <threshold-form :key="keyvalue" v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold"></threshold-form>
       </div>
       <date-picker :key="keyvalue" :selectedfrom="selectedFrom" :selectedto="selectedTo" @update-time="updateTime"></date-picker>
+      <md-button name="aauButton" class="md-dense md-raised md-info" @click="toggleAauData()">{{this.aauData ? "Use mocked data" : "Use AaU data"}}</md-button>
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
@@ -72,6 +73,7 @@ export default {
       data: {},
       dates: [],
       setThresholds: false,
+      aauData: false,
       dataloaded: false,
       thresholds: {},
       thresholdIds: {},
@@ -86,6 +88,22 @@ export default {
     toggleThresholdsForm() {
       this.updateCharts();
       this.setThresholds = !this.setThresholds;
+    },
+    async toggleAauData() {
+      this.aauData = !this.aauData;
+      this.data = {};
+      this.thresholds = {};
+      this.thresholdIds = {};
+      this.selectedFrom = null,
+      this.selectedTo = null,
+      this.dates = [];
+      this.dataloaded = false;
+
+      this.retrieveMeasurements();
+      
+      //this.updateCharts();
+      await sleep(2000);
+      this.dataloaded = true;
     },
     async changePatient(newPatient_id) {
       this.patient_id = newPatient_id;
@@ -161,13 +179,23 @@ export default {
     retrieveMeasurements() {
       var typ;
       for (typ in (this.measurement_types)) {
-        MeasurementDataService.get7Latest(this.patient_id,this.measurement_types[typ])
-        .then(response => {
-          response.data.map(m => this.pushMeasurementsIntoData(m));
-        })
-        .catch(e => {
-          console.log(e);
-        });
+        if (!this.aauData) {
+          MeasurementDataService.get7Latest(this.patient_id,this.measurement_types[typ])
+          .then(response => {
+            response.data.map(m => this.pushMeasurementsIntoData(m));
+          })
+          .catch(e => {
+            console.log(e);
+          });
+        } else {
+          MeasurementDataService.get7LatestAau("4005","2cf6c93d",this.measurement_types[typ])
+          .then(response => {
+            response.data.map(m => {this.pushMeasurementsIntoData(m); console.log(m)});
+          })
+          .catch(e => {
+            console.log(e);
+          });
+        }
       }
     },
     pushMeasurementsIntoData(m) {
@@ -210,6 +238,10 @@ export default {
   },
   mounted() {
     window.addEventListener("resize", this.onResize)
+
+    // axios
+    //   .post('http://localhost:8080/test')
+    //   .then((response) => (console.log(response.data)))
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.onResize)
