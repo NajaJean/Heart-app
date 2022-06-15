@@ -16,7 +16,7 @@
         <threshold-form :key="keyvalue" v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold"></threshold-form>
       </div>
       <date-picker :key="keyvalue" :selectedfrom="selectedFrom" :selectedto="selectedTo" @update-time="updateTime"></date-picker>
-      <md-switch :color="colorx" v-model="aauData" @change="toggleAauData()">Use AaU data</md-switch>
+      <md-switch v-model="aauData" @change="toggleAauData()">Use AaU data</md-switch>
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
