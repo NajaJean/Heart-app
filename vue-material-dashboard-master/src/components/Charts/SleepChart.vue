@@ -1,5 +1,6 @@
 <script>
-import { Bar } from 'vue-chartjs'
+import { Bar } from 'vue-chartjs';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 export default {
   extends: Bar,
@@ -84,7 +85,7 @@ export default {
           displayColors: true,
           callbacks: {
               label: function(tooltipItem, data) {
-                  return data.datasets[tooltipItem.datasetIndex].label+ ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index] + ' min';
+                  return [data.datasets[tooltipItem.datasetIndex].label+ ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index] + ' min','Total: '];
               }
             }  
         },

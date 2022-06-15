@@ -16,14 +16,18 @@
         <threshold-form :key="keyvalue" v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold"></threshold-form>
       </div>
       <date-picker :key="keyvalue" :selectedfrom="selectedFrom" :selectedto="selectedTo" @update-time="updateTime"></date-picker>
-      <md-button name="aauButton" class="md-dense md-raised md-info" @click="toggleAauData()">{{this.aauData ? "Use mocked data" : "Use AaU data"}}</md-button>
+      <md-switch :color="colorx" v-model="aauData" @change="toggleAauData()">Use AaU data</md-switch>
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
             <h2 class="title" font-weight="bold">Blood Pressure</h2>
           </md-card-header>
           <md-card-content>
-            <blood-pressure-chart :key="keyvalue" :width="370" :height="246" :chart="[dates,data.blood_pressure_diastolic,data.blood_pressure_systolic]" :thresholds="thresholds"></blood-pressure-chart> 
+            <h3 v-if="this.data['blood_pressure_diastolic'] == undefined && this.data['blood_pressure_systolic'] == undefined">No blood pressure data available</h3>
+            <blood-pressure-chart :key="keyvalue" :width="370" :height="246" 
+              :chart="[dates,data.blood_pressure_diastolic,data.blood_pressure_systolic]" 
+              :thresholds="thresholds"
+              v-if="this.data['blood_pressure_diastolic'] != undefined || this.data['blood_pressure_systolic'] != undefined"></blood-pressure-chart> 
           </md-card-content>
         </md-card>
       </div>
@@ -33,7 +37,8 @@
             <h2 class="title">Steps</h2>
           </md-card-header>
           <md-card-content>
-            <steps-chart :key="keyvalue" :width="370" :height="246" :chart="[dates,data.cnt_steps]" :thresholds="thresholds"></steps-chart>
+            <h3 v-if="this.data['cnt_steps'] == undefined">No steps data available</h3>
+            <steps-chart :key="keyvalue" :width="370" :height="246" :chart="[dates,data.cnt_steps]" :thresholds="thresholds" v-if="this.data['cnt_steps'] != undefined"></steps-chart>
           </md-card-content>
         </md-card>
       </div>
@@ -43,7 +48,9 @@
             <h2 class="title">Sleep</h2>
           </md-card-header>
           <md-card-content>
-            <sleep-chart :key="keyvalue" :width="370" :height="246" :chart="[dates,data.sleep_light,data.sleep_rem,data.sleep_deep]" :thresholds="thresholds"></sleep-chart>
+            <h3 v-if="this.data['sleep_light'] == undefined && this.data['sleep_rem'] == undefined && this.data['sleep_deep'] == undefined">No sleep data available</h3>
+            <sleep-chart :key="keyvalue" :width="370" :height="246" :chart="[dates,data.sleep_light,data.sleep_rem,data.sleep_deep]" :thresholds="thresholds"
+            v-if="this.data['sleep_light'] != undefined || this.data['sleep_rem'] != undefined || this.data['sleep_deep'] != undefined"></sleep-chart>
           </md-card-content>
         </md-card>
       </div>
@@ -70,6 +77,7 @@ export default {
   },
   data() {
     return {
+      colorx: 'info',
       data: {},
       dates: [],
       setThresholds: false,
@@ -90,7 +98,7 @@ export default {
       this.setThresholds = !this.setThresholds;
     },
     async toggleAauData() {
-      this.aauData = !this.aauData;
+      //this.aauData = !this.aauData;
       this.data = {};
       this.thresholds = {};
       this.thresholdIds = {};
@@ -102,7 +110,7 @@ export default {
       this.retrieveMeasurements();
       
       //this.updateCharts();
-      await sleep(2000);
+      await sleep(1000);
       this.dataloaded = true;
     },
     async changePatient(newPatient_id) {
@@ -117,7 +125,7 @@ export default {
       
       this.retrieveMeasurements();
       this.retrieveThresholds();
-      await sleep(2000);
+      await sleep(1000);
       this.dataloaded = true;
       console.log("updated to patient: "+newPatient_id);
     },
@@ -172,7 +180,7 @@ export default {
         });
       }
       this.dataloaded = false;
-      await sleep(2000);
+      await sleep(1000);
       this.updateCharts();
       this.dataloaded = true;
     },
@@ -182,7 +190,9 @@ export default {
         if (!this.aauData) {
           MeasurementDataService.get7Latest(this.patient_id,this.measurement_types[typ])
           .then(response => {
-            response.data.map(m => this.pushMeasurementsIntoData(m));
+            if (response.data.length != 0) {
+              response.data.map(m => this.pushMeasurementsIntoData(m));
+            }
           })
           .catch(e => {
             console.log(e);
@@ -190,7 +200,9 @@ export default {
         } else {
           MeasurementDataService.get7LatestAau("4005","2cf6c93d",this.measurement_types[typ])
           .then(response => {
-            response.data.map(m => {this.pushMeasurementsIntoData(m); console.log(m)});
+            if (response.data.length != 0) {
+              response.data.map(m => this.pushMeasurementsIntoData(m));
+            }
           })
           .catch(e => {
             console.log(e);
@@ -233,15 +245,11 @@ export default {
   async created() {
     this.retrieveMeasurements();
     this.retrieveThresholds();
-    await sleep(2000);
+    await sleep(1000);
     this.dataloaded = true;
   },
   mounted() {
     window.addEventListener("resize", this.onResize)
-
-    // axios
-    //   .post('http://localhost:8080/test')
-    //   .then((response) => (console.log(response.data)))
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.onResize)
