@@ -34,12 +34,12 @@
 </template>
 
 <script>
-import TopNavbar from "./TopNavbar.vue";
+//import TopNavbar from "./TopNavbar.vue";
 import DashboardContent from "./Content.vue";
 
 export default {
   components: {
-    TopNavbar,
+    //TopNavbar,
     DashboardContent
   },
     data() {
