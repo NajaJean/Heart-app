@@ -77,7 +77,6 @@ export default {
   },
   data() {
     return {
-      colorx: 'info',
       data: {},
       dates: [],
       setThresholds: false,
