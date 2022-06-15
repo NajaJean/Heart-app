@@ -1,12 +1,12 @@
 <script>
-import { Line } from 'vue-chartjs'
+//import { Line } from 'vue-chartjs'
 import 'chartjs-plugin-streaming';
 import MockedData from "../Charts/MockedData"
 
 var count = 0;
 
 export default {
-  extends: Line,
+  //extends: Line,
   props:['mocked'],
   mounted () {
     this.renderChart({

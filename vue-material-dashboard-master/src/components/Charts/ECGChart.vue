@@ -1,10 +1,10 @@
 <script>
-import { Line } from 'vue-chartjs'
+//import { Line } from 'vue-chartjs'
 import 'chartjs-plugin-streaming';
 import MeasurementDataService from "../../services/MeasurementDataService";
 
 export default {
-  extends: Line,
+  //extends: Line,
   props:[],
   mounted () {
     this.renderChart({

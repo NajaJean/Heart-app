@@ -1,5 +1,5 @@
 <script>
-import { Line } from 'vue-chartjs'
+//import { Line } from 'vue-chartjs'
 import 'chartjs-plugin-streaming';
 import 'chartjs-adapter-date-fns';
 import MeasurementDataService from '../../services/MeasurementDataService';
@@ -10,7 +10,7 @@ export default {
   fetchCount() {
     return count;
   },
-  extends: Line,
+  //extends: Line,
   props:[],
   mounted () {
     this.renderChart({

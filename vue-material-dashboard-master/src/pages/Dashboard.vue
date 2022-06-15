@@ -56,6 +56,7 @@ import ThresholdDataService from "../services/ThresholdDataService";
 import BloodPressureChart from '../components/Charts/BloodPressureChart.vue';
 import StepsChart from '../components/Charts/StepsChart.vue';
 import SleepChart from '../components/Charts/SleepChart.vue';
+
 import ThresholdForm from '../components/ThresholdForm.vue';
 import DatePicker from '../components/Picker/DatePicker.vue';
 
@@ -120,8 +121,14 @@ export default {
       if (!(id > 0)) {
         id = 0;
       }
+
+      if (threshold_value == '') {
+        threshold_value = null;
+      }
       
       this.thresholds[measurement_type+threshold_type] = threshold_value;
+      console.log('heeer')
+      console.log(typeof threshold_value)
       
       var data = {
           id: id,

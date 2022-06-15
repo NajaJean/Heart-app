@@ -1,19 +1,33 @@
+<template>
+    <canvas id="SleepChartCanvas" :width="370" :height="246"></canvas>
+</template>
+
 <script>
-import { Chart, registerables } from 'chart.js';
+import { Chart } from 'chart.js';
 import 'chartjs-adapter-moment'; // or another adapter to avoid moment
-Chart.register(...registerables);
-import { Bar } from 'vue-chartjs'
+import annotationPlugin from 'chartjs-plugin-annotation';
+//import ChartDataLabels from 'chartjs-plugin-datalabels';
+
+Chart.register(annotationPlugin);
+//Chart.register(ChartDataLabels);
 
 export default {
-  extends: Bar,
   props:['chart','thresholds'],
-  mounted () {
-      this.renderChart({
+  name: 'SleepChart',
+  data() {
+    return {
+      char: this.chart
+    }
+  },
+  mounted() {
+    const SleepChartData = {
+      type: 'bar',
+      data: {
         labels: this.chart[0],
         datasets:[
           {
           label:'Light',
-          data:this.chart[1],
+          data:this.chart[1].map( i => Number(i).toFixed(2)),
           backgroundColor:'rgba(65,105,225, 0.6)',
           borderColor: 'rgba(65,105,225, 0.6)',
           fill: false,
@@ -29,7 +43,7 @@ export default {
         },
         {
           label:'REM',
-          data:this.chart[2],
+          data:this.chart[2].map( i => Number(i).toFixed(2)),
           backgroundColor:'rgba(255, 59, 10, 0.6)',
           borderColor: 'rgba(255, 59, 10, 0.6)',
           fill: false,
@@ -45,7 +59,7 @@ export default {
         },
         {
           label:'Deep',
-          data:this.chart[3],
+          data:this.chart[3].map( i => Number(i).toFixed(2)),
           backgroundColor:'rgba(148,0,211, 0.6)',
           borderColor: 'rgba(148,0,211, 0.6)',
           fill: false,
@@ -58,44 +72,67 @@ export default {
             }
             }]
           }
-        },],      
-      }, {
-        responsive:true,
-        maintainAspectRatio: false,
-        title:{
-          display:false,
-          text:'Sleep during the week',
-          fontSize:25
-        },
-        legend:{
-          display:true,
-          position:'bottom',
-          labels:{
-            fontColor:'#000'
-          }
-        },
-        layout:{
-          padding:{
-            left:50,
-            right:0,
-            bottom:0,
-            top:0
-          }
-        },
-        tooltips:{
-          enabled:true,
-          displayColors: true,
-          callbacks: {
-              label: function(tooltipItem, data) {
-                  return data.datasets[tooltipItem.datasetIndex].label+ ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index] + ' min';
+        }],
+      },
+      options: {
+        plugins: {
+          // datalabels: {
+          //   anchor: 'end',
+          //   align: 'top',
+          //   formatter: (value,context) => {
+          //     const datasetArray = [];
+          //     context.chart.data.datasets.forEach((dataset) => {
+          //       if(dataset.data[context.dataIndex] != undefined) {
+          //         datasetArray.push(dataset.data[context.dataIndex]);
+          //       }
+          //     })
+
+          //     function totalSleep(total, datapoint) {
+          //       return total+Number(datapoint);
+          //     }
+          //     let sum = datasetArray.reduce(totalSleep, 0);
+
+          //     if(context.datasetIndex === datasetArray.length -2) {
+          //       return 'Total: '+sum.toFixed(2);
+          //     } else {
+          //       return '';
+          //     }
+          //   }
+          // },
+          title:{
+            display:false,
+            text:'Sleep during the week',
+            fontSize:25
+          },
+          legend:{
+            display:true,
+            position:'bottom',
+            labels:{
+              fontColor:'#000'
+            }
+          },
+          tooltip:{
+            enabled:true,
+            displayColors: false,
+            callbacks: {
+                label: function(context) {
+                  let label = context.dataset.label || '';
+
+                  if (label) {
+                      label += ': ';
+                  }
+                  if (context.parsed.y !== null) {
+                      label += context.parsed.y + ' hours';
+                  }
+                  return label;
               }
-            }  
-        },
-        annotation: {
+              }  
+          },
+          annotation: {
             annotations: [{
               type: 'line',
               mode: 'horizontal',
-              scaleID: 'y-axis-0',
+              scaleID: 'y',
               id: 'lightlowlimit',
               value: this.thresholds.sleep_lightlower,
               borderColor: 'rgb(75, 124, 192)',
@@ -110,7 +147,7 @@ export default {
             },{
               type: 'line',
               mode: 'horizontal',
-              scaleID: 'y-axis-0',
+              scaleID: 'y',
               id: 'lightuplimit',
               value: this.thresholds.sleep_lightupper,
               borderColor: 'rgb(75, 192, 192)',
@@ -126,7 +163,7 @@ export default {
             {
               type: 'line',
               mode: 'horizontal',
-              scaleID: 'y-axis-0',
+              scaleID: 'y',
               id: 'remlowlimit',
               value: this.thresholds.sleep_remlower,
               borderColor: 'rgb(75, 124, 192)',
@@ -141,7 +178,7 @@ export default {
             },{
               type: 'line',
               mode: 'horizontal',
-              scaleID: 'y-axis-0',
+              scaleID: 'y',
               id: 'remuplimit',
               value: this.thresholds.sleep_remupper,
               borderColor: 'rgb(75, 192, 192)',
@@ -157,7 +194,7 @@ export default {
             {
               type: 'line',
               mode: 'horizontal',
-              scaleID: 'y-axis-0',
+              scaleID: 'y',
               id: 'deeplowlimit',
               value: this.thresholds.sleep_deeplower,
               borderColor: 'rgb(75, 124, 192)',
@@ -172,7 +209,7 @@ export default {
             },{
               type: 'line',
               mode: 'horizontal',
-              scaleID: 'y-axis-0',
+              scaleID: 'y',
               id: 'deepuplimit',
               value: this.thresholds.sleep_deepupper,
               borderColor: 'rgb(75, 192, 192)',
@@ -186,7 +223,41 @@ export default {
               }
             }]
         }
-      })
-    },
+        },
+        responsive:true,
+        maintainAspectRatio: false,
+        layout:{
+          padding:{
+            left:50,
+            right:0,
+            bottom:0,
+            top:0
+          }
+        },
+        scales: {
+          x1: {
+            id: 'x1'
+          },
+          // x2: {
+          //   display: true,
+          //   position: 'top',
+          //   id: 'x2',
+          //   ticks: {
+          //     // Include a dollar sign in the ticks
+          //     callback: function() {
+          //       const data = this.chart[0]
+          //       console.log(this.char)
+                
+          //       return '$' ;
+          //     }
+          //   }
+          // },
+        }
+      },
+      // plugins: [ChartDataLabels]
+    };
+    const ctx = document.getElementById('SleepChartCanvas').getContext('2d');
+    new Chart(ctx, SleepChartData);
+  }
 }
 </script>

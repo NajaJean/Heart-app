@@ -1,4 +1,5 @@
-import 'chartjs-plugin-streaming'; 
+
+import { StreamingPlugin } from 'chartjs-plugin-streaming';
 import 'chartjs-adapter-date-fns';
 import MeasurementDataService from '../../../services/MeasurementDataService';
 
@@ -77,7 +78,7 @@ export const oldECGChartData = {
         }
       }
     }
-  }
+  }, plugins: [StreamingPlugin]
 };
 
 export default oldECGChartData;

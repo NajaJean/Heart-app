@@ -1,20 +1,14 @@
 <template>
-  <div>
-    <canvas id="StepsChartCanvas"></canvas>
-  </div>
+    <canvas id="StepsChartCanvas" :width="370" :height="246"></canvas>
 </template>
 
 <script>
-import { Chart, registerables } from 'chart.js';
+import { Chart } from 'chart.js';
 import 'chartjs-adapter-moment'; // or another adapter to avoid moment
-import 'chartjs-plugin-annotation';
-Chart.register(...registerables);
-// import ChartStreaming from 'chartjs-plugin-streaming';
+import annotationPlugin from 'chartjs-plugin-annotation';
 import 'chartjs-adapter-date-fns';
 
-// Chart.register(ChartStreaming);
-
-// import { Bar } from 'vue-chartjs'
+Chart.register(annotationPlugin);
 
 export default {
   props:['chart','thresholds'],
@@ -48,20 +42,59 @@ export default {
         }]
       },
       options: {
-        responsive:true,
-        maintainAspectRatio: false,
-        title:{
-          display:false,
-          text:'Steps during the week',
-          fontSize:25
-        },
-        legend:{
-          display:false,
-          position:'bottom',
-          labels:{
-            fontColor:'#000'
+        plugins: {
+          title:{
+            display:false,
+            text:'Steps during the week',
+            fontSize:25
+          },
+          legend:{
+            display:false,
+            position:'bottom',
+            labels:{
+              fontColor:'#000'
+            }
+          },
+          tooltip:{
+            displayColors: false,
+            enabled: true
+          },
+          annotation: {
+            annotations: [{
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y',
+              id: 'lowlimit',
+              value: this.thresholds.cnt_stepslower,
+              borderColor: 'rgb(75, 124, 192)',
+              borderWidth: 2,
+              borderDash: [5,2],
+              label: {
+                enabled: true,
+                content: 'lower limit',
+                position: 'right',
+                xAdjust: 5
+              }
+            },{
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y',
+              id: 'uplimit',
+              value: this.thresholds.cnt_stepsupper,
+              borderColor: 'rgb(75, 192, 192)',
+              borderWidth: 2,
+              borderDash: [5,2],
+              label: {
+                enabled: true,
+                content: 'upper limit',
+                position: 'right',
+                xAdjust: 5
+              }
+            }]
           }
         },
+        responsive:true,
+        maintainAspectRatio: false,
         layout:{
           padding:{
             left:50,
@@ -70,46 +103,9 @@ export default {
             top:0
           },
         },
-        tooltips:{
-          displayColors: false,
-          enabled: true
-        },
-        annotation: {
-          annotations: [{
-            type: 'line',
-            mode: 'horizontal',
-            scaleID: 'y-axis-0',
-            id: 'lowlimit',
-            value: this.thresholds.cnt_stepslower,
-            borderColor: 'rgb(75, 124, 192)',
-            borderWidth: 2,
-            borderDash: [5,2],
-            label: {
-              enabled: true,
-              content: 'lower limit',
-              position: 'right',
-              xAdjust: 5
-            }
-          },{
-            type: 'line',
-            mode: 'horizontal',
-            scaleID: 'y-axis-0',
-            id: 'uplimit',
-            value: this.thresholds.cnt_stepsupper,
-            borderColor: 'rgb(75, 192, 192)',
-            borderWidth: 2,
-            borderDash: [5,2],
-            label: {
-              enabled: true,
-              content: 'upper limit',
-              position: 'right',
-              xAdjust: 5
-            }
-          }]
-        }
       }
     };
-    const ctx = document.getElementById('StepsChartCanvas');
+    const ctx = document.getElementById('StepsChartCanvas').getContext('2d');
     new Chart(ctx, stepsChartData);
   }
 }
