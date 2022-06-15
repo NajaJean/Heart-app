@@ -53,10 +53,10 @@ export default {
           
       scales: {
         yAxes: [{
-            ticks: {
-                min: -3000,
-                max: 4000,
-            }
+            // ticks: {
+            //     min: -2000,
+            //     max: 2000,
+            // }
         }],
         xAxes: [{
           reverse: true,

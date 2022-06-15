@@ -14,7 +14,20 @@
             <h2 class="title" font-weight="bold">{{this.mock ? "Recorded ECG" : "Live ECG"}}</h2>
           </md-card-header>
           <md-card-content>
-            <h2 :key="heartRate" class="title" font-weight="bold" text-align="center">Heart Rate: {{this.heartRate}}</h2>
+            <div class="md-layout">
+              <div class="md-layout-item">
+                <h2 :key="heartRate" class="title" font-weight="bold" text-align="center">Heart Rate: {{this.heartRate}}</h2>
+              </div>
+              <div class="md-layout-item" style="text-align: right">
+                  <span v-if="this.ECGclassification == null">No ML is available </span>
+                  <span v-if="this.ECGclassification == 0">Normal </span>
+                  <span v-if="this.ECGclassification == 1">Irregular </span>
+
+                  <span class="dot" style="background-color:crimson;" v-if="this.ECGclassification == 1"></span>
+                  <span class="dot" style="background-color:darkgreen" v-if="this.ECGclassification == 0"></span>
+                  <span class="dot" style="background-color:blanchedalmond" v-if="this.ECGclassification == null"></span>
+              </div>
+            </div>
             <e-c-g-chart v-if="!this.mock" :key="mock" name='ecg-chart' :width="370" :height="246"></e-c-g-chart> 
             <old-e-c-g-chart v-if="this.mock" :key="mock" name='ecg-chart' :width="370" :height="246"></old-e-c-g-chart> 
           </md-card-content>
@@ -46,6 +59,7 @@ import OldECGChart from '../components/Charts/OldECGChart.vue';
 import OldECGChartnew from '../components/Charts/OldECGChartnew.vue';
 //import MockedECGChart from '../components/Charts/MockedECGChart.vue';
 import MeasurementDataService from "../services/MeasurementDataService";
+import ECGClassificationDataService from '../services/ECGClassificationDataService';
 import MockedData from '../components/Charts/MockedData';
 import 'chartjs-plugin-streaming';
 import 'chartjs-adapter-moment';
@@ -66,10 +80,12 @@ export default {
       heartRate: null,
       patient_id: '1',
       mock: false,
+      ECGclassification: null,
+      latestFetch: new Date(),
     };
   },
   created() {
-    this.interval = setInterval(() => this.getHeartRate(), 500);
+    this.interval = setInterval(() => {this.getHeartRate(); this.getECGClassification()}, 500);
   },
   methods: {
     toggleMock() {
@@ -84,12 +100,29 @@ export default {
       this.selectedTo = null,
       this.dates = [];
       this.dataloaded = false;
+      this.ECGclassification = null;
       
       this.retrieveMeasurements();
       this.retrieveThresholds();
       await sleep(2000);
       this.dataloaded = true;
       console.log("updated to patient: "+newPatient_id);
+    },
+    getECGClassification() {
+      if (this.mock) {
+        this.ECGclassification = Math.round(Math.random())
+      } else {
+        ECGClassificationDataService.getLatestECGClassification(this.patient_id).then(response => {
+          const tstamp = new Date(response.timestamp);
+          if (tstamp > this.latestFetch) {
+            this.latestFetch = tstamp;
+            const newClassification = response.data.mldata;
+            this.ECGclassification = newClassification;
+          }
+        }).catch(e => {
+          console.log(e);
+        });
+      }
     },
     getHeartRate() {
       if (this.mock) {
@@ -122,3 +155,7 @@ export default {
   }
 };
 </script>
+
+<style>
+  @import '../assets/scss/extracss.css';
+</style>

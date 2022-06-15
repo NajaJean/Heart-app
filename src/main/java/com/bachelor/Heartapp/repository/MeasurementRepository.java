@@ -7,8 +7,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bachelor.Heartapp.model.Measurement;
 
-public interface MeasurementRepository extends JpaRepository<Measurement, Long>   {
-	List<Measurement> findFirst7ByPatientidAndMeasurementtypeOrderByDatepostDesc(String patient_id, String measurement_type);
-	
-	List<Measurement> findAllByPatientidAndMeasurementtypeAndDatepostBetweenOrderByDatepostDesc(String patient_id, String measurement_type, Date from, Date to);
+public interface MeasurementRepository extends JpaRepository<Measurement, Long> {
+	List<Measurement> findFirst7ByPatientidAndMeasurementtypeOrderByDatepostDesc(String patient_id,
+			String measurement_type);
+
+	List<Measurement> findAllByPatientidAndMeasurementtypeAndDatepostBetweenOrderByDatepostDesc(String patient_id,
+			String measurement_type, Date from, Date to);
+
+	List<Measurement> findFirst7ByPatientidAndMeasurementtypeNotOrderByDatepostDesc(String patient_id,
+			String measurement_type);
+
+	List<Measurement> findAllByPatientid(String patient_id);
+
+	List<Measurement> findAllByPatientidAndMeasurementtype(String patient_id, String measurement_type);
 }
