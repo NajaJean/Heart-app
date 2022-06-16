@@ -1,9 +1,11 @@
 package com.bachelor.Heartapp.controller;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,11 +48,12 @@ public class AauMeasurementController {
 
 			long diff = to.getTime() - from.getTime();
 			String noDays = Long.toString(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
-			String fromMinus1 = (new Date(from.getTime() - 86400000)).toString();
+			Date fromMinus1 = new Date(from.getTime() - 86400000);
+			String fromMinus1String = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH).format(fromMinus1));
 
 			System.out.println("her");
 			System.out.println(noDays);
-			System.out.println(fromMinus1);
+			System.out.println(fromMinus1String);
 
 			Unirest.setTimeouts(0, 0);
 			HttpResponse<String> response = Unirest.post("https://www.hjerteportalen.dk/api/v1/measured/data/")
@@ -61,7 +64,7 @@ public class AauMeasurementController {
 					.field("Pwd", pwd)
 					.field("Type", mType)
 					.field("Days", noDays)
-					.field("Date", fromMinus1)
+					.field("Date", fromMinus1String)
 					.asString();
 
 			String json = response.getBody();
