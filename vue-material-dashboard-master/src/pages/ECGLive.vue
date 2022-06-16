@@ -118,15 +118,6 @@ export default {
     pauseHeartRate(pause) {
       this.paused = pause;
     },
-    // togglePause() {
-    //   const p = !this.paused;
-    //   this.paused = p;
-    //   OldECGChart.toggleP(p);
-    //   ECGChart.toggleP(p);
-    // },
-    // pauseFalse() {
-    //   this.paused = false;
-    // },
     getHeartRate() {
       if (!this.paused) {
         if (!this.liveData) {

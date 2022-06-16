@@ -221,13 +221,23 @@ export default {
       this.dates = [];
       const toPlus1 = new Date(to.getTime() + 86400000)
       for (var typ in (this.measurement_types)) {
-        MeasurementDataService.getMeasurementsFromTo(this.patient_id,this.measurement_types[typ],from,toPlus1)
-        .then(response => {
-          response.data.map(m => this.pushMeasurementsIntoData(m));
-        })
-        .catch(e => {
-          console.log(e);
-        });
+        if (this.aauData) {
+          MeasurementDataService.getAauMeasurementsFromTo(this.subject_id,this.pwd,this.measurement_types[typ],from,toPlus1)
+          .then(response => {
+            response.data.map(m => this.pushMeasurementsIntoData(m));
+          })
+          .catch(e => {
+            console.log(e);
+          });
+        } else {
+          MeasurementDataService.getMeasurementsFromTo(this.patient_id,this.measurement_types[typ],from,toPlus1)
+          .then(response => {
+            response.data.map(m => this.pushMeasurementsIntoData(m));
+          })
+          .catch(e => {
+            console.log(e);
+          });
+        }
       }
       this.dataloaded = false;
       await sleep(2000);
