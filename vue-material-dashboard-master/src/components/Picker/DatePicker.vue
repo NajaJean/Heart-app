@@ -1,9 +1,16 @@
 <template>
-  <md-field class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
-    <md-datepicker name="from" v-model="selectedFrom" md-immediately :md-disabled-dates="disabledDatesFrom"><label>From:</label></md-datepicker>
-    <md-datepicker name="to" v-model="selectedTo" md-immediately :md-disabled-dates="disabledDatesTo"><label>To:</label></md-datepicker>
-    <md-button name="updateDate" class="md-dense md-raised md-info" :disabled="selectedFrom == null || selectedTo == null" @click="updateTime()">Update time</md-button>
-</md-field>
+<div class="md-layout md-size-100">
+
+    <div class="md-layout-item md-xsmall-size-100 md-size-15">
+      <md-datepicker name="from" v-model="selectedFrom" md-immediately :md-disabled-dates="disabledDatesFrom"><label>From:</label></md-datepicker>
+    </div>
+    <div class="md-layout-item md-xsmall-size-100 md-size-15">
+      <md-datepicker name="to" v-model="selectedTo" md-immediately :md-disabled-dates="disabledDatesTo"><label>To:</label></md-datepicker>
+    </div>
+    <div class="md-layout-item md-xsmall-size-20 md-size-5" >
+      <md-button name="updateDate" class="md-dense md-raised md-info" :disabled="selectedFrom == null || selectedTo == null" @click="updateTime()" style="margin-top: 23px;">Update</md-button>
+    </div>
+  </div>
 </template>
 <script>
 // Back and forth arrows

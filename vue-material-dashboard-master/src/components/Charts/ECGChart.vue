@@ -1,79 +1,122 @@
+<template>
+  <div>
+    <canvas id="ECGChartCanvas" :width="370" :height="146"></canvas>
+    <md-button name="togglePause" class="md-dense md-raised md-info md-just-icon" @click="togglePause()">
+      <md-icon v-if="!this.paused">pause</md-icon>
+      <md-icon v-if="this.paused">play_arrow</md-icon>
+    </md-button> 
+  </div>
+</template>
+
 <script>
-//import { Line } from 'vue-chartjs'
-import 'chartjs-plugin-streaming';
-import MeasurementDataService from "../../services/MeasurementDataService";
+import { Chart, registerables } from 'chart.js';
+import 'chartjs-adapter-moment'; // or another adapter to avoid moment
+Chart.register(...registerables);
+
+import ChartStreaming from 'chartjs-plugin-streaming';
+import 'chartjs-adapter-date-fns';
+
+Chart.register(ChartStreaming);
+
+import { StreamingPlugin } from 'chartjs-plugin-streaming';
+import MeasurementDataService from '../../services/MeasurementDataService';
+
+var char;
 
 export default {
-  //extends: Line,
-  props:[],
-  mounted () {
-    this.renderChart({
-      datasets: [{
-        lastRecordedTime: new Date(),
-        data: [],
-        label: 'ECG',
-        pointHitRadius: 0,
-        pointRadius: 1,
-        tension: 0,
-        backgroundColor:'#004346',
-        borderColor: '#004346',
-        fill: false,
-      }]
-    }, {responsive: true, 
-          maintainAspectRatio: true,
+  name: 'ECGChart',
+  data() {
+    return {
+      paused: false,
+    }
+  },
+  methods: {
+    togglePause() {
+      this.paused = !this.paused;
+      char.options.plugins.streaming.pause = this.paused;
+      this.$emit('pause-heart-rate', this.paused)
+      char.update();
+    }
+  },
+  mounted() {
+    const ECGChartData = {
+      type: 'line',
+      data: {
+        datasets: [{
+          lastRecordedECG: [],
+          data: [],
+          label: 'ECG',
+          pointHitRadius: 0,
+          pointRadius: 0.5,
+          tension: 0,
+          backgroundColor:'#004346',
+          borderColor: '#004346',
+          fill: false,
+        }]
+      },
+      options: {
+        
+        plugins: {
+          // Change options for ALL axes of THIS CHART
+          streaming: {
+            frameRate: 20
+          },
           title:{
             display:false,
             text:'Live ECG',
             fontSize:25
           },
           legend:{
-            display:true,
+            display:false,
             position:'bottom',
             labels:{
               fontColor:'#000'
             }
           },
-          layout:{
-            padding:{
-              left:50,
-              right:0,
-              bottom:0,
-              top:0
-            }
-          },
           tooltips:{
             enabled: false,
           },
-          
-      scales: {
-        yAxes: [{
-            // ticks: {
-            //     min: -2000,
-            //     max: 2000,
-            // }
-        }],
-        xAxes: [{
-          ticks: {
-            autoSkip: true,
-            maxTicksLimit: 15
+        },
+        responsive: true, 
+        maintainAspectRatio: true,
+        layout:{
+          padding:{
+            left:50,
+            right:0,
+            bottom:0,
+            top:0
+          }
+        },
+        scales: {
+          y: {
+            min: -3000,
+            max: 3000
           },
-          time: {
-            format: undefined,
-            displayFormats: {
-                millisecond: 'H:mm:ss.SSS',
-                second: 'H:mm:ss',
-                minute: 'H:mm',
-                hour: 'H'
-            }
-          },
-          type: 'realtime',
-          realtime: {
-            duration: 5000,
-            refresh: 1000,
-            onRefresh: function(chart) {
-              chart.data.datasets.forEach(function(dataset) {
-                MeasurementDataService.getLatestECG("1")
-                .then(response => {
+          x: {
+            reverse: true,
+            ticks: {
+              display: false,
+              autoSkip: true,
+              maxTicksLimit: 15
+            },
+            time: {
+              format: undefined,
+              displayFormats: {
+                  millisecond: 'H:mm:ss.S',
+                  second: 'H:mm:ss',
+                  minute: 'H:mm',
+                  hour: 'H'
+              }
+            },
+            type: 'realtime',
+            realtime: {
+              duration: 5000,
+              delay: 2000,
+              refresh: 1000,
+              onRefresh: chart => {
+                chart.data.datasets.forEach(function(dataset) {
+                  MeasurementDataService.getLatestECG("1")
+                  .then(response => {
                     const ecg = response.data[0];
                     const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";
 
@@ -91,23 +134,20 @@ export default {
 
                     chart.update();
                     dataset.lastRecordedTime = new Date(datepost);
-                  }     
-                })
-                .catch(e => {
-                  console.log(e);
+                    }     
+                  })
+                  .catch(e => {
+                    console.log(e);
+                  });
                 });
-              });
-            },
-              delay: 2000
+              }
+            }
           }
-        }]
-      }
-    });
-  },
-  plugins: {
-      streaming: {            // per-chart option
-          frameRate: 20       // chart is drawn 30 times every second
-      }
+        }
+      }, plugins: [StreamingPlugin]
+    };
+    const ctx = document.getElementById('ECGChartCanvas').getContext('2d');
+    char = new Chart(ctx, ECGChartData);
   }
 }
-</script>
+</script> 
