@@ -62,7 +62,7 @@ public class AauMeasurementController {
 					.field("Pwd", pwd)
 					.field("Type", mType)
 					.field("Days", noDays)
-					.field("Date", fromMinus1String)
+					.field("Date", from)
 					.asString();
 
 			String json = response.getBody();
