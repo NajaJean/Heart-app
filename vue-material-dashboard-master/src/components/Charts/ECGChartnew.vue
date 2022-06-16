@@ -106,10 +106,10 @@ export default {
             realtime: {
               duration: 5000,
               delay: 2000,
-              // refresh: 1000,
+              refresh: 1000,
               onRefresh: chart => {
                 chart.data.datasets.forEach(function(dataset) {
-                  MeasurementDataService.getOldECG("1")
+                  MeasurementDataService.getLatestECG("1")
                   .then(response => {
                     const ecg = response.data[0];
                     const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";

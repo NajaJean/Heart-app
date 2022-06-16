@@ -4,11 +4,9 @@
       <h1>Loading ...</h1>
     </div>
     <div class="md-layout" v-if="this.dataloaded">
-      <div class="md-layout">
-        <div class="md-layout-item" style="text-align: right">
+        
           <md-switch v-model="aauData" @change="toggleAauData()">Live data</md-switch>
-        </div>
-      </div>
+       
       
       
         <md-field class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
@@ -115,7 +113,7 @@ export default {
       this.retrieveMeasurements();
       
       //this.updateCharts();
-      await sleep(1000);
+      await sleep(2000);
       this.dataloaded = true;
     },
     async changePatient(newPatient_id) {
@@ -130,7 +128,7 @@ export default {
       
       this.retrieveMeasurements();
       this.retrieveThresholds();
-      await sleep(1000);
+      await sleep(2000);
       this.dataloaded = true;
       console.log("updated to patient: "+newPatient_id);
     },
@@ -191,7 +189,7 @@ export default {
         });
       }
       this.dataloaded = false;
-      await sleep(1000);
+      await sleep(2000);
       this.updateCharts();
       this.dataloaded = true;
     },
@@ -256,7 +254,7 @@ export default {
   async created() {
     this.retrieveMeasurements();
     this.retrieveThresholds();
-    await sleep(1000);
+    await sleep(2000);
     this.dataloaded = true;
   },
   mounted() {

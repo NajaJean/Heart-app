@@ -31,6 +31,7 @@ public class HeartAppApplication {
 	public final static String backendUrlRoot = "http://localhost:8081";
 	public final static String measurementTableName = "patient_data_1";
 	public final static String realtimeTableName = "ecg";
+	public final static String oldRealtimeTableName = "ntnutest";
 	public final static String ecgClassificationTableName = "ml_output";
 
 	@Autowired
