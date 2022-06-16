@@ -155,8 +155,6 @@ export default {
       }
       
       this.thresholds[measurement_type+threshold_type] = threshold_value;
-      console.log('heeer')
-      console.log(typeof threshold_value)
       
       var data = {
           id: id,

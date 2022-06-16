@@ -116,7 +116,6 @@ export default {
     getHeartRate() {
       if (!this.liveData) {
         const count = OldECGChartnew.fetchCount();
-        console.log(count)
         
         MeasurementDataService.getOldECG(this.patient_id).then(response => {
           const newrate = response.data[count].measurementvalue[response.data[count].measurementvalue.length-1];

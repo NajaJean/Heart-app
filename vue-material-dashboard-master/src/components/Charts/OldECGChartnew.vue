@@ -23,6 +23,7 @@ import MeasurementDataService from '../../services/MeasurementDataService';
 
 var count = 0;
 var char;
+var ecgData;
 
 export default {
   fetchCount() {
@@ -30,6 +31,11 @@ export default {
     },
   name: 'oldECGChart',
   data() {
+    MeasurementDataService.getOldECG("1")
+    .then(response => ecgData = response.data)
+    .catch(e => {
+      console.log(e);
+    });
     return {
       paused: false
     }
@@ -111,32 +117,47 @@ export default {
             realtime: {
               duration: 5000,
               delay: 2000,
-              refresh: 500,
+              refresh: 1000,
               onRefresh: chart => {
                 chart.data.datasets.forEach(function(dataset) {
-                  MeasurementDataService.getOldECG("1")
-                  .then(response => {
-                      const ecg = response.data[count%5000];
-                      //const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";
-
-                      if (dataset.lastRecordedECG != ecg && ecg) {
-                        var ptime = new Date();
-                        for (var i = 0; i < ecg.measurementvalue.length - 1; i++) {
-                          ptime = new Date(ptime.getTime() + 7.8125)
-                          dataset.data.push({
-                          x: ptime,
-                          y: ecg.measurementvalue[i]
-                          })
-                        }
-
-                      chart.update();
-                      dataset.lastRecordedECG = ecg; 
-                    }     
-                  })
-                  .catch(e => {
-                    console.log(e);
-                  });
+                  const ecg = ecgData[count%5000];
+                  if (dataset.lastRecordedECG != ecg && ecg) {
+                    var ptime = new Date();
+                    for (var i = 0; i < ecg.measurementvalue.length - 1; i++) {
+                      ptime = new Date(ptime.getTime() + 7.8125)
+                      dataset.data.push({
+                      x: ptime,
+                      y: ecg.measurementvalue[i]
+                      })
+                    }
+                    chart.update();
+                    dataset.lastRecordedECG = ecg;
+                  }
+                  
                   count++;
+                  // MeasurementDataService.getOldECG("1")
+                  // .then(response => {
+                  //     const ecg = response.data[count%5000];
+                  //     //const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";
+
+                  //     if (dataset.lastRecordedECG != ecg && ecg) {
+                  //       var ptime = new Date();
+                  //       for (var i = 0; i < ecg.measurementvalue.length - 1; i++) {
+                  //         ptime = new Date(ptime.getTime() + 7.8125)
+                  //         dataset.data.push({
+                  //         x: ptime,
+                  //         y: ecg.measurementvalue[i]
+                  //         })
+                  //       }
+
+                  //     chart.update();
+                  //     dataset.lastRecordedECG = ecg; 
+                  //   }     
+                  // })
+                  // .catch(e => {
+                  //   console.log(e);
+                  // });
+                  // count++;
                 });
               }
             }
