@@ -5,18 +5,23 @@
     </div>
     <div class="md-layout" v-if="this.dataloaded">
       <div class="md-layout">
+        <div class="md-layout-item" style="text-align: right">
+          <md-switch v-model="aauData" @change="toggleAauData()">Live data</md-switch>
+        </div>
+      </div>
+      
+      
         <md-field class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
           <label>CPR</label>
           <md-input name="patientID" v-model="patient_id"></md-input>
           <md-button name="changePatient" class="md-dense md-raised md-info" @click="changePatient(patient_id)">Change Patient</md-button>
           <md-button name="thresholdButton" class="md-dense md-raised md-info" @click="toggleThresholdsForm()">{{this.setThresholds ? "Cancel" : "Set Thresholds"}}</md-button>
         </md-field>
-      </div>
+      
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <threshold-form :key="keyvalue" v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold"></threshold-form>
       </div>
       <date-picker :key="keyvalue" :selectedfrom="selectedFrom" :selectedto="selectedTo" @update-time="updateTime"></date-picker>
-      <md-switch v-model="aauData" @change="toggleAauData()">Use AaU data</md-switch>
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
@@ -81,7 +86,7 @@ export default {
       data: {},
       dates: [],
       setThresholds: false,
-      aauData: false,
+      aauData: true,
       dataloaded: false,
       thresholds: {},
       thresholdIds: {},
@@ -223,7 +228,7 @@ export default {
       this.data[m.measurementtype].push(m.measurementvalue);
       
       //special case for dates, need to be fixed someday
-      if (m.measurementtype == "cnt_steps") {
+      if (m.measurementtype == "sleep_rem") {
         var date = new Date(m.datepost);
         this.dates.push(date.toDateString());
       }

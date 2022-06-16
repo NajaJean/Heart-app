@@ -1,6 +1,6 @@
 <template>
   <div>
-    <canvas id="OldECGChartCanvas" :width="370" :height="246"></canvas>
+    <canvas id="ECGChartCanvas" :width="370" :height="246"></canvas>
     <md-button name="togglePause" class="md-dense md-raised md-info md-just-icon" @click="togglePause()">
       <md-icon v-if="!this.paused">pause</md-icon>
       <md-icon v-if="this.paused">play_arrow</md-icon>
@@ -12,7 +12,7 @@
 import { Chart, registerables } from 'chart.js';
 import 'chartjs-adapter-moment'; // or another adapter to avoid moment
 Chart.register(...registerables);
-//import oldECGData from './Data/OldECGData';
+
 import ChartStreaming from 'chartjs-plugin-streaming';
 import 'chartjs-adapter-date-fns';
 
@@ -21,14 +21,10 @@ Chart.register(ChartStreaming);
 import { StreamingPlugin } from 'chartjs-plugin-streaming';
 import MeasurementDataService from '../../services/MeasurementDataService';
 
-var count = 0;
 var char;
 
 export default {
-  fetchCount() {
-      return count;
-    },
-  name: 'oldECGChart',
+  name: 'ECGChart',
   data() {
     return {
       paused: false
@@ -39,11 +35,10 @@ export default {
       char.options.plugins.streaming.pause = !this.paused;
       this.paused = !this.paused;
       char.update();
-      console.log(this.paused)
-    },
+    }
   },
   mounted() {
-    const oldECGChartData = {
+    const ECGChartData = {
       type: 'line',
       data: {
         datasets: [{
@@ -116,27 +111,28 @@ export default {
                 chart.data.datasets.forEach(function(dataset) {
                   MeasurementDataService.getOldECG("1")
                   .then(response => {
-                      const ecg = response.data[count%5000];
-                      //const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";
+                    const ecg = response.data[0];
+                    const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";
 
-                      if (dataset.lastRecordedECG != ecg && ecg) {
-                        var ptime = new Date();
+                    var ptime = new Date((new Date(datepost)).getTime());
+                    if (dataset.lastRecordedTime <= new Date(datepost)) {
+                    
                         for (var i = 0; i < ecg.measurementvalue.length - 1; i++) {
                           ptime = new Date(ptime.getTime() + 7.8125)
+
                           dataset.data.push({
                           x: ptime,
                           y: ecg.measurementvalue[i]
                           })
                         }
 
-                      chart.update();
-                      dataset.lastRecordedECG = ecg; 
+                    chart.update();
+                    dataset.lastRecordedTime = new Date(datepost);
                     }     
                   })
                   .catch(e => {
                     console.log(e);
                   });
-                  count++;
                 });
               }
             }
@@ -144,8 +140,8 @@ export default {
         }
       }, plugins: [StreamingPlugin]
     };
-    const ctx = document.getElementById('OldECGChartCanvas').getContext('2d');
-    char = new Chart(ctx, oldECGChartData);
+    const ctx = document.getElementById('ECGChartCanvas').getContext('2d');
+    char = new Chart(ctx, ECGChartData);
   }
 }
 </script> 

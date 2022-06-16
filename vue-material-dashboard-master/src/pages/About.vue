@@ -1,5 +1,5 @@
 <template>
- <div :style="'margin-top: 40px'"> 
+ <div :style="'margin-top: 70px'"> 
   <md-card class="md-card-profile">
     <div class="md-card-avatar">
       <img class="img" src="@/assets/img/dtu-logo.jpg" width="80" height="150"/>
