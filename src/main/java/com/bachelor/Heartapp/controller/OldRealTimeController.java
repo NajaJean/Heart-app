@@ -66,7 +66,7 @@ public class OldRealTimeController {
 	public ResponseEntity<List<OldRealTime>> getPatientsOldECGByIndex(@PathVariable("patient_id") String patient_id) {
 		try {
 			List<OldRealTime> ecgs = oldRealtimeRepository.findTop5000ByPatientidOrderByDatepostAsc(patient_id);
-			System.out.println("Got data");
+
 			if (ecgs.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
