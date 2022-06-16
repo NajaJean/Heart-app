@@ -32,13 +32,13 @@ public class OldRealTime {
 
 	@Type(type = "com.bachelor.Heartapp.model.helpertypes.IntArrayUserType")
 	@Column(name = "ecg_data")
-	private Integer[] measurementvalue;
+	private float[] measurementvalue;
 
 	public OldRealTime() {
 
 	}
 
-	public OldRealTime(String patientid, Date datepost, Integer[] measurementvalue) {
+	public OldRealTime(String patientid, Date datepost, float[] measurementvalue) {
 		super();
 		this.patientid = patientid;
 		this.datepost = datepost;
@@ -61,11 +61,11 @@ public class OldRealTime {
 		this.datepost = datepost;
 	}
 
-	public Integer[] getMeasurementvalue() {
+	public float[] getMeasurementvalue() {
 		return measurementvalue;
 	}
 
-	public void setMeasurementvalue(Integer[] measurementvalue) {
+	public void setMeasurementvalue(float[] measurementvalue) {
 		this.measurementvalue = measurementvalue;
 	}
 
