@@ -111,7 +111,7 @@ export default {
             realtime: {
               duration: 5000,
               delay: 2000,
-              refresh: 1000,
+              refresh: 500,
               onRefresh: chart => {
                 chart.data.datasets.forEach(function(dataset) {
                   MeasurementDataService.getOldECG("1")
