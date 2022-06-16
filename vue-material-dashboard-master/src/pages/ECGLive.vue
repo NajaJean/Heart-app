@@ -14,31 +14,33 @@
         <md-card>
           <md-card-header data-background-color="blue">
             <h2 class="title" font-weight="bold">{{this.liveData ? "Live ECG" : "Recorded ECG"}}</h2>
+            <!-- <md-button name="togglePause" class="md-dense md-raised md-info md-just-icon" @click="togglePause()">
+              <md-icon v-if="!this.paused">pause</md-icon>
+              <md-icon v-if="this.paused">play_arrow</md-icon>
+            </md-button> -->
           </md-card-header>
           <md-card-content>
             <div class="md-layout">
-              <div >
-                <md-icon>favorite</md-icon>
-                <ModeCommentIcon color="primary" />
-                <Typography component="span" className={classes.count}>
-                  99
-                </Typography>
+              <div style="display: flex; align-items: center; justify-content: center;">
+                <md-tooltip md-direction="top">Heart rate</md-tooltip>
+                <md-icon class="md-size-2x" style="color:brown;">favorite</md-icon> 
+                <h1 :key="heartRate" class="title" font-weight="bold" style="margin-top: 6px; margin-left: 6px">{{this.heartRate}}</h1>
               </div>
-              <div class="md-layout-item">
-                <h2 :key="heartRate" class="title" font-weight="bold" text-align="center">Heart Rate: {{this.heartRate}}</h2>
-              </div>
-              <div class="md-layout-item" style="text-align: right">
-                  <span v-if="this.ECGclassification == null">No ML is available </span>
-                  <span v-if="this.ECGclassification == 0">Normal </span>
-                  <span v-if="this.ECGclassification == 1">Irregular </span>
+             
+              <div class="md-layout-item" style="text-align: right; margin-top: 15px">
+                  <span v-if="this.ECGclassification == null" style="font-size:large;">
+                    No ML is available
+                  </span>
+                  <span v-if="this.ECGclassification == 0" style="font-size:large;">Normal </span>
+                  <span v-if="this.ECGclassification == 1" style="font-size:large;">Irregular </span>
 
-                  <span class="dot" style="background-color:crimson;" v-if="this.ECGclassification == 1"></span>
-                  <span class="dot" style="background-color:darkgreen" v-if="this.ECGclassification == 0"></span>
-                  <span class="dot" style="background-color:blanchedalmond" v-if="this.ECGclassification == null"></span>
+                  <md-icon style="color:crimson;" v-if="this.ECGclassification == 1">circle</md-icon> 
+                  <md-icon style="color:darkgreen;" v-if="this.ECGclassification == 0">circle</md-icon> 
+                  <md-icon style="color:blanchedalmond;" v-if="this.ECGclassification == null">circle</md-icon> 
               </div>
             </div>
-            <e-c-g-chartnew v-if="this.liveData" :key="liveData" name='ecg-chart' :width="370" :height="246"></e-c-g-chartnew> 
-            <old-e-c-g-chartnew v-if="!this.liveData" :key="liveData" name='ecg-chart'></old-e-c-g-chartnew> 
+            <e-c-g-chart v-if="this.liveData" :key="liveData" name='ecg-chart' :width="370" :height="246" @pause-heart-rate="pauseHeartRate"></e-c-g-chart> 
+            <old-e-c-g-chart v-if="!this.liveData" :key="liveData" name='ecg-chart' @pause-heart-rate="pauseHeartRate"></old-e-c-g-chart> 
           </md-card-content>
         </md-card>
       </div>
@@ -47,16 +49,12 @@
 </template>
 
 <script>
+import ECGChart from '../components/Charts/ECGChart.vue';
+import OldECGChart from '../components/Charts/OldECGChart.vue';
 
-
-//import ECGChart from '../components/Charts/ECGChart.vue';
-import ECGChartnew from '../components/Charts/ECGChartnew.vue';
-//import OldECGChart from '../components/Charts/OldECGChart.vue';
-import OldECGChartnew from '../components/Charts/OldECGChartnew.vue';
-//import MockedECGChart from '../components/Charts/MockedECGChart.vue';
 import MeasurementDataService from "../services/MeasurementDataService";
 import ECGClassificationDataService from '../services/ECGClassificationDataService';
-import MockedData from '../components/Charts/MockedData';
+
 import 'chartjs-plugin-streaming';
 import 'chartjs-adapter-moment';
 import { Chart, registerables } from 'chart.js';
@@ -66,11 +64,8 @@ Chart.register(...registerables);
 
 export default {
   components: {
-    //ECGChart,
-    //OldECGChart,
-    OldECGChartnew,
-    //MockedECGChart
-    ECGChartnew
+    ECGChart,
+    OldECGChart,
   },
   data() {
     return {
@@ -79,6 +74,7 @@ export default {
       liveData: true,
       ECGclassification: null,
       latestFetch: new Date(),
+      paused: false,
     };
   },
   created() {
@@ -119,32 +115,46 @@ export default {
         });
       }
     },
+    pauseHeartRate(pause) {
+      this.paused = pause;
+    },
+    // togglePause() {
+    //   const p = !this.paused;
+    //   this.paused = p;
+    //   OldECGChart.toggleP(p);
+    //   ECGChart.toggleP(p);
+    // },
+    // pauseFalse() {
+    //   this.paused = false;
+    // },
     getHeartRate() {
-      if (!this.liveData) {
-        const count = OldECGChartnew.fetchCount();
-        
-        MeasurementDataService.getOldECG(this.patient_id).then(response => {
-          const newrate = response.data[count].measurementvalue[response.data[count].measurementvalue.length-1];
-          if (this.heartRate != newrate) {
-            this.heartRate = newrate;
-          }     
-        })
-        .catch(e => {
-          console.log(e);
-        });
+      if (!this.paused) {
+        if (!this.liveData) {
+          const count = OldECGChart.fetchCount();
+          
+          MeasurementDataService.getOldECG(this.patient_id).then(response => {
+            const newrate = response.data[count].measurementvalue[response.data[count].measurementvalue.length-1];
+            if (this.heartRate != newrate) {
+              this.heartRate = newrate;
+            }     
+          })
+          .catch(e => {
+            console.log(e);
+          });
 
-        //this.heartRate = 84 + Math.floor((Math.random() * 10) + 1);;
-      } else {
-        MeasurementDataService.getLatestECG(this.patient_id)
-        .then(response => {
-          const newrate = response.data[0].measurementvalue[response.data[0].measurementvalue.length-1];
-          if (this.heartRate != newrate) {
-            this.heartRate = newrate;
-          }     
-        })
-        .catch(e => {
-          console.log(e);
-        });
+          //this.heartRate = 84 + Math.floor((Math.random() * 10) + 1);;
+        } else {
+          MeasurementDataService.getLatestECG(this.patient_id)
+          .then(response => {
+            const newrate = response.data[0].measurementvalue[response.data[0].measurementvalue.length-1];
+            if (this.heartRate != newrate) {
+              this.heartRate = newrate;
+            }     
+          })
+          .catch(e => {
+            console.log(e);
+          });
+        }
       }
     } 
   }
