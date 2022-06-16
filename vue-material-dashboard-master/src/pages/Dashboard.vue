@@ -8,14 +8,20 @@
         <md-switch v-model="aauData" @change="toggleAauData()" class="md-primary">Live data</md-switch>
       </div>
       
-    
-      <div class="md-layout-item md-large-size-33 md-medium-size-50 md-xsmall-size-100 md-size-33" v-if="!aauData"> 
-        <md-field  >
+
+      <div class="md-layout-item md-xsmall-size-80 md-size-30" v-if="!aauData"> 
+        <md-field >
           <label>CPR</label>
           <md-input name="patientID" v-model="patient_id"></md-input>
-          <md-button name="changePatient" class="md-dense md-raised md-info" @click="changePatient(patient_id,'')">Change Patient</md-button>
         </md-field>
       </div>
+      <div class="md-layout-item md-xsmall-size-20 md-size-5" v-if="!aauData" style="margin-top: 15px;"> 
+        <md-button name="changePatient" class="md-dense md-raised md-info" @click="changePatient(subject_id,'')">Submit</md-button>
+      </div>
+      <div class="md-layout-item md-xsmall-size-80 md-size-95"> 
+      </div>
+
+
       
       <div class="md-layout-item md-xsmall-size-100 md-size-30" v-if="aauData"> 
         <md-field>
@@ -32,7 +38,7 @@
         </md-field>
       </div>
       <div class="md-layout-item md-xsmall-size-20 md-size-5" v-if="aauData" style="margin-top: 15px;"> 
-        <md-button name="changePatient" class="md-dense md-raised md-info" @click="changePatient(subject_id,pwd,)">Submit</md-button>
+        <md-button name="changePatient" class="md-dense md-raised md-info" @click="changePatient(subject_id,pwd)">Submit</md-button>
       </div>
       <div class="md-layout-item md-xsmall-size-80 md-size-95"> 
       </div>

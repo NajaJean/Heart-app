@@ -2,11 +2,10 @@
   <div class="content">
     <div class="md-layout">
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
-        <div class="md-layout">
-          <div class="md-layout-item" style="text-align: right">
-            <md-switch v-model="liveData">Live data</md-switch>
-          </div>
+        <div class="md-layout-item md-size-100" style="text-align: right; margin-bottom: -15px;">
+          <md-switch v-model="liveData" class="md-primary">Live data</md-switch>
         </div>
+        
         <md-field class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
           <label>CPR</label>
           <md-input name="patientID" v-model="patient_id"></md-input>
@@ -18,6 +17,13 @@
           </md-card-header>
           <md-card-content>
             <div class="md-layout">
+              <div >
+                <md-icon>favorite</md-icon>
+                <ModeCommentIcon color="primary" />
+                <Typography component="span" className={classes.count}>
+                  99
+                </Typography>
+              </div>
               <div class="md-layout-item">
                 <h2 :key="heartRate" class="title" font-weight="bold" text-align="center">Heart Rate: {{this.heartRate}}</h2>
               </div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <canvas id="OldECGChartCanvas" :width="370" :height="246"></canvas>
+    <canvas id="OldECGChartCanvas" :width="370" :height="146"></canvas>
     <md-button name="togglePause" class="md-dense md-raised md-info md-just-icon" @click="togglePause()">
       <md-icon v-if="!this.paused">pause</md-icon>
       <md-icon v-if="this.paused">play_arrow</md-icon>
@@ -98,6 +98,10 @@ export default {
           }
         },
         scales: {
+          y: {
+            min: -3000,
+            max: 3000
+          },
           x: {
             reverse: true,
             ticks: {
@@ -107,7 +111,7 @@ export default {
             time: {
               format: undefined,
               displayFormats: {
-                  millisecond: 'H:mm:ss.SSS',
+                  millisecond: 'H:mm:ss.S',
                   second: 'H:mm:ss',
                   minute: 'H:mm',
                   hour: 'H'
