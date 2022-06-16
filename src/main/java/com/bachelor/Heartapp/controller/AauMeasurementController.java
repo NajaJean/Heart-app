@@ -46,7 +46,10 @@ public class AauMeasurementController {
 
 			long diff = to.getTime() - from.getTime();
 			String noDays = Long.toString(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
-			Date fromMinus1 = new Date(from.getTime() - 86400000);
+			String fromMinus1 = (new Date(from.getTime() - 86400000)).toString();
+
+			System.out.println(noDays);
+			System.out.println(fromMinus1);
 
 			Unirest.setTimeouts(0, 0);
 			HttpResponse<String> response = Unirest.post("https://www.hjerteportalen.dk/api/v1/measured/data/")
