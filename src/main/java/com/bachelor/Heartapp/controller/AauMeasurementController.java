@@ -48,6 +48,7 @@ public class AauMeasurementController {
 			String noDays = Long.toString(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
 			String fromMinus1 = (new Date(from.getTime() - 86400000)).toString();
 
+			System.out.println("her");
 			System.out.println(noDays);
 			System.out.println(fromMinus1);
 
