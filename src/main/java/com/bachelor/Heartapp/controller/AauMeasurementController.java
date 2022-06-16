@@ -1,11 +1,9 @@
 package com.bachelor.Heartapp.controller;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +47,7 @@ public class AauMeasurementController {
 			long diff = to.getTime() - from.getTime();
 			String noDays = Long.toString(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
 			Date fromMinus1 = new Date(from.getTime() - 86400000);
-			String fromMinus1String = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH).format(fromMinus1));
+			String fromMinus1String = new SimpleDateFormat("yyyy-MM-dd").format(fromMinus1);
 
 			System.out.println("her");
 			System.out.println(noDays);
