@@ -9,14 +9,8 @@ class MeasurementDataService {
     return http.get(`/7measurements/${patient_id}/${measurement_type}`);
   }
 
-  get7LatestAau(subject_id, pwd, measurement_type) {
-    return http.get(`/aau/7measurements/${subject_id}/${pwd}/${measurement_type}`);
-  }
-
-  getAauMeasurementsFromTo(subject_id, pwd, measurement_type, from, to) {
-    return http.get(
-      `/aau/measurements/${subject_id}/${pwd}/${measurement_type}/${from}/${to}`
-    );
+  get7LatestAau(patient_id, pwd, measurement_type) {
+    return http.get(`/aau/7measurements/${patient_id}/${pwd}/${measurement_type}`);
   }
 
   getMeasurementsFromTo(patient_id, measurement_type, from, to) {

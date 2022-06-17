@@ -60,20 +60,18 @@ public class RealTimeController {
 		}
 	}
 
-	// @GetMapping("/oldecg/{patient_id}")
-	// public ResponseEntity<List<RealTime>>
-	// getPatientsOldECGByIndex(@PathVariable("patient_id") String patient_id) {
-	// try {
-	// List<RealTime> ecgs =
-	// realtimeRepository.findTop5000ByPatientidOrderByDatepostAsc(patient_id);
+	@GetMapping("/oldecg/{patient_id}")
+	public ResponseEntity<List<RealTime>> getPatientsOldECGByIndex(@PathVariable("patient_id") String patient_id) {
+		try {
+			List<RealTime> ecgs = realtimeRepository.findTop5000ByPatientidOrderByDatepostAsc(patient_id);
 
-	// if (ecgs.isEmpty()) {
-	// return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	// }
-	// return new ResponseEntity<>(ecgs, HttpStatus.OK);
-	// } catch (Exception e) {
-	// System.out.println(e);
-	// return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-	// }
-	// }
+			if (ecgs.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(ecgs, HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }
