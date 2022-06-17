@@ -17,6 +17,8 @@ import com.bachelor.Heartapp.controller.RealTimeController;
 import com.bachelor.Heartapp.model.Measurement;
 import com.bachelor.Heartapp.model.DailyRecording;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,6 @@ public class HeartAppApplication {
 	public final static String backendUrlRoot = "http://localhost:8081";
 	public final static String measurementTableName = "patient_data_1";
 	public final static String realtimeTableName = "ecg";
-	public final static String oldRealtimeTableName = "ntnutest";
 	public final static String ecgClassificationTableName = "ml_output";
 
 	@Autowired

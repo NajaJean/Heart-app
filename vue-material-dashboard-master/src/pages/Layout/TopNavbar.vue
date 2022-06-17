@@ -1,7 +1,9 @@
 <template>
   <md-toolbar md-elevation="0" class="md-transparent">
     <div class="md-toolbar-row">
-      
+      <div class="md-toolbar-section-start">
+        <h3 class="md-title">{{ $route.name }}</h3>
+      </div>
       <div class="md-toolbar-section-end">
         <md-button
           class="md-just-icon md-simple md-toolbar-toggle"

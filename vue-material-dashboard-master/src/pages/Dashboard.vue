@@ -4,57 +4,19 @@
       <h1>Loading ...</h1>
     </div>
     <div class="md-layout" v-if="this.dataloaded">
-      <div class="md-layout-item md-size-100" style="text-align: right; margin-bottom: -15px;">
-        <md-switch v-model="aauData" @change="toggleAauData()" class="md-primary">Live data</md-switch>
-      </div>
-      
-
-      <div class="md-layout-item md-xsmall-size-80 md-size-30" v-if="!aauData"> 
-        <md-field >
+      <div class="md-layout">
+        <md-field class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
           <label>CPR</label>
           <md-input name="patientID" v-model="patient_id"></md-input>
+          <md-button name="changePatient" class="md-dense md-raised md-info" @click="changePatient(patient_id)">Change Patient</md-button>
+          <md-button name="thresholdButton" class="md-dense md-raised md-info" @click="toggleThresholdsForm()">{{this.setThresholds ? "Cancel" : "Set Thresholds"}}</md-button>
         </md-field>
       </div>
-      <div class="md-layout-item md-xsmall-size-20 md-size-5" v-if="!aauData" style="margin-top: 15px;"> 
-        <md-button name="changePatient" class="md-dense md-raised md-info" @click="changePatient(subject_id,'')">Submit</md-button>
-      </div>
-      <div class="md-layout-item md-xsmall-size-80 md-size-95"> 
-      </div>
-
-
-      
-      <div class="md-layout-item md-xsmall-size-100 md-size-30" v-if="aauData"> 
-        <md-field>
-          <label>Subject ID</label>
-          <md-input name="subjectID" v-model="subject_id"></md-input>
-        </md-field>
-      </div>
-      <div class="md-layout-item md-large-size-75 md-medium-size-75 md-xsmall-size-0 md-size-60"> 
-      </div>
-      <div class="md-layout-item md-xsmall-size-80 md-size-30" v-if="aauData"> 
-        <md-field >
-          <label>Password</label>
-          <md-input name="pwd" v-model="pwd" type="password"></md-input>
-        </md-field>
-      </div>
-      <div class="md-layout-item md-xsmall-size-20 md-size-5" v-if="aauData" style="margin-top: 15px;"> 
-        <md-button name="changePatient" class="md-dense md-raised md-info" @click="changePatient(subject_id,pwd)">Submit</md-button>
-      </div>
-      <div class="md-layout-item md-xsmall-size-80 md-size-95"> 
-      </div>
-      
-      <date-picker :key="keyvalue" :selectedfrom="selectedFrom" :selectedto="selectedTo" @update-time="updateTime"></date-picker>
-
-      
-      <div class="md-layout-item md-size-100" style="text-align: right; margin-bottom: 5px;">
-        <md-button name="thresholdButton" class="md-dense md-raised md-info" @click="toggleThresholdsForm()">{{this.setThresholds ? "Cancel" : "Set Thresholds"}}</md-button>
-      </div>
-        
-       
-      
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <threshold-form :key="keyvalue" v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold"></threshold-form>
       </div>
+      <date-picker :key="keyvalue" :selectedfrom="selectedFrom" :selectedto="selectedTo" @update-time="updateTime"></date-picker>
+      <md-switch v-model="aauData" @change="toggleAauData()">Use AaU data</md-switch>
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
           <md-card-header data-background-color="blue">
@@ -119,7 +81,7 @@ export default {
       data: {},
       dates: [],
       setThresholds: false,
-      aauData: true,
+      aauData: false,
       dataloaded: false,
       thresholds: {},
       thresholdIds: {},
@@ -127,8 +89,6 @@ export default {
       selectedTo: null,
       keyvalue: 0,
       patient_id: '010101-1234',
-      subject_id: '4005',
-      pwd: '2cf6c93d',
       measurement_types: ['blood_pressure_diastolic','blood_pressure_systolic','cnt_steps','sleep_light','sleep_rem','sleep_deep'],
     };
   },
@@ -150,17 +110,11 @@ export default {
       this.retrieveMeasurements();
       
       //this.updateCharts();
-      await sleep(2000);
+      await sleep(1000);
       this.dataloaded = true;
     },
-    async changePatient(newPatient_id, newpwd) {
-      if (this.aauData) {
-        this.subject_id = newPatient_id;
-        this.pwd = newpwd;
-      } else {
-        this.patient_id = newPatient_id;
-      }
-
+    async changePatient(newPatient_id) {
+      this.patient_id = newPatient_id;
       this.data = {};
       this.thresholds = {};
       this.thresholdIds = {};
@@ -171,7 +125,7 @@ export default {
       
       this.retrieveMeasurements();
       this.retrieveThresholds();
-      await sleep(2000);
+      await sleep(1000);
       this.dataloaded = true;
       console.log("updated to patient: "+newPatient_id);
     },
@@ -180,7 +134,7 @@ export default {
     },
     newThreshold(newThreshold) {  
       for (var key in newThreshold) { 
-        this.updateThreshold(key.substring(0, key.length-5),key.substring(key.length - 5),newThreshold[key])
+        this.updateThreshold(key.substring(0, key.length-5),key.substr(key.length - 5),newThreshold[key])
       }
 
       console.log("Thresholds updated");
@@ -198,6 +152,8 @@ export default {
       }
       
       this.thresholds[measurement_type+threshold_type] = threshold_value;
+      console.log('heeer')
+      console.log(typeof threshold_value)
       
       var data = {
           id: id,
@@ -221,26 +177,16 @@ export default {
       this.dates = [];
       const toPlus1 = new Date(to.getTime() + 86400000)
       for (var typ in (this.measurement_types)) {
-        if (this.aauData) {
-          MeasurementDataService.getAauMeasurementsFromTo(this.subject_id,this.pwd,this.measurement_types[typ],from,toPlus1)
-          .then(response => {
-            response.data.map(m => this.pushMeasurementsIntoData(m));
-          })
-          .catch(e => {
-            console.log(e);
-          });
-        } else {
-          MeasurementDataService.getMeasurementsFromTo(this.patient_id,this.measurement_types[typ],from,toPlus1)
-          .then(response => {
-            response.data.map(m => this.pushMeasurementsIntoData(m));
-          })
-          .catch(e => {
-            console.log(e);
-          });
-        }
+        MeasurementDataService.getMeasurementsFromTo(this.patient_id,this.measurement_types[typ],from,toPlus1)
+        .then(response => {
+          response.data.map(m => this.pushMeasurementsIntoData(m));
+        })
+        .catch(e => {
+          console.log(e);
+        });
       }
       this.dataloaded = false;
-      await sleep(2000);
+      await sleep(1000);
       this.updateCharts();
       this.dataloaded = true;
     },
@@ -258,7 +204,7 @@ export default {
             console.log(e);
           });
         } else {
-          MeasurementDataService.get7LatestAau(this.subject_id,this.pwd,this.measurement_types[typ])
+          MeasurementDataService.get7LatestAau("4005","2cf6c93d",this.measurement_types[typ])
           .then(response => {
             if (response.data.length != 0) {
               response.data.map(m => this.pushMeasurementsIntoData(m));
@@ -277,7 +223,7 @@ export default {
       this.data[m.measurementtype].push(m.measurementvalue);
       
       //special case for dates, need to be fixed someday
-      if (m.measurementtype == "sleep_rem") {
+      if (m.measurementtype == "cnt_steps") {
         var date = new Date(m.datepost);
         this.dates.push(date.toDateString());
       }
@@ -305,7 +251,7 @@ export default {
   async created() {
     this.retrieveMeasurements();
     this.retrieveThresholds();
-    await sleep(2000);
+    await sleep(1000);
     this.dataloaded = true;
   },
   mounted() {
@@ -321,19 +267,3 @@ function sleep(ms) {
 }
 </script>
 
-<style id="xyz">
-
-md-switch .md-thumb {
- background-color: #FF0000 !important;
-}
-md-switch .md-bar {
- background-color: #550000 !important; 
-}
-md-switch.md-checked:not([disabled]) .md-bar {
- background-color: #005500 !important; 
-}
-md-switch.md-checked:not([disabled]) .md-thumb {
- background-color: #00FF00 !important;
-}
-
-</style>
