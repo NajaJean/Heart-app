@@ -74,7 +74,7 @@ export default {
           },
           title:{
             display:false,
-            text:'Live ECG',
+            text:'Recorded ECG',
             fontSize:25
           },
           legend:{

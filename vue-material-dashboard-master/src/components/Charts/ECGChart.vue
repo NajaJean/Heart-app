@@ -59,6 +59,7 @@ export default {
         plugins: {
           // Change options for ALL axes of THIS CHART
           streaming: {
+            pause: this.paused,
             frameRate: 20
           },
           title:{
@@ -120,8 +121,9 @@ export default {
                     const ecg = response.data[0];
                     const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";
 
-                    var ptime = new Date((new Date(datepost)).getTime());
-                    if (dataset.lastRecordedTime <= new Date(datepost)) {
+                    //var ptime = new Date((new Date(datepost)).getTime());
+                    if (dataset.lastRecordedTime != ecg && ecg) {
+                        var ptime = new Date();
                     
                         for (var i = 0; i < ecg.measurementvalue.length - 1; i++) {
                           ptime = new Date(ptime.getTime() + 7.8125)
@@ -132,8 +134,8 @@ export default {
                           })
                         }
 
-                    chart.update();
-                    dataset.lastRecordedTime = new Date(datepost);
+                      chart.update();
+                      dataset.lastRecordedTime = ecg;
                     }     
                   })
                   .catch(e => {
