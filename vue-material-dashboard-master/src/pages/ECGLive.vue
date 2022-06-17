@@ -105,11 +105,11 @@ export default {
       } else {
         ECGClassificationDataService.getLatestECGClassification(this.patient_id).then(response => {
           const tstamp = new Date(response.timestamp);
-          if (tstamp > this.latestFetch) {
+          //if (tstamp > this.latestFetch) {
             this.latestFetch = tstamp;
             const newClassification = response.data.mldata;
             this.ECGclassification = newClassification;
-          }
+          //}
         }).catch(e => {
           console.log(e);
         });
