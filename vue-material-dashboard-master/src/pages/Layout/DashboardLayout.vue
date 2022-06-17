@@ -24,7 +24,7 @@
 
     <div class="main-panel">
       
-
+      <top-navbar></top-navbar>
       <dashboard-content> </dashboard-content>
       <div class="text-center">
         Made with <i class="fa fa-heart heart"></i> by Naja Jean Larsen & Mathilde Tannebæk
@@ -34,12 +34,12 @@
 </template>
 
 <script>
-//import TopNavbar from "./TopNavbar.vue";
+import TopNavbar from "./TopNavbar.vue";
 import DashboardContent from "./Content.vue";
 
 export default {
   components: {
-    //TopNavbar,
+    TopNavbar,
     DashboardContent
   },
     data() {
