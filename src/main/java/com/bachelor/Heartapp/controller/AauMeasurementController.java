@@ -46,7 +46,7 @@ public class AauMeasurementController {
 
 			long diff = (new Date()).getTime() - from.getTime();
 			String noDays = Long.toString(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)) + 1;
-			Date fromMinus1 = new Date(from.getTime() - 86400000);
+			// Date fromMinus1 = new Date(from.getTime() - 86400000);
 			Date toMinus1 = new Date(to.getTime() - 86400000);
 			// String fromMinus1String = new
 			// SimpleDateFormat("yyyy-MM-dd").format(fromMinus1);
@@ -76,7 +76,7 @@ public class AauMeasurementController {
 				Measurement m = new Measurement(patientid, datepost, measurement_type, v.getValue());
 
 				if (datepost.before(toMinus1) || datepost.equals(toMinus1)) {
-					if (datepost.after(fromMinus1) || datepost.equals(fromMinus1)) {
+					if (datepost.after(from) || datepost.equals(from)) {
 						res.add(m);
 					}
 				}
