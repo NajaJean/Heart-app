@@ -45,7 +45,7 @@ public class AauMeasurementController {
 			String mType = translateMeasurementType(measurement_type);
 
 			long diff = (new Date()).getTime() - from.getTime();
-			String noDays = Long.toString(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+			String noDays = Long.toString(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)) + 1;
 			Date fromMinus1 = new Date(from.getTime() - 86400000);
 			Date toMinus1 = new Date(to.getTime() - 86400000);
 			// String fromMinus1String = new
