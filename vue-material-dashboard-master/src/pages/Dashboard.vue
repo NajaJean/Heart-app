@@ -135,7 +135,6 @@ export default {
       this.setThresholds = !this.setThresholds;
     },
     async toggleAauData() {
-      //this.aauData = !this.aauData;
       this.data = {};
       this.thresholds = {};
       this.thresholdIds = {};
@@ -209,7 +208,7 @@ export default {
       this.selectedFrom = from;
       this.selectedTo = to;
       this.data = {};
-      this.dates = {}; //TODO
+      this.dates = {}; 
       this.dataloaded = false;
 
       const toPlus1 = new Date(to.getTime() + 86400000);
@@ -226,9 +225,9 @@ export default {
             console.log(e);
           });
         } else {
-          MeasurementDataService.getMeasurementsFromTo(this.patient_id,this.measurement_types[typ],from,toPlus1)
+          MeasurementDataService.getMeasurementsFromTo(this.patient_id,this.measurement_types[typ],from,to)
           .then(response => {
-            response.data.map(m => {
+            response.data.slice(0).reverse().map(m => {
               this.pushMeasurementsIntoData(m);
               this.pushDateIntoDates(m.measurementtype, m.datepost);
             });
@@ -249,7 +248,7 @@ export default {
           MeasurementDataService.get7Latest(this.patient_id,this.measurement_types[typ])
           .then(response => {
             if (response.data.length != 0) {
-              response.data.map(m => {
+              response.data.slice(0).reverse().map(m => {
                 this.pushMeasurementsIntoData(m);
                 this.pushDateIntoDates(m.measurementtype, m.datepost);
               });
