@@ -1,10 +1,12 @@
 <template>
   <div>
     <canvas id="ECGChartCanvas" :width="370" :height="146"></canvas>
-    <md-button name="togglePause" class="md-dense md-raised md-info md-just-icon" @click="togglePause()">
-      <md-icon v-if="!this.paused">pause</md-icon>
-      <md-icon v-if="this.paused">play_arrow</md-icon>
-    </md-button> 
+    <div class="md-layout-item md-size-100" style="text-align: right; margin-bottom: -15px;">    
+      <md-button name="togglePause" class="md-dense md-raised md-info md-just-icon" @click="togglePause()">
+        <md-icon v-if="!this.paused">pause</md-icon>
+        <md-icon v-if="this.paused">play_arrow</md-icon>
+      </md-button> 
+    </div>
   </div>
 </template>
 
@@ -43,7 +45,7 @@ export default {
       type: 'line',
       data: {
         datasets: [{
-          lastRecordedECG: [],
+          lastRecordedTime: new Date(),
           data: [],
           label: 'ECG',
           pointHitRadius: 0,
@@ -120,22 +122,18 @@ export default {
                   .then(response => {
                     const ecg = response.data[0];
                     const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";
-
-                    //var ptime = new Date((new Date(datepost)).getTime());
-                    if (dataset.lastRecordedTime != ecg && ecg) {
-                        var ptime = new Date();
+                    var ptime = new Date((new Date(datepost)).getTime());
+                    if (dataset.lastRecordedTime <= new Date(datepost)) {
                     
-                        for (var i = 0; i < ecg.measurementvalue.length - 1; i++) {
-                          ptime = new Date(ptime.getTime() + 7.8125)
-
-                          dataset.data.push({
-                          x: ptime,
-                          y: ecg.measurementvalue[i]
-                          })
-                        }
-
+                      for (var i = 0; i < ecg.measurementvalue.length - 1; i++) {
+                        ptime = new Date(ptime.getTime() + 7.8125)
+                        dataset.data.push({
+                        x: ptime,
+                        y: ecg.measurementvalue[i]
+                        })
+                      }
                       chart.update();
-                      dataset.lastRecordedTime = ecg;
+                      dataset.lastRecordedTime = new Date(datepost);
                     }     
                   })
                   .catch(e => {

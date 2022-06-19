@@ -44,14 +44,11 @@ public class AauMeasurementController {
 		try {
 			String mType = translateMeasurementType(measurement_type);
 
-			long diff = to.getTime() - from.getTime();
+			long diff = (new Date()).getTime() - from.getTime();
 			String noDays = Long.toString(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
-			Date fromMinus1 = new Date(from.getTime() - 86400000);
-			String fromMinus1String = new SimpleDateFormat("yyyy-MM-dd").format(fromMinus1);
-
-			System.out.println("her");
-			System.out.println(noDays);
-			System.out.println(fromMinus1String);
+			// Date fromMinus1 = new Date(from.getTime() - 86400000);
+			// String fromMinus1String = new
+			// SimpleDateFormat("yyyy-MM-dd").format(fromMinus1);
 
 			Unirest.setTimeouts(0, 0);
 			HttpResponse<String> response = Unirest.post("https://www.hjerteportalen.dk/api/v1/measured/data/")
@@ -62,7 +59,6 @@ public class AauMeasurementController {
 					.field("Pwd", pwd)
 					.field("Type", mType)
 					.field("Days", noDays)
-					.field("Date", from)
 					.asString();
 
 			String json = response.getBody();
@@ -79,7 +75,9 @@ public class AauMeasurementController {
 				Measurement m = new Measurement(patientid, datepost, measurement_type, v.getValue());
 
 				if (datepost.before(to) || datepost.equals(to)) {
-					res.add(m);
+					if (datepost.after(from) || datepost.equals(from)) {
+						res.add(m);
+					}
 				}
 			}
 			System.out.println(res);

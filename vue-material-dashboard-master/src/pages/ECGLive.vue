@@ -6,7 +6,7 @@
           <md-switch v-model="liveData" class="md-primary">Live data</md-switch>
         </div>
         
-        <md-field class="md-layout-item md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
+        <md-field class="md-layout-item md-xsmall-size-100 md-small-size-50 md-size-45">
           <label>CPR</label>
           <md-input name="patientID" v-model="patient_id"></md-input>
           <md-button name="changePatient" class="md-dense md-raised md-info" @click="changePatient(patient_id)">Change Patient</md-button>
@@ -104,12 +104,12 @@ export default {
         this.ECGclassification = Math.round(Math.random())
       } else {
         ECGClassificationDataService.getLatestECGClassification(this.patient_id).then(response => {
-          const tstamp = new Date(response.timestamp);
-          //if (tstamp > this.latestFetch) {
+          const tstamp = new Date(response.data.timestamp);
+          if (tstamp > this.latestFetch) {
             this.latestFetch = tstamp;
             const newClassification = response.data.mldata;
             this.ECGclassification = newClassification;
-          //}
+          } 
         }).catch(e => {
           console.log(e);
         });
