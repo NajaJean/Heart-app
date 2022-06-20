@@ -84,7 +84,7 @@ public class MeasurementController {
 	@GetMapping("/measurements/{patient_id}")
 	public ResponseEntity<List<Measurement>> getAllPatientsMeasurements(@PathVariable("patient_id") String patient_id) {
 		try {
-			List<Measurement> measurements = measurementRepository.findAllByPatientid(patient_id);
+			List<Measurement> measurements = measurementRepository.findAllByPatientidOrderByDatepostDesc(patient_id);
 
 			if (measurements.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -99,7 +99,7 @@ public class MeasurementController {
 	public ResponseEntity<List<Measurement>> getPatientsNMeasurements(@PathVariable("n") int n,
 			@PathVariable("patient_id") String patient_id) {
 		try {
-			List<Measurement> allMeasurements = measurementRepository.findAllByPatientid(patient_id);
+			List<Measurement> allMeasurements = measurementRepository.findAllByPatientidOrderByDatepostDesc(patient_id);
 			List<Measurement> Nmeasurements = allMeasurements.subList(0, n);
 
 			if (Nmeasurements.isEmpty()) {
@@ -115,8 +115,9 @@ public class MeasurementController {
 	public ResponseEntity<List<Measurement>> getPatientsNMeasurements(@PathVariable("n") int n,
 			@PathVariable("patient_id") String patient_id, @PathVariable("measurement_type") String measurement_type) {
 		try {
-			List<Measurement> allMeasurements = measurementRepository.findAllByPatientidAndMeasurementtype(patient_id,
-					measurement_type);
+			List<Measurement> allMeasurements = measurementRepository
+					.findAllByPatientidAndMeasurementtypeOrderByDatepostDesc(patient_id,
+							measurement_type);
 			List<Measurement> Nmeasurements = allMeasurements.subList(0, n);
 
 			if (Nmeasurements.isEmpty()) {
