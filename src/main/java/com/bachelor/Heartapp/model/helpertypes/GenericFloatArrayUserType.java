@@ -10,6 +10,7 @@ import java.sql.Types;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
 
 public class GenericFloatArrayUserType<T extends Serializable> implements UserType {
@@ -53,7 +54,8 @@ public class GenericFloatArrayUserType<T extends Serializable> implements UserTy
     }
 
     @Override
-    public Object nullSafeGet(ResultSet resultSet, String[] names, SessionImplementor session, Object owner)
+    public Object nullSafeGet(ResultSet resultSet, String[] names, SharedSessionContractImplementor session,
+            Object owner)
             throws HibernateException, SQLException {
 
         if (resultSet.getArray(names[0]) == null) {
@@ -67,7 +69,8 @@ public class GenericFloatArrayUserType<T extends Serializable> implements UserTy
     }
 
     @Override
-    public void nullSafeSet(PreparedStatement statement, Object value, int index, SessionImplementor session)
+    public void nullSafeSet(PreparedStatement statement, Object value, int index,
+            SharedSessionContractImplementor session)
             throws HibernateException, SQLException {
         Connection connection = statement.getConnection();
         if (value == null) {
