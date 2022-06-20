@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+mvn clean install
+mvn package
+
 mvn spring-boot:run &
 
 sleep 5
