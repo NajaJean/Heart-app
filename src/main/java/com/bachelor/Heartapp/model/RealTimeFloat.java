@@ -30,7 +30,6 @@ public class RealTimeFloat {
 	@Column(name = "timestamp")
 	private Date datepost;
 
-	@Type(type = "com.bachelor.Heartapp.model.helpertypes.IntArrayUserType")
 	@Column(name = "ecg_data")
 	private float[] measurementvalue;
 
