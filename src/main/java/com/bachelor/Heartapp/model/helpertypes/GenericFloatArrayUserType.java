@@ -9,14 +9,12 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
 
 public class GenericFloatArrayUserType<T extends Serializable> implements UserType {
 
     protected static final int[] SQL_TYPES = { Types.ARRAY };
-    private Class<T> typeParameterClass;
 
     @Override
     public Object assemble(Serializable cached, Object owner) throws HibernateException {
@@ -28,10 +26,9 @@ public class GenericFloatArrayUserType<T extends Serializable> implements UserTy
         return value;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Serializable disassemble(Object value) throws HibernateException {
-        return (T) this.deepCopy(value);
+        return (Float[]) this.deepCopy(value);
     }
 
     @Override
@@ -57,14 +54,15 @@ public class GenericFloatArrayUserType<T extends Serializable> implements UserTy
     public Object nullSafeGet(ResultSet resultSet, String[] names, SharedSessionContractImplementor session,
             Object owner)
             throws HibernateException, SQLException {
-
+        if (resultSet.wasNull()) {
+            return null;
+        }
         if (resultSet.getArray(names[0]) == null) {
             return new Double[0];
         }
 
         Array array = resultSet.getArray(names[0]);
-        @SuppressWarnings("unchecked")
-        T javaArray = (T) array.getArray();
+        Float[] javaArray = (Float[]) array.getArray();
         return javaArray;
     }
 
@@ -76,9 +74,8 @@ public class GenericFloatArrayUserType<T extends Serializable> implements UserTy
         if (value == null) {
             statement.setNull(index, SQL_TYPES[0]);
         } else {
-            @SuppressWarnings("unchecked")
-            T castObject = (T) value;
-            Array array = connection.createArrayOf("decimal", (Object[]) castObject);
+            Float[] castObject = (Float[]) value;
+            Array array = connection.createArrayOf("decimal", castObject);
             statement.setArray(index, array);
         }
     }
@@ -89,8 +86,8 @@ public class GenericFloatArrayUserType<T extends Serializable> implements UserTy
     }
 
     @Override
-    public Class<T> returnedClass() {
-        return typeParameterClass;
+    public Class<Float[]> returnedClass() {
+        return Float[].class;
     }
 
     @Override

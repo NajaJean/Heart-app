@@ -35,13 +35,13 @@ public class RealTimeFloat {
 
 	@Type(type = "com.bachelor.Heartapp.model.helpertypes.GenericFloatArrayUserType")
 	@Column(name = "ecg_data")
-	private float measurementvalue[];
+	private Float[] measurementvalue;
 
 	public RealTimeFloat() {
 
 	}
 
-	public RealTimeFloat(String patientid, Date datepost, float measurementvalue[]) {
+	public RealTimeFloat(String patientid, Date datepost, Float[] measurementvalue) {
 		super();
 		this.patientid = patientid;
 		this.datepost = datepost;
@@ -64,11 +64,11 @@ public class RealTimeFloat {
 		this.datepost = datepost;
 	}
 
-	public float[] getMeasurementvalue() {
+	public Float[] getMeasurementvalue() {
 		return measurementvalue;
 	}
 
-	public void setMeasurementvalue(float measurementvalue[]) {
+	public void setMeasurementvalue(Float[] measurementvalue) {
 		this.measurementvalue = measurementvalue;
 	}
 
