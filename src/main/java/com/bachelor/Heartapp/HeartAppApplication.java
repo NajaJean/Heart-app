@@ -31,6 +31,7 @@ public class HeartAppApplication {
 	public final static String realtimeTableName = "ecg";
 	public final static String oldRealtimeTableName = "ntnutest";
 	public final static String ecgClassificationTableName = "ml_output";
+	public final static String realtimeFloatTableName = "ecg_float";
 
 	@Autowired
 	MeasurementController measurementController;
