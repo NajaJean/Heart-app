@@ -9,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+// import javax.persistence.SqlResultSetMapping;
+// import javax.persistence.ColumnResult;
+// import javax.persistence.ConstructorResult;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.bachelor.Heartapp.HeartAppApplication;
@@ -29,13 +32,13 @@ public class RealTimeFloat {
 	private Date datepost;
 
 	@Column(name = "ecg_data")
-	private float[] measurementvalue;
+	private float measurementvalue[];
 
 	public RealTimeFloat() {
 
 	}
 
-	public RealTimeFloat(String patientid, Date datepost, float[] measurementvalue) {
+	public RealTimeFloat(String patientid, Date datepost, float measurementvalue[]) {
 		super();
 		this.patientid = patientid;
 		this.datepost = datepost;
@@ -62,7 +65,7 @@ public class RealTimeFloat {
 		return measurementvalue;
 	}
 
-	public void setMeasurementvalue(float[] measurementvalue) {
+	public void setMeasurementvalue(float measurementvalue[]) {
 		this.measurementvalue = measurementvalue;
 	}
 
