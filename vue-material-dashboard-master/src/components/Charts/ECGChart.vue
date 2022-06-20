@@ -124,12 +124,13 @@ export default {
                     const datepost = (ecg.datepost).substring(0, ecg.datepost.length - 6) + "-02:00";
                     var ptime = new Date((new Date(datepost)).getTime());
                     if (dataset.lastRecordedTime <= new Date(datepost)) {
+                      const ecgLength = ecg.measurementvalue.length - 1;
                     
-                      for (var i = 0; i < ecg.measurementvalue.length - 1; i++) {
+                      for (var i = 0; i < ecgLength; i++) {
                         ptime = new Date(ptime.getTime() + 7.8125)
                         dataset.data.push({
                         x: ptime,
-                        y: ecg.measurementvalue[i]
+                        y: ecg.measurementvalue[ecgLength-i]
                         })
                       }
                       chart.update();

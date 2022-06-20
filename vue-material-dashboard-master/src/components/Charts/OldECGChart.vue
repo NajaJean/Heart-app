@@ -131,11 +131,12 @@ export default {
                   const ecg = ecgData[count%5000];
                   if (dataset.lastRecordedECG != ecg && ecg) {
                     var ptime = new Date();
-                    for (var i = 0; i < ecg.measurementvalue.length - 1; i++) {
+                    const ecgLength = ecg.measurementvalue.length - 1;
+                    for (var i = 0; i < ecgLength; i++) {
                       ptime = new Date(ptime.getTime() + 7.8125)
                       dataset.data.push({
                       x: ptime,
-                      y: ecg.measurementvalue[i]
+                      y: ecg.measurementvalue[ecgLength-i]
                       })
                     }
                     chart.update();
