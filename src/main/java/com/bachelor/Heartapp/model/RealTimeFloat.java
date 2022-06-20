@@ -13,6 +13,8 @@ import javax.persistence.Table;
 // import javax.persistence.ColumnResult;
 // import javax.persistence.ConstructorResult;
 
+import org.hibernate.annotations.Type;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.bachelor.Heartapp.HeartAppApplication;
 
@@ -31,14 +33,15 @@ public class RealTimeFloat {
 	@Column(name = "timestamp")
 	private Date datepost;
 
+	@Type(type = "com.bachelor.Heartapp.model.helpertypes.GenericFloatArrayUserType")
 	@Column(name = "ecg_data")
-	private double measurementvalue[];
+	private float measurementvalue[];
 
 	public RealTimeFloat() {
 
 	}
 
-	public RealTimeFloat(String patientid, Date datepost, double measurementvalue[]) {
+	public RealTimeFloat(String patientid, Date datepost, float measurementvalue[]) {
 		super();
 		this.patientid = patientid;
 		this.datepost = datepost;
@@ -61,11 +64,11 @@ public class RealTimeFloat {
 		this.datepost = datepost;
 	}
 
-	public double[] getMeasurementvalue() {
+	public float[] getMeasurementvalue() {
 		return measurementvalue;
 	}
 
-	public void setMeasurementvalue(double measurementvalue[]) {
+	public void setMeasurementvalue(float measurementvalue[]) {
 		this.measurementvalue = measurementvalue;
 	}
 

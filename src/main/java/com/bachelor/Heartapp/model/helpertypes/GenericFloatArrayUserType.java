@@ -10,12 +10,12 @@ import java.sql.Types;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
-//import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
 
-public class IntArrayUserType implements UserType {
+public class GenericFloatArrayUserType<T extends Serializable> implements UserType {
 
     protected static final int[] SQL_TYPES = { Types.ARRAY };
+    private Class<T> typeParameterClass;
 
     @Override
     public Object assemble(Serializable cached, Object owner) throws HibernateException {
@@ -27,9 +27,10 @@ public class IntArrayUserType implements UserType {
         return value;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Serializable disassemble(Object value) throws HibernateException {
-        return (Integer[]) this.deepCopy(value);
+        return (T) this.deepCopy(value);
     }
 
     @Override
@@ -52,35 +53,17 @@ public class IntArrayUserType implements UserType {
     }
 
     @Override
-    public Object replace(Object original, Object target, Object owner) throws HibernateException {
-        return original;
-    }
-
-    @Override
-    public Class<Integer[]> returnedClass() {
-        return Integer[].class;
-    }
-
-    @Override
-    public int[] sqlTypes() {
-        return new int[] { Types.ARRAY };
-
-    }
-
-    @Override
     public Object nullSafeGet(ResultSet resultSet, String[] names, SessionImplementor session, Object owner)
             throws HibernateException, SQLException {
-        if (resultSet.wasNull()) {
-            return null;
-        }
+
         if (resultSet.getArray(names[0]) == null) {
-            return new Integer[0];
+            return new Double[0];
         }
 
         Array array = resultSet.getArray(names[0]);
-        Integer[] javaArray = (Integer[]) array.getArray();
+        @SuppressWarnings("unchecked")
+        T javaArray = (T) array.getArray();
         return javaArray;
-
     }
 
     @Override
@@ -90,10 +73,26 @@ public class IntArrayUserType implements UserType {
         if (value == null) {
             statement.setNull(index, SQL_TYPES[0]);
         } else {
-            Integer[] castObject = (Integer[]) value;
-            Array array = connection.createArrayOf("integer", castObject);
+            @SuppressWarnings("unchecked")
+            T castObject = (T) value;
+            Array array = connection.createArrayOf("decimal", (Object[]) castObject);
             statement.setArray(index, array);
         }
+    }
+
+    @Override
+    public Object replace(Object original, Object target, Object owner) throws HibernateException {
+        return original;
+    }
+
+    @Override
+    public Class<T> returnedClass() {
+        return typeParameterClass;
+    }
+
+    @Override
+    public int[] sqlTypes() {
+        return new int[] { Types.ARRAY };
     }
 
 }
