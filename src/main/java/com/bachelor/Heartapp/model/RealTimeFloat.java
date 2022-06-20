@@ -32,13 +32,13 @@ public class RealTimeFloat {
 	private Date datepost;
 
 	@Column(name = "ecg_data")
-	private float measurementvalue[];
+	private double measurementvalue[];
 
 	public RealTimeFloat() {
 
 	}
 
-	public RealTimeFloat(String patientid, Date datepost, float measurementvalue[]) {
+	public RealTimeFloat(String patientid, Date datepost, double measurementvalue[]) {
 		super();
 		this.patientid = patientid;
 		this.datepost = datepost;
@@ -61,11 +61,11 @@ public class RealTimeFloat {
 		this.datepost = datepost;
 	}
 
-	public float[] getMeasurementvalue() {
+	public double[] getMeasurementvalue() {
 		return measurementvalue;
 	}
 
-	public void setMeasurementvalue(float measurementvalue[]) {
+	public void setMeasurementvalue(double measurementvalue[]) {
 		this.measurementvalue = measurementvalue;
 	}
 
