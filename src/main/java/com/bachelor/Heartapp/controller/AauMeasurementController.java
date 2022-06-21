@@ -32,7 +32,6 @@ public class AauMeasurementController {
 
 	@Autowired
 	MeasurementRepository measurementRepository;
-	// `/aau/measurements/${patient_id}/${pwd}/${measurement_type}/${from}/${to}`
 
 	@GetMapping("/aau/measurements/{subject_id}/{pwd}/{measurement_type}/{from}/{to}")
 	public ResponseEntity<List<Measurement>> getMeasurementFromTo(
@@ -46,10 +45,7 @@ public class AauMeasurementController {
 
 			long diff = (new Date()).getTime() - from.getTime();
 			String noDays = Long.toString(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)) + 1;
-			// Date fromMinus1 = new Date(from.getTime() - 86400000);
 			Date toMinus1 = new Date(to.getTime() - 86400000);
-			// String fromMinus1String = new
-			// SimpleDateFormat("yyyy-MM-dd").format(fromMinus1);
 
 			Unirest.setTimeouts(0, 0);
 			HttpResponse<String> response = Unirest.post("https://www.hjerteportalen.dk/api/v1/measured/data/")

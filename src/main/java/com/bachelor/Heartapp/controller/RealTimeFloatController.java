@@ -59,21 +59,4 @@ public class RealTimeFloatController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
-	// @GetMapping("/oldecgfloat/{patient_id}")
-	// public ResponseEntity<List<OldRealTime>>
-	// getPatientsOldECGByIndex(@PathVariable("patient_id") String patient_id) {
-	// try {
-	// List<OldRealTime> ecgs =
-	// oldRealtimeRepository.findTop5000ByPatientidOrderByDatepostAsc(patient_id);
-
-	// if (ecgs.isEmpty()) {
-	// return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	// }
-	// return new ResponseEntity<>(ecgs, HttpStatus.OK);
-	// } catch (Exception e) {
-	// System.out.println(e);
-	// return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-	// }
-	// }
 }
