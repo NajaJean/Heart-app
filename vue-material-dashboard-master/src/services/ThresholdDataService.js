@@ -8,6 +8,10 @@ class ThresholdDataService {
   updateThreshold(id, data) {
     return http.put(`/thresholds/${id}`, data);
   }
+
+  deleteThreshold(id) {
+    return http.delete(`/thresholds/${id}`)
+  }
 }
 
 export default new ThresholdDataService();

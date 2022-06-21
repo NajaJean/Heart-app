@@ -44,13 +44,13 @@
 
       
       <div class="md-layout-item md-size-100" style="text-align: right; margin-bottom: 5px;">
-        <md-button name="thresholdButton" class="md-dense md-raised md-info" @click="toggleThresholdsForm()">{{this.setThresholds ? "Cancel" : "Set Thresholds"}}</md-button>
+        <md-button name="thresholdButton" class="md-dense md-raised md-info" @click="toggleThresholdsForm()">{{this.setThresholds ? "Close thresholds" : "Set Thresholds"}}</md-button>
       </div>
         
        
       
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
-        <threshold-form :key="keyvalue" v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold"></threshold-form>
+        <threshold-form :key="keyvalue" v-if="this.setThresholds" :thresholds="thresholds" @new-threshold="newThreshold" @delete-threshold="deleteThreshold"></threshold-form>
       </div>
       <div class="md-layout-item md-xlarge-size-100 md-large-size-100 md-medium-size-100 md-xsmall-size-100 md-size-33">
         <md-card>
@@ -177,6 +177,24 @@ export default {
       console.log("Thresholds updated");
       this.updateCharts();
       this.toggleThresholdsForm();
+    },
+    deleteThreshold(threshold) {
+      var id = this.thresholdIds[threshold.measurement_type+threshold.threshold_type];
+      if (id) {
+        ThresholdDataService.deleteThreshold(id)
+        .then(response => {
+          console.log(response)
+          if (response.status == 204) {
+            delete this.thresholdIds[threshold.measurement_type+threshold.threshold_type];
+            delete this.thresholds[threshold.measurement_type+threshold.threshold_type];
+            console.log('Deleted: '+threshold.toString())            
+          }
+          console.log('Deleted (not 204): '+threshold.toString())  
+        })
+        .catch(e => {
+          console.log(e);
+        });
+      }
     },
     updateThreshold(measurement_type,threshold_type,threshold_value) {
       var id = this.thresholdIds[measurement_type+threshold_type];
