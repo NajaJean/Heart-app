@@ -269,7 +269,8 @@ public class MeasurementController {
 			for (int i = 0; i < aauResult.getNvals(); i++) {
 				AauValue v = aauResult.getValues()[i];
 				Date datepost = new SimpleDateFormat("yyyy-MM-dd").parse(v.getDateRec());
-				Measurement m = new Measurement(patientid, datepost, measurement_type, v.getValue());
+				Date datepostPlus3h = new Date(datepost.getTime() + 10800000);
+				Measurement m = new Measurement(patientid, datepostPlus3h, measurement_type, v.getValue());
 
 				res.add(m);
 			}
