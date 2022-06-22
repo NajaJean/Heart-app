@@ -6,10 +6,10 @@
 import { Chart } from 'chart.js';
 import 'chartjs-adapter-moment'; // or another adapter to avoid moment
 import annotationPlugin from 'chartjs-plugin-annotation';
-//import ChartDataLabels from 'chartjs-plugin-datalabels';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 Chart.register(annotationPlugin);
-//Chart.register(ChartDataLabels);
+Chart.register(ChartDataLabels);
 
 export default {
   props:['chart','thresholds'],
@@ -76,29 +76,29 @@ export default {
       },
       options: {
         plugins: {
-          // datalabels: {
-          //   anchor: 'end',
-          //   align: 'top',
-          //   formatter: (value,context) => {
-          //     const datasetArray = [];
-          //     context.chart.data.datasets.forEach((dataset) => {
-          //       if(dataset.data[context.dataIndex] != undefined) {
-          //         datasetArray.push(dataset.data[context.dataIndex]);
-          //       }
-          //     })
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            formatter: (value,context) => {
+              const datasetArray = [];
+              context.chart.data.datasets.forEach((dataset) => {
+                if(dataset.data[context.dataIndex] != undefined) {
+                  datasetArray.push(dataset.data[context.dataIndex]);
+                }
+              })
 
-          //     function totalSleep(total, datapoint) {
-          //       return total+Number(datapoint);
-          //     }
-          //     let sum = datasetArray.reduce(totalSleep, 0);
+              function totalSleep(total, datapoint) {
+                return total+Number(datapoint);
+              }
+              let sum = datasetArray.reduce(totalSleep, 0);
 
-          //     if(context.datasetIndex === datasetArray.length -2) {
-          //       return 'Total: '+sum.toFixed(2);
-          //     } else {
-          //       return '';
-          //     }
-          //   }
-          // },
+              if(context.datasetIndex === datasetArray.length -2) {
+                return 'Total: '+sum.toFixed(2);
+              } else {
+                return '';
+              }
+            }
+          },
           title:{
             display:false,
             text:'Sleep during the week',
@@ -238,23 +238,23 @@ export default {
           x1: {
             id: 'x1'
           },
-          // x2: {
-          //   display: true,
-          //   position: 'top',
-          //   id: 'x2',
-          //   ticks: {
-          //     // Include a dollar sign in the ticks
-          //     callback: function() {
-          //       const data = this.chart[0]
-          //       console.log(this.char)
+          x2: {
+            display: true,
+            position: 'top',
+            id: 'x2',
+            ticks: {
+              // Include a dollar sign in the ticks
+              callback: function() {
+                const data = this.chart[4]
+                console.log(this.chart[3])
                 
-          //       return '$' ;
-          //     }
-          //   }
-          // },
+                return this.chart[3];
+              }
+            }
+          },
         }
       },
-      // plugins: [ChartDataLabels]
+      plugins: [ChartDataLabels]
     };
     const ctx = document.getElementById('SleepChartCanvas').getContext('2d');
     new Chart(ctx, SleepChartData);
