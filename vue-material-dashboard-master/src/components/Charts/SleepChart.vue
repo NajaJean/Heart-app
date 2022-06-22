@@ -232,7 +232,7 @@ export default {
     char = new Chart(ctx, SleepChartData);
 
     function insertTotalSleep(index) {
-      return 'Total: '+totalSleep[index]+'h';
+      return 'Total: '+ Number(totalSleep[index]).toFixed(2)+'h';
     }
 
     char.options.scales.x2.ticks.callback = insertTotalSleep;
