@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bachelor.Heartapp.HeartAppApplication;
 import com.bachelor.Heartapp.model.OldRealTime;
 import com.bachelor.Heartapp.model.RealTime;
+import com.bachelor.Heartapp.model.RealTimeFloat;
 import com.bachelor.Heartapp.repository.OldRealTimeRepository;
+import com.bachelor.Heartapp.repository.RealTimeFloatRepository;
 import com.bachelor.Heartapp.repository.RealTimeRepository;
 
 @CrossOrigin(origins = HeartAppApplication.backendUrlRoot)
@@ -29,6 +31,9 @@ public class RealTimeController {
 
 	@Autowired
 	OldRealTimeRepository oldRealtimeRepository;
+
+	@Autowired
+	RealTimeFloatRepository realtimeFloatRepository;
 
 	@PostMapping("/realtime")
 	public ResponseEntity<RealTime> createRealTime(@RequestBody RealTime realtime) {
@@ -69,6 +74,42 @@ public class RealTimeController {
 	public ResponseEntity<List<OldRealTime>> getPatientsOldECGByIndex(@PathVariable("patient_id") String patient_id) {
 		try {
 			List<OldRealTime> ecgs = oldRealtimeRepository.findTop5000ByPatientidOrderByDatepostAsc(patient_id);
+
+			if (ecgs.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(ecgs, HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping("/realtimefloat")
+	public ResponseEntity<RealTimeFloat> createRealTime(@RequestBody RealTimeFloat realtime) {
+		try {
+			RealTimeFloat r = new RealTimeFloat(
+					realtime.getPatientid(),
+					realtime.getDatepost(),
+					realtime.getMeasurementvalue());
+
+			if (r.getDatepost().equals(null) || r.getMeasurementvalue().length == 0 || r.getPatientid().equals("")) {
+				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			} else {
+				realtimeFloatRepository.save(r);
+				return new ResponseEntity<>(r, HttpStatus.CREATED);
+			}
+
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/latestecgfloat/{patient_id}")
+	public ResponseEntity<List<RealTimeFloat>> getLatestPatientsECGFloat(
+			@PathVariable("patient_id") String patient_id) {
+		try {
+			List<RealTimeFloat> ecgs = realtimeFloatRepository.findFirstByPatientidOrderByDatepostDesc(patient_id);
 
 			if (ecgs.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
