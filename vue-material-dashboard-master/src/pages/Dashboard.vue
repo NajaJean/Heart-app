@@ -84,7 +84,7 @@
           </md-card-header>
           <md-card-content>
             <h3 v-if="this.data['sleep_light'] == undefined && this.data['sleep_rem'] == undefined && this.data['sleep_deep'] == undefined">No sleep data available</h3>
-            <sleep-chart :key="keyvalue" :width="370" :height="246" :chart="[dates.sleep_light,data.sleep_light,data.sleep_rem,data.sleep_deep]" :thresholds="thresholds"
+            <sleep-chart :key="keyvalue" :width="370" :height="246" :chart="[dates.sleep_light,data.sleep_light,data.sleep_rem,data.sleep_deep,data.totalsleep]" :thresholds="thresholds"
             v-if="this.data['sleep_light'] != undefined || this.data['sleep_rem'] != undefined || this.data['sleep_deep'] != undefined"></sleep-chart>
           </md-card-content>
         </md-card>
@@ -290,7 +290,23 @@ export default {
           });
         }
         await sleep(300);
+      };
+
+      this.addTotalSleep();
+    },
+    addTotalSleep() {
+      //'sleep_light','sleep_rem','sleep_deep'
+      const light = this.data['sleep_light'];
+      const rem = this.data['sleep_rem'];
+      const deep = this.data['sleep_deep']
+      var totals = [];
+
+      for (let i = 0; i < light.length; i++) {
+        const total = Number(light[i]) + Number(rem[i]) + Number(deep[i]);
+        totals.push(total.toString());
       }
+
+      this.data['totalsleep'] = totals;
     },
     pushMeasurementsIntoData(m) {
       if (this.data[m.measurementtype]==null) {
