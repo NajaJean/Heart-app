@@ -73,7 +73,7 @@ export default {
       patient_id: '1',
       liveData: true,
       ECGclassification: null,
-      latestFetch: new Date(),
+      latestFetch: new Date((new Date()).getTime() - 14400000),
       paused: false,
     };
   },
