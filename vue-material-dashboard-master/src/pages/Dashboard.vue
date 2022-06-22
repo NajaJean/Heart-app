@@ -302,8 +302,8 @@ export default {
       var totals = [];
 
       for (let i = 0; i < light.length; i++) {
-        const total = light[i] + rem[i] + deep[i];
-        totals.push(total);
+        const total = Number(light[i]) + Number(rem[i]) + Number(deep[i]);
+        totals.push(total.toString());
       }
 
       this.data['totalsleep'] = totals;

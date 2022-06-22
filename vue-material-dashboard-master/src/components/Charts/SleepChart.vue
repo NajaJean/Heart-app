@@ -6,11 +6,11 @@
 import { Chart } from 'chart.js';
 import 'chartjs-adapter-moment'; // or another adapter to avoid moment
 import annotationPlugin from 'chartjs-plugin-annotation';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 Chart.register(annotationPlugin);
-Chart.register(ChartDataLabels);
 
+var char;
+var totalSleep;
 export default {
   props:['chart','thresholds'],
   name: 'SleepChart',
@@ -20,6 +20,7 @@ export default {
     }
   },
   mounted() {
+    totalSleep = this.chart[4];
     const SleepChartData = {
       type: 'bar',
       data: {
@@ -28,6 +29,7 @@ export default {
           {
           label:'Light',
           data:this.chart[1].map( i => Number(i).toFixed(2)),
+          yAxisID: 'y',
           backgroundColor:'rgba(65,105,225, 0.6)',
           borderColor: 'rgba(65,105,225, 0.6)',
           fill: false,
@@ -44,6 +46,7 @@ export default {
         {
           label:'REM',
           data:this.chart[2].map( i => Number(i).toFixed(2)),
+          yAxisID: 'y',
           backgroundColor:'rgba(255, 59, 10, 0.6)',
           borderColor: 'rgba(255, 59, 10, 0.6)',
           fill: false,
@@ -60,6 +63,7 @@ export default {
         {
           label:'Deep',
           data:this.chart[3].map( i => Number(i).toFixed(2)),
+          yAxisID: 'y',
           backgroundColor:'rgba(148,0,211, 0.6)',
           borderColor: 'rgba(148,0,211, 0.6)',
           fill: false,
@@ -71,34 +75,12 @@ export default {
               autoSkip: false
             }
             }]
-          }
-        }],
+          },
+        }
+      ],
       },
       options: {
         plugins: {
-          datalabels: {
-            anchor: 'end',
-            align: 'top',
-            formatter: (value,context) => {
-              const datasetArray = [];
-              context.chart.data.datasets.forEach((dataset) => {
-                if(dataset.data[context.dataIndex] != undefined) {
-                  datasetArray.push(dataset.data[context.dataIndex]);
-                }
-              })
-
-              function totalSleep(total, datapoint) {
-                return total+Number(datapoint);
-              }
-              let sum = datasetArray.reduce(totalSleep, 0);
-
-              if(context.datasetIndex === datasetArray.length -2) {
-                return 'Total: '+sum.toFixed(2);
-              } else {
-                return '';
-              }
-            }
-          },
           title:{
             display:false,
             text:'Sleep during the week',
@@ -242,22 +224,19 @@ export default {
             display: true,
             position: 'top',
             id: 'x2',
-            ticks: {
-              // Include a dollar sign in the ticks
-              callback: function() {
-                const data = this.chart[4]
-                console.log(this.chart[3])
-                
-                return this.chart[3];
-              }
-            }
           },
         }
       },
-      plugins: [ChartDataLabels]
     };
     const ctx = document.getElementById('SleepChartCanvas').getContext('2d');
-    new Chart(ctx, SleepChartData);
+    char = new Chart(ctx, SleepChartData);
+
+    function insertTotalSleep(index) {
+      return 'Total: '+totalSleep[index]+'h';
+    }
+
+    char.options.scales.x2.ticks.callback = insertTotalSleep;
+    char.update();
   }
 }
 </script>
