@@ -1,13 +1,15 @@
 # Heart-app
 **Installation of project:**
 1. Download the zip-file with the project
-2. Install Maven
-3. Install Node JS
-4. Install PostgreSQL
-5. Navigate to /Heart-app/src/main/resources and open the file application.properties and set the chosen settings for the postgreSQL database
-6. In the root of the Heart-app folder, install dependencies by doing:  *mvn package*
-7. Navigate to Heart-app/vue-material-dashboard-master folder and do: *npm install*
-8. Inside your database (preferrably in SQL Shell) run the following command to create a table for ECG:
+2. Install Java, OpenJDK (we used version 11.0.15)
+3. Install Apache Maven (we used version 3.6.0)
+4. Install PostgreSQL (we used version 10.21)
+5. Install Node JS (we used version 7.7.6)
+9. Navigate to Heart-app/src/main/resources and open the file application.properties and set the chosen settings for the postgreSQL database
+10. Navigate to Heart-app/vue-material-dashboard-masterbase/http-common.js and change the base URL to the URl of the backend + "/api"
+11. In the root of the Heart-app folder, install dependencies by doing:  *mvn package*
+12. Navigate to Heart-app/vue-material-dashboard-master folder and do: *npm install*
+13. Inside your database (preferrably in SQL Shell) run the following command to create a table for ECG:
 - CREATE TABLE ecg(id SERIAL, patient_id varchar(20) NOT NULL, ecg_data int4[], timestamp timestamp default current_timestamp);
 
 **Run the project:**
