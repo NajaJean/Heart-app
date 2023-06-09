@@ -25,8 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 @EnableSwagger2
 public class HeartAppApplication {
 
-	public final static String backendUrlRoot = "http://165.22.31.227:8081";
-	// public final static String backendUrlRoot = "http://localhost:8081";
+	// public final static String backendUrlRoot = "http://165.22.31.227:8081";
+	public final static String backendUrlRoot = "http://localhost:8081";
 	public final static String measurementTableName = "patient_data_1";
 	public final static String realtimeTableName = "ecg";
 	public final static String oldRealtimeTableName = "ntnutest";
